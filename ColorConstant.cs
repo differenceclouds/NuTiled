@@ -1,6 +1,9 @@
 ﻿using System;
 namespace Microsoft.Xna.Framework;
 
+/// <summary>
+/// use like this: new Color(ColorConstants.Blue)
+/// </summary>
 public static class ColorConstants {
 	public const UInt32 Transparent = 0u;
 	public const UInt32 AliceBlue = 4294965488u;

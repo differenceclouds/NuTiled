@@ -24,11 +24,14 @@
         }
     },
     "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
+    "last.objectTemplatePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
+    "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
     "openFiles": [
         "map.tmx",
         "tilemap.tsx"
     ],
     "project": "nuttiled.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
         "Chips.tsx",
         "tilemap.tsx",

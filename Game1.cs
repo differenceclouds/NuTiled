@@ -7,6 +7,10 @@ public class Game1 : Game {
 	private GraphicsDeviceManager graphics;
 	private SpriteBatch spriteBatch;
 
+
+
+
+
 	public Game1() {
 		graphics = new GraphicsDeviceManager(this);
 		Content.RootDirectory = "Content";
@@ -16,8 +20,6 @@ public class Game1 : Game {
 	}
 
 	protected override void Initialize() {
-		// TODO: Add your initialization logic here
-
 		base.Initialize();
 	}
 
@@ -27,7 +29,7 @@ public class Game1 : Game {
 
 	protected override void LoadContent() {
 		spriteBatch = new SpriteBatch(GraphicsDevice);
-		tiledMap = new(Content, "Content/tiled/map.tmx");
+		tiledMap = new(Content, "tiled", "map.tmx");
 	}
 
 	protected override void Update(GameTime gameTime) {
