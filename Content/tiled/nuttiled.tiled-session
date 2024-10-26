@@ -1,0 +1,44 @@
+{
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Chips.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map.tmx": {
+            "scale": 0.6343229166666666,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 480.0394121027999,
+                "y": 319.23803267920186
+            }
+        },
+        "tilemap.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
+    "openFiles": [
+        "map.tmx",
+        "tilemap.tsx"
+    ],
+    "project": "nuttiled.tiled-project",
+    "recentFiles": [
+        "Chips.tsx",
+        "tilemap.tsx",
+        "map.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 2,
+    "tileset.spacing": 2,
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    }
+}
