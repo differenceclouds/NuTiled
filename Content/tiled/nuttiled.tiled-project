@@ -25,6 +25,35 @@
             ]
         },
         {
+            "color": "#ff62a485",
+            "drawFill": true,
+            "id": 3,
+            "members": [
+                {
+                    "name": "FillColor",
+                    "type": "color",
+                    "value": ""
+                },
+                {
+                    "name": "FillTexture",
+                    "type": "file",
+                    "value": ""
+                },
+                {
+                    "name": "OutlineColor",
+                    "type": "color",
+                    "value": ""
+                }
+            ],
+            "name": "Shape",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "project"
+            ]
+        },
+        {
             "color": "#ffa0a0a4",
             "drawFill": true,
             "id": 2,

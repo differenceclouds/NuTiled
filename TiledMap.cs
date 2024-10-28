@@ -1,41 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using DotTiled;
 using DotTiled.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-using System.IO;
 using Color = Microsoft.Xna.Framework.Color;
+using System.Linq;
 
 namespace NuTiled;
-
-
 public class TiledMap {
 
 
-
+	//Trying to keep instance properties to a minimum and not make redundant classes.
 	public Map Map { get; }
-
-	public Dictionary <Tileset, Texture2D> TilemapTextures { get; }
+	public Dictionary<Tileset, Texture2D> TilemapTextures { get; }
+	public Dictionary<Tile, Texture2D> CollectionTextures { get; }
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; }
 	public TiledMap(ContentManager content, string path, string map_filename) {
 
 		//Using DotTiled's loader. Set .tmx, .tsx, and .tx files to "Copy if newer."
+		//Currently, all .tsx and .tx files must be in the same directory as the main map file, or relative paths break
+		//Image files can be in subfolders.
 		//Don't add these files to the MGCB.
-		//Images are loaded below using the monogame Content loader,
+		//Images are loaded below using monogame Content loader,
 		//so all associated images should be added to the MGCB.
 		//TODO: add runtime image loader.
 
-		var loader = Loader.Default();
+
+		//The following is a workaround so if any objects with the Class property are found,
+		//an exception isn't thrown if a matching class isn't implemented properly.
+		//https://github.com/dcronqvist/DotTiled/issues/42
+		string[] classes = [
+			"Goblin",
+			"Shape",
+		];
+		var classDefinitions = classes.Select(c => new CustomClassDefinition { Name = c });
+		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
+
+
+		//var loader = Loader.Default();
 		Map = loader.LoadMap(Path.Combine(content.RootDirectory, path, map_filename));
 
 
 		TilemapTextures = new();
+		CollectionTextures = new();
 		ImageLayerTextures = new();
 
 		foreach(Tileset tileset in Map.Tilesets) {
-			TilemapTextures.Add(tileset, LoadImage(content, path, tileset.Image));
+			if (tileset.Image.HasValue) {
+				TilemapTextures.Add(tileset, LoadImage(content, path, tileset.Image));
+			} else {
+				foreach (Tile tile in tileset.Tiles) {
+					CollectionTextures.Add(tile, LoadImage(content, path, tile.Image));
+				}
+			}
 		}
 
 		foreach(BaseLayer layer in Map.Layers) {
@@ -72,10 +92,64 @@ public class TiledMap {
 		}
 	}
 
-	public void DrawObjectLayer(SpriteBatch spritebatch, ObjectLayer objectlayer) {
-		//I have no idea. 
+	public void DrawObjectLayer(SpriteBatch spritebatch, ObjectLayer layer) {
+		Point offset = new((int)layer.OffsetX, (int)layer.OffsetY);
+		foreach(var obj in layer.Objects) {
+			switch (obj) {
+				case TileObject tileobject:
+					DrawTileObject(spritebatch, tileobject, layer);
+					break;
+
+				//The following are very implementation-bound. 
+				case PolygonObject:
+					break;
+				case EllipseObject:
+					break;
+				case PointObject:
+					break;
+				case PolylineObject:
+					break;
+				case RectangleObject:
+					break;
+				case TextObject:
+					break;
+			}
+		}
 	}
 
+	public const float RAD = 0.01745329f;
+
+	public void DrawTileObject(SpriteBatch spritebatch, TileObject obj, ObjectLayer layer) {
+		if (!obj.Visible) return;
+ 		(Tileset tileset, Tile tile) = GetTilesetFromGID(obj.GID);
+		uint id = obj.GID - tileset.FirstGID;
+
+		Color layer_tint = ColorFromColor(layer.TintColor);
+		Point layer_offset = new Point((int)layer.OffsetX, (int)layer.OffsetY);
+		float layer_opacity = layer.Opacity;
+		float rotation = obj.Rotation * RAD;
+
+		if(tileset.Image.HasValue) {
+			Texture2D texture = TilemapTextures[tileset];
+			Rectangle source_rect = GetTilesetSourceRect(id, tileset);
+			Point location = new Point((int)obj.X, (int)obj.Y) + layer_offset;
+			Point size = new((int)obj.Width, (int)obj.Height);
+			Rectangle dest_rect = new Rectangle(location, size);
+			Vector2 origin = new Vector2(0, tileset.TileHeight);
+			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * layer_opacity, rotation: rotation, origin: origin, SpriteEffects.None, 1);
+		} else {
+			Texture2D texture = CollectionTextures[tile];
+			Rectangle source_rect = new Rectangle((int)tile.X, (int)tile.Y, (int)tile.Width, (int)tile.Height);
+			Point location = new Point((int)obj.X, (int)obj.Y) + layer_offset;
+			Point size = new Point((int)obj.Width, (int)obj.Height);
+			Rectangle dest_rect = new Rectangle(location, size);
+			Vector2 origin = new Vector2(0, tile.Height);
+			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * layer_opacity, rotation, origin, SpriteEffects.None, 1);
+		}
+
+	}
+
+	
 
 	public void DrawTileLayer(SpriteBatch spritebatch, TileLayer layer) {
 		if (!layer.Visible) {
@@ -95,20 +169,28 @@ public class TiledMap {
 
 				//could be more efficient by counting tilesets used on layer,
 				//and avoiding the following function is there is only one tileset used.
-				Tileset tileset = GetTilesetFromGID(Map, gid);
+				//Or, creating a huge Dictionary gid,tileset on map load?
+				(Tileset tileset, Tile tile) = GetTilesetFromGID(gid);
 
 				uint id = gid - tileset.FirstGID;
 
-				Texture2D texture = TilemapTextures[tileset];
+				if(tileset.Image.HasValue) {
+					Texture2D texture = TilemapTextures[tileset];
 
-				Rectangle source_rect = GetTilesetSourceRect(id, tileset);
-				Rectangle dest_rect = new Rectangle(x * (int)tileset.TileWidth, y * (int)tileset.TileHeight, (int)tileset.TileWidth, (int)tileset.TileHeight);
-				
-				dest_rect.Location += offset;
-				spritebatch.Draw(texture, dest_rect, source_rect, tint * layer.Opacity);
+					Rectangle source_rect = GetTilesetSourceRect(id, tileset);
+					Rectangle dest_rect = new Rectangle(x * (int)tileset.TileWidth, y * (int)tileset.TileHeight, (int)tileset.TileWidth, (int)tileset.TileHeight);
+
+					dest_rect.Location += offset;
+					spritebatch.Draw(texture, dest_rect, source_rect, tint * layer.Opacity);
+				} else {
+					Texture2D texture = CollectionTextures[tile];
+					spritebatch.Draw(texture, new Vector2(x * 64, y * 64), tint * layer.Opacity);
+				}
+
 			}
 		}
 	}
+
 
 	public void DrawImageLayer(SpriteBatch spritebatch, ImageLayer layer, Rectangle viewport_bounds) {
 		if (!layer.Image.HasValue) return;
@@ -193,13 +275,31 @@ public class TiledMap {
 
 
 
-	public static Tileset GetTilesetFromGID(Map map, uint gid) {
-		foreach (Tileset tileset in map.Tilesets) {
-			if (gid >= tileset.FirstGID && gid < tileset.FirstGID + tileset.TileCount) {
-				return tileset;
+	public (Tileset tileset, Tile tile) GetTilesetFromGID(uint gid) {
+		if (gid > 1000000) throw new Exception("gid " + gid + " is too large (tiled export glitch)");
+
+		foreach (Tileset tileset in Map.Tilesets) {
+			if (tileset.Image.HasValue) {
+				if (gid >= tileset.FirstGID && gid <= tileset.FirstGID + tileset.TileCount) {
+					return (tileset, null);
+				}
+			} else {
+				//Collection tilesets can have missing IDs and IDs greater than the tile count
+				foreach(Tile tile in tileset.Tiles) {
+					if (tile.ID == gid - tileset.FirstGID) {
+						return (tileset, tile);
+					}
+				}
 			}
+
 		}
-		return null;
+
+		//diagnostic:
+		foreach(Tileset tileset in Map.Tilesets) {
+			Console.WriteLine("tileset: "+tileset.Name+" firstgid: "+tileset.FirstGID+" tilecount: "+tileset.TileCount);
+		}
+		Console.WriteLine();
+		throw new Exception("gid " + gid + " has a problem");
 	}
 
 	public static uint[] GetLayerGIDs(TileLayer layer) {

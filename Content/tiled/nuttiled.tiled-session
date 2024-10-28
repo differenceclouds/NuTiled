@@ -1,20 +1,31 @@
 {
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
-        "."
+        ".",
+        "collection_sheet"
     ],
     "fileStates": {
         "Chips.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Rando.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "collection_sheet/Rando.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "map.tmx": {
-            "scale": 0.6343229166666666,
-            "selectedLayer": -1,
+            "scale": 1,
+            "selectedLayer": 9,
             "viewCenter": {
-                "x": 480.0394121027999,
-                "y": 319.23803267920186
+                "x": 480.5,
+                "y": 127
             }
         },
         "tilemap.tsx": {
@@ -23,25 +34,31 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
+    "last.externalTilesetPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
+    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/collection_sheet",
     "last.objectTemplatePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
     "openFiles": [
         "map.tmx",
-        "tilemap.tsx"
+        "tilemap.tsx",
+        "Rando.tsx"
     ],
     "project": "nuttiled.tiled-project",
-    "property.type": "bool",
+    "property.type": "file",
     "recentFiles": [
-        "Chips.tsx",
+        "Rando.tsx",
         "tilemap.tsx",
-        "map.tmx"
+        "map.tmx",
+        "collection_sheet/Rando.tsx",
+        "Chips.tsx"
     ],
+    "stampsFolder": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/Stamps",
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 2,
     "tileset.spacing": 2,
     "tileset.tileSize": {
         "height": 64,
         "width": 64
-    }
+    },
+    "tileset.type": 1
 }

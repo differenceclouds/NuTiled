@@ -37,6 +37,30 @@
 /processorParam:TextureFormat=Color
 /build:tiled/chips_64.png
 
+#begin tiled/collection_sheet/cans.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tiled/collection_sheet/cans.png
+
+#begin tiled/collection_sheet/plant.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tiled/collection_sheet/plant.png
+
 #begin tiled/junk.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

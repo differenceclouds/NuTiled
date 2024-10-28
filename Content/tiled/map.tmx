@@ -1,31 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="35">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" backgroundcolor="#000000" nextlayerid="17" nextobjectid="89">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <tileset firstgid="17" source="Chips.tsx"/>
+ <tileset firstgid="113" source="Rando.tsx"/>
  <imagelayer id="7" name="Background" opacity="0.2" repeatx="1" repeaty="1">
   <image source="junk.jpg" width="1000" height="667"/>
  </imagelayer>
+ <layer id="16" name="AllTiles" width="30" height="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,18,19,20,21,22,23,24,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,25,26,27,28,29,30,31,32,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,33,34,35,36,37,38,39,40,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,41,42,43,44,45,46,47,48,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,49,50,51,52,53,54,55,56,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,57,58,59,60,61,62,63,64,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,65,66,67,68,69,70,71,72,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,73,74,75,76,77,78,79,80,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,81,82,83,84,85,86,87,88,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,89,90,91,92,93,94,95,96,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,97,98,99,100,101,102,103,104,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,105,106,107,108,109,110,111,112,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,6,7,8,115,116,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,10,11,12,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,13,14,15,16,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <objectgroup id="11" name="Shapes">
-  <object id="9" x="342.097" y="250.661">
+  <object id="9" type="Shape" x="853.097" y="142.661">
    <properties>
     <property name="Color" type="color" value="#ffffff00"/>
    </properties>
    <polygon points="0,0 53.6005,-17.3413 52.024,-85.1301 108.777,-34.6826 182.872,-48.871 134.001,33.1062 198.637,77.2477 91.4361,61.4829 53.6005,122.966 58.3299,31.5297"/>
   </object>
-  <object id="10" x="134.001" y="290.073" width="116.66" height="93.0126">
+  <object id="10" type="Shape" x="577.001" y="175.073" width="116.66" height="93.0126">
    <properties>
-    <property name="Color" type="color" value="#ff37ff00"/>
+    <property name="Color" type="color" value="#ffaa007f"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="11" x="305.838" y="326.332" width="154.495" height="138.731">
+  <object id="11" type="Shape" x="693.838" y="61.332" width="154.495" height="138.731">
    <properties>
     <property name="Color" type="color" value="#ff55557f"/>
    </properties>
   </object>
+  <object id="80" type="Shape" x="666" y="-18">
+   <polygon points="0,0 134,24 128,-56"/>
+  </object>
  </objectgroup>
  <objectgroup id="10" name="Enemies">
-  <object id="3" name="Archie" x="488.71" y="99.3185">
+  <object id="3" name="Archie" type="Goblin" x="488.71" y="99.3185">
    <point/>
   </object>
   <object id="6" name="Tim" x="127.695" y="241.202">
@@ -34,7 +62,7 @@
   <object id="7" name="Geoffrey" x="198.637" y="198.637">
    <point/>
   </object>
-  <object id="34" name="Suzanne" x="606.946" y="105.624">
+  <object id="34" name="Suzanne" type="Goblin" x="606.946" y="105.624">
    <point/>
   </object>
  </objectgroup>
@@ -46,9 +74,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,6,3,3,3,3,3,3,8,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,6,12,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
+5,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
+9,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
+13,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,9,89,89,89,89,89,14,12,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,14,3,3,3,3,3,3,16,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -116,20 +144,49 @@
   <object id="16" gid="1" x="410.992" y="542.781" width="64" height="64"/>
   <object id="17" gid="1" x="396.804" y="608.993" width="64" height="64"/>
   <object id="18" gid="1" x="349.509" y="561.699" width="64" height="64"/>
-  <object id="19" gid="2147483649" x="362.121" y="515.981" width="64" height="64"/>
+  <object id="19" gid="1" x="365.621" y="538.981" width="64" height="64"/>
   <object id="20" gid="1" x="428.333" y="498.639" width="96" height="96"/>
-  <object id="21" gid="1073741825" x="451.981" y="702.006" width="96" height="96"/>
+  <object id="21" gid="1" x="451.981" y="702.006" width="96" height="96"/>
   <object id="22" gid="1" x="433.063" y="588.499" width="64" height="64" rotation="30"/>
-  <object id="23" gid="2147483649" x="325.862" y="627.911" width="64" height="64"/>
+  <object id="23" gid="1" x="325.862" y="627.911" width="64" height="64"/>
   <object id="24" gid="1" x="261.226" y="561.699" width="64" height="64"/>
-  <object id="25" gid="2147483649" x="174.519" y="637.37" width="64" height="64"/>
+  <object id="25" gid="1" x="174.519" y="637.37" width="64" height="64"/>
   <object id="26" gid="1" x="311.674" y="613.723" width="64" height="64"/>
   <object id="27" gid="1" x="278.567" y="613.723" width="64" height="64"/>
-  <object id="28" gid="1" x="210.779" y="602.687" width="64" height="64" rotation="45"/>
+  <object id="28" gid="1" x="139.049" y="595.593" width="212.261" height="178.818" rotation="45"/>
   <object id="29" gid="1" x="218.661" y="558.546" width="64" height="64" rotation="45"/>
-  <object id="30" gid="3221225473" x="161.908" y="539.628" width="64" height="64"/>
+  <object id="30" gid="1" x="161.908" y="539.628" width="64" height="64"/>
   <object id="31" gid="1" x="165.061" y="577.464" width="64" height="64"/>
-  <object id="32" gid="1073741825" x="83.0833" y="602.687" width="128" height="64"/>
-  <object id="33" gid="1073741825" x="70.4715" y="511.251" width="128" height="64"/>
+  <object id="32" gid="1" x="83.0833" y="602.687" width="128" height="64"/>
+  <object id="33" gid="1" x="70.4715" y="511.251" width="128" height="64"/>
+  <object id="78" gid="48" x="306" y="501" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="13" name="Stamps2" offsetx="0" offsety="-51">
+  <object id="60" gid="33" x="300.5" y="406" width="64" height="64"/>
+  <object id="61" gid="33" x="289.5" y="419" width="64" height="64"/>
+  <object id="62" gid="33" x="275.5" y="436" width="64" height="64"/>
+  <object id="63" gid="33" x="258.5" y="459.5" width="64" height="64"/>
+  <object id="64" gid="33" x="237.5" y="485" width="64" height="64"/>
+  <object id="65" gid="33" x="217.5" y="507.5" width="64" height="64"/>
+  <object id="66" gid="33" x="240.5" y="529.5" width="64" height="64"/>
+  <object id="67" gid="33" x="270.5" y="549.5" width="64" height="64"/>
+  <object id="68" gid="33" x="297" y="570" width="64" height="64"/>
+  <object id="69" gid="33" x="324.5" y="589" width="64" height="64"/>
+  <object id="70" gid="33" x="353" y="562" width="64" height="64"/>
+  <object id="71" gid="33" x="371" y="536" width="64" height="64"/>
+  <object id="72" gid="33" x="388" y="516" width="64" height="64"/>
+  <object id="73" gid="33" x="400.5" y="498.5" width="64" height="64"/>
+  <object id="74" gid="33" x="382" y="477" width="64" height="64"/>
+  <object id="75" gid="33" x="371" y="469.5" width="64" height="64"/>
+  <object id="76" gid="33" x="352" y="451.5" width="64" height="64"/>
+  <object id="77" gid="33" x="319.5" y="414.5" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup id="14" name="CollectionStamps">
+  <object id="83" name="cans" gid="115" x="275.339" y="570.207" width="100" height="72" rotation="48.214"/>
+  <object id="84" gid="116" x="661.585" y="280.992" width="180.482" height="133.567"/>
+  <object id="85" gid="116" x="660.303" y="146.108" width="59.6905" height="133.567" rotation="180.921"/>
+  <object id="86" gid="116" x="902.155" y="149.216" width="59.6905" height="133.567" rotation="180.921"/>
+  <object id="87" gid="115" x="441" y="442" width="100" height="72"/>
+  <object id="88" gid="115" x="104" y="479" width="100" height="72"/>
  </objectgroup>
 </map>
