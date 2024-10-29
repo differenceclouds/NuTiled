@@ -66,11 +66,18 @@ public class TiledMap {
 
 		//var loader = Loader.Default();
 		Map = loader.LoadMap(Path.Combine(content.RootDirectory, path, map_filename));
+
 		TilemapTextures = new();
 		CollectionTextures = new();
 		ImageLayerTextures = new();
 
-		foreach(Tileset tileset in Map.Tilesets) {
+		InitTilesets(Map.Tilesets, content, path);
+		InitLayerGroup(Map.Layers, content, path);
+	}
+
+
+	private void InitTilesets(List<Tileset> tilesets, ContentManager content, string path) {
+		foreach (Tileset tileset in tilesets) {
 			if (tileset.Image.HasValue) {
 				//Console.WriteLine(tileset.Name + ": " + tileset.RenderSize);
 				TilemapTextures.Add(tileset, LoadImage(content, path, tileset.Image));
@@ -81,35 +88,71 @@ public class TiledMap {
 				}
 			}
 		}
+	}
 
-		foreach(BaseLayer layer in Map.Layers) {
+	private void InitLayerGroup(List<BaseLayer> layers, ContentManager content, string path) {
+		foreach (BaseLayer layer in layers) {
 			switch (layer) {
+				case Group group:
+					InitLayerGroup(group.Layers, content, path);
+					break;
 				case ImageLayer imagelayer:
 					if (!imagelayer.Image.HasValue) break;
 					Texture2D image_texture = LoadImage(content, path, imagelayer.Image);
 					ImageLayerTextures.Add(imagelayer, image_texture);
 					break;
 				case TileLayer tilelayer:
+					uint[] gids = GetLayerGIDs(tilelayer);
+					for (int i = 0; i < gids.Length; i++) {
+						var gid = gids[i];
+						if (gid > 1000000) throw new Exception("gid " + gid + " is too large (tiled export glitch)");
+					}
 					break;
+				case ObjectLayer objectlayer: {
+					SortObjectLayer(objectlayer, objectlayer.DrawOrder);
+					break;
+				}
+
 			}
 		}
 	}
 
+
+	public void SortObjectLayer(ObjectLayer layer, DrawOrder drawOrder) {
+		switch (drawOrder) {
+			case DrawOrder.TopDown:
+				layer.Objects.Sort((a, b) => (a.Y.CompareTo(b.Y)));
+				break;
+			case DrawOrder.Index:
+				//no way to "unsort" currently, reloading works.
+				break;
+		}
+	}
 
 
 	public Color BackgroundColor => ColorFromColor(Map.BackgroundColor);
 
 	public void Draw(SpriteBatch spritebatch, Point view_offset, Rectangle viewport_bounds) {
-		foreach (BaseLayer layer in Map.Layers) {
+		DrawLayerGroup(spritebatch, Map.Layers, view_offset, viewport_bounds, 1);
+	}
+
+
+	public void DrawLayerGroup(SpriteBatch spritebatch, List<BaseLayer> layers, Point view_offset, Rectangle viewport_bounds, float opacity) {
+		foreach (BaseLayer layer in layers) {
 			switch (layer) {
+				case Group group: {
+					Point offset = view_offset + new Point((int)group.OffsetX, (int)group.OffsetY);
+					DrawLayerGroup(spritebatch, group.Layers, offset, viewport_bounds, group.Opacity * opacity);
+					break;
+				}
 				case TileLayer tilelayer:
-					DrawTileLayer(spritebatch, view_offset, tilelayer);
+					DrawTileLayer(spritebatch, view_offset, tilelayer, opacity);
 					break;
 				case ImageLayer imagelayer:
-					DrawImageLayer(spritebatch, view_offset, imagelayer, viewport_bounds);
+					DrawImageLayer(spritebatch, view_offset, imagelayer, viewport_bounds, opacity);
 					break;
 				case ObjectLayer objectlayer:
-					DrawObjectLayer(spritebatch, view_offset, objectlayer);
+					DrawObjectLayer(spritebatch, view_offset, objectlayer, opacity);
 					break;
 
 			}
@@ -117,12 +160,13 @@ public class TiledMap {
 	}
 
 
-	public void DrawTileLayer(SpriteBatch spritebatch, Point view_offset, TileLayer layer) {
+	public void DrawTileLayer(SpriteBatch spritebatch, Point view_offset, TileLayer layer, float group_opacity) {
 		if (!layer.Visible) {
 			return;
 		}
 		uint[] gids = GetLayerGIDs(layer);
 		Color tint = ColorFromColor(layer.TintColor);
+		float opacity = layer.Opacity * group_opacity;
 
 		Vector2 offset_f = new(layer.OffsetX, layer.OffsetY);
 		Point offset = offset_f.ToPoint() + view_offset;
@@ -142,21 +186,20 @@ public class TiledMap {
 				Point coord = new(x, y);
 
 				if (tileset.Image.HasValue) {
-					DrawTile(spritebatch, id, tileset, coord, offset, tint, layer.Opacity);
+					DrawTile(spritebatch, id, tileset, coord, offset, tint, opacity);
 				} else {
-					DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, layer.Opacity);
+					DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, opacity);
 				}
 
 			}
 		}
 	}
 
-	public void DrawObjectLayer(SpriteBatch spritebatch, Point view_offset, ObjectLayer layer) {
-
+	public void DrawObjectLayer(SpriteBatch spritebatch, Point view_offset, ObjectLayer layer, float group_opacity) {
 		foreach(var obj in layer.Objects) {
 			switch (obj) {
 				case TileObject tileobject:
-					DrawTileObject(spritebatch, tileobject, layer, view_offset);
+					DrawTileObject(spritebatch, tileobject, layer, view_offset, group_opacity);
 					break;
 				//The following are very implementation-bound. 
 				case PolygonObject:
@@ -175,11 +218,11 @@ public class TiledMap {
 		}
 	}
 
-	public void DrawImageLayer(SpriteBatch spritebatch, Point view_offset, ImageLayer layer, Rectangle viewport_bounds) {
+	public void DrawImageLayer(SpriteBatch spritebatch, Point view_offset, ImageLayer layer, Rectangle viewport_bounds, float group_opacity) {
 		if (!layer.Image.HasValue) return;
 		Point layer_offset = LayerOffset(layer);
 		Texture2D texture = ImageLayerTextures[layer];
-		float opacity = layer.Opacity;
+		float opacity = layer.Opacity * group_opacity;
 		Color tint = ColorFromColor(layer.TintColor);
 
 		//Spritebatch should be using samplerstate with wrap for repeat
@@ -223,18 +266,9 @@ public class TiledMap {
 	/// </summary>
 	public const float RAD = 0.01745329f;
 
-	public void DrawTileObject(SpriteBatch spritebatch, TileObject obj, ObjectLayer layer, Point view_offset) {
+	public void DrawTileObject(SpriteBatch spritebatch, TileObject obj, ObjectLayer layer, Point view_offset, float group_opacity) {
 		if (!obj.Visible) return;
-
-		//in order to properly implement layerOrder with DrawOrder.TopDown,
-		//spritebatch must begin/end with each layer.
-		//number between 0 and 1 must be calculated by the object Y position.
-		//negative Y values must be accounted for.
 		float layerDepth = 1;
-		switch (layer.DrawOrder) {
-			case DrawOrder.TopDown: break;
-			case DrawOrder.Index: break;
-		}
 
  		(Tileset tileset, Tile tile) = GetTilesetFromGID(obj.GID);
 		uint id = obj.GID - tileset.FirstGID;
@@ -242,7 +276,7 @@ public class TiledMap {
 		Color layer_tint = ColorFromColor(layer.TintColor);
 		Point layer_offset = LayerOffset(layer);
 		Point offset = layer_offset + view_offset;
-		float layer_opacity = layer.Opacity;
+		float opacity = layer.Opacity * group_opacity;
 		float rotation = obj.Rotation * RAD;
 
 		Rectangle dest_rect = ObjectBounds(obj);
@@ -252,13 +286,13 @@ public class TiledMap {
 			Texture2D texture = TilemapTextures[tileset];
 			Rectangle source_rect = GetTilesetSourceRect(id, tileset);
 			Vector2 origin = new(0, tileset.TileHeight);
-			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * layer_opacity,
+			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
 				rotation: rotation, origin: origin, SpriteEffects.None, layerDepth);
 		} else { //"collection of images" tileset
 			Texture2D texture = CollectionTextures[tile];
 			Rectangle source_rect = TileSourceBounds(tile);
 			Vector2 origin = new Vector2(0, tile.Height);
-			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * layer_opacity,
+			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
 				rotation, origin, SpriteEffects.None, layerDepth);
 		}
 
@@ -278,8 +312,6 @@ public class TiledMap {
 		//TODO: Tile Render Size, Fill Mode (?), Orientation
 		//Object alignment doesn't apply here?
 
-
-		  
 		float layerDepth = 1.0f;
 		Vector2 origin;
 		origin = new Vector2(0, tile.Height);
@@ -352,8 +384,6 @@ public class TiledMap {
 
 
 	public (Tileset tileset, Tile tile) GetTilesetFromGID(uint gid) {
-		if (gid > 1000000) throw new Exception("gid " + gid + " is too large (tiled export glitch)");
-
 		foreach (Tileset tileset in Map.Tilesets) {
 			if (tileset.Image.HasValue) {
 				if (gid >= tileset.FirstGID && gid < tileset.FirstGID + tileset.TileCount) {

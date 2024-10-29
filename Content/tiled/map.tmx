@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="19" nextobjectid="97">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="122">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <tileset firstgid="17" source="Chips.tsx"/>
  <tileset firstgid="113" source="Rando.tsx"/>
@@ -32,10 +32,10 @@
   <object id="3" name="Archie" type="Goblin" x="488.71" y="99.3185">
    <point/>
   </object>
-  <object id="6" name="Tim" x="90.695" y="396.202">
+  <object id="6" name="Tim" x="288.695" y="130.202">
    <point/>
   </object>
-  <object id="7" name="Geoffrey" x="176.637" y="391.637">
+  <object id="7" name="Geoffrey" x="374.637" y="125.637">
    <point/>
   </object>
   <object id="34" name="Suzanne" type="Goblin" x="606.946" y="105.624">
@@ -50,9 +50,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,6,3,3,3,3,3,3,8,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,6,12,0,0,0,0,0,0,0,0,0,0,0,0,
-5,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
-9,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
-13,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,9,33,33,33,33,33,10,12,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,9,89,89,89,89,89,14,12,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,14,3,3,3,3,3,3,16,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -90,7 +90,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <imagelayer id="8" name="image"/>
+ <imagelayer id="8" name="no_image"/>
  <layer id="6" name="OrangeStuff" width="30" height="20" tintcolor="#ff5500">
   <data encoding="csv">
 17,1,0,0,0,0,104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -101,9 +101,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,5,5,5,5,5,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-2,11,11,11,11,11,11,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,13,13,13,13,13,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,11,11,11,11,15,11,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,14,15,15,15,7,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,2,16,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -139,46 +139,77 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="12" name="Stamps">
-  <object id="15" gid="1" x="434.639" y="536.475" width="64" height="64" rotation="30"/>
-  <object id="16" gid="1" x="410.992" y="542.781" width="64" height="64"/>
-  <object id="17" gid="1" x="396.804" y="608.993" width="64" height="64"/>
-  <object id="18" gid="1" x="349.509" y="561.699" width="64" height="64"/>
-  <object id="19" gid="1" x="365.621" y="538.981" width="64" height="64"/>
-  <object id="20" gid="1" x="428.333" y="498.639" width="96" height="96"/>
-  <object id="21" gid="1" x="451.981" y="702.006" width="96" height="96"/>
-  <object id="22" gid="1" x="433.063" y="588.499" width="64" height="64" rotation="30"/>
-  <object id="23" gid="1" x="325.862" y="627.911" width="64" height="64"/>
-  <object id="24" gid="1" x="261.226" y="561.699" width="64" height="64"/>
-  <object id="25" gid="1" x="174.519" y="637.37" width="64" height="64"/>
-  <object id="26" gid="1" x="311.674" y="613.723" width="64" height="64"/>
-  <object id="27" gid="1" x="278.567" y="613.723" width="64" height="64"/>
-  <object id="28" gid="1" x="139.049" y="595.593" width="212.261" height="178.818" rotation="45"/>
-  <object id="29" gid="1" x="218.661" y="558.546" width="64" height="64" rotation="45"/>
-  <object id="30" gid="1" x="161.908" y="539.628" width="64" height="64"/>
-  <object id="31" gid="1" x="165.061" y="577.464" width="64" height="64"/>
-  <object id="32" gid="1" x="83.0833" y="602.687" width="128" height="64"/>
-  <object id="33" gid="1" x="70.4715" y="511.251" width="128" height="64"/>
-  <object id="78" gid="48" x="306" y="446" width="64" height="64"/>
- </objectgroup>
- <objectgroup id="13" name="Stamps2" offsetx="0" offsety="-51">
-  <object id="60" gid="33" x="300.5" y="406" width="64" height="64"/>
-  <object id="61" gid="33" x="289.5" y="419" width="64" height="64"/>
-  <object id="62" gid="33" x="275.5" y="436" width="64" height="64"/>
-  <object id="63" gid="33" x="258.5" y="459.5" width="64" height="64"/>
-  <object id="64" gid="33" x="237.5" y="485" width="64" height="64"/>
-  <object id="65" gid="33" x="217.5" y="507.5" width="64" height="64"/>
-  <object id="66" gid="33" x="240.5" y="529.5" width="64" height="64"/>
-  <object id="67" gid="33" x="270.5" y="549.5" width="64" height="64"/>
-  <object id="68" gid="33" x="297" y="570" width="64" height="64"/>
-  <object id="69" gid="33" x="324.5" y="589" width="64" height="64"/>
-  <object id="70" gid="33" x="353" y="562" width="64" height="64"/>
-  <object id="71" gid="33" x="371" y="536" width="64" height="64"/>
-  <object id="72" gid="33" x="388" y="516" width="64" height="64"/>
-  <object id="73" gid="33" x="400.5" y="498.5" width="64" height="64"/>
-  <object id="74" gid="33" x="382" y="477" width="64" height="64"/>
-  <object id="75" gid="33" x="371" y="469.5" width="64" height="64"/>
-  <object id="76" gid="33" x="352" y="451.5" width="64" height="64"/>
-  <object id="77" gid="33" x="319.5" y="414.5" width="64" height="64"/>
- </objectgroup>
+ <group id="19" name="Group 1">
+  <group id="21" name="Group 2">
+   <imagelayer id="20" name="image_in_group" offsetx="344" offsety="526" repeatx="1">
+    <image source="zigg.png" width="300" height="225"/>
+   </imagelayer>
+   <objectgroup draworder="index" id="12" name="Stamps" locked="1" tintcolor="#ffff7f">
+    <object id="15" gid="1" x="431.639" y="397.475" width="64" height="64" rotation="30"/>
+    <object id="16" gid="1" x="407.992" y="403.781" width="64" height="64"/>
+    <object id="17" gid="1" x="393.804" y="469.993" width="64" height="64"/>
+    <object id="18" gid="1" x="346.509" y="422.699" width="64" height="64"/>
+    <object id="19" gid="1" x="362.621" y="399.981" width="64" height="64"/>
+    <object id="20" gid="1" x="425.333" y="359.639" width="96" height="96"/>
+    <object id="21" gid="1" x="448.981" y="563.006" width="96" height="96"/>
+    <object id="22" gid="1" x="430.063" y="449.499" width="64" height="64" rotation="30"/>
+    <object id="23" gid="1" x="322.862" y="488.911" width="64" height="64"/>
+    <object id="24" gid="1" x="258.226" y="422.699" width="64" height="64"/>
+    <object id="25" gid="1" x="171.519" y="498.37" width="64" height="64"/>
+    <object id="26" gid="1" x="308.674" y="474.723" width="64" height="64"/>
+    <object id="27" gid="1" x="275.567" y="474.723" width="64" height="64"/>
+    <object id="28" gid="1" x="136.049" y="456.593" width="212.261" height="178.818" rotation="45"/>
+    <object id="29" gid="1" x="215.661" y="419.546" width="64" height="64" rotation="45"/>
+    <object id="30" gid="1" x="158.908" y="400.628" width="64" height="64"/>
+    <object id="31" gid="1" x="162.061" y="438.464" width="64" height="64"/>
+    <object id="32" gid="1" x="80.0833" y="463.687" width="128" height="64"/>
+    <object id="33" gid="1" x="67.4715" y="372.251" width="128" height="64"/>
+    <object id="78" gid="48" x="303" y="307" width="64" height="64"/>
+    <object id="97" gid="33" x="90" y="222" width="64" height="64"/>
+    <object id="98" gid="33" x="60" y="237" width="64" height="64"/>
+    <object id="99" gid="33" x="46" y="263" width="64" height="64"/>
+    <object id="100" gid="33" x="38" y="282" width="64" height="64"/>
+    <object id="101" gid="33" x="30" y="310" width="64" height="64"/>
+    <object id="102" gid="33" x="30" y="333" width="64" height="64"/>
+    <object id="103" gid="33" x="39" y="351" width="64" height="64"/>
+    <object id="104" gid="33" x="64" y="370" width="64" height="64"/>
+    <object id="105" gid="33" x="89" y="375" width="64" height="64"/>
+    <object id="106" gid="33" x="123" y="377" width="64" height="64"/>
+    <object id="107" gid="33" x="158" y="373" width="64" height="64"/>
+    <object id="108" gid="33" x="171" y="362" width="64" height="64"/>
+    <object id="109" gid="33" x="175" y="354" width="64" height="64"/>
+    <object id="110" gid="33" x="179" y="336" width="64" height="64"/>
+    <object id="111" gid="33" x="177" y="308" width="64" height="64"/>
+    <object id="112" gid="33" x="175" y="294" width="64" height="64"/>
+    <object id="113" gid="33" x="169" y="271" width="64" height="64"/>
+    <object id="114" gid="33" x="167" y="263" width="64" height="64"/>
+    <object id="115" gid="33" x="160" y="250" width="64" height="64"/>
+    <object id="116" gid="33" x="151" y="241" width="64" height="64"/>
+    <object id="117" gid="33" x="135" y="231" width="64" height="64"/>
+    <object id="118" gid="33" x="128" y="225" width="64" height="64"/>
+    <object id="119" gid="33" x="113" y="219" width="64" height="64"/>
+    <object id="121" gid="115" x="278.777" y="437.992" width="100" height="72" rotation="47.9425"/>
+   </objectgroup>
+   <objectgroup id="13" name="Stamps2" offsetx="0" offsety="-51">
+    <object id="60" gid="33" x="498.5" y="140" width="64" height="64"/>
+    <object id="61" gid="33" x="487.5" y="153" width="64" height="64"/>
+    <object id="62" gid="33" x="473.5" y="170" width="64" height="64"/>
+    <object id="63" gid="33" x="456.5" y="193.5" width="64" height="64"/>
+    <object id="64" gid="33" x="435.5" y="219" width="64" height="64"/>
+    <object id="65" gid="33" x="415.5" y="241.5" width="64" height="64"/>
+    <object id="66" gid="33" x="438.5" y="263.5" width="64" height="64"/>
+    <object id="67" gid="33" x="468.5" y="283.5" width="64" height="64"/>
+    <object id="68" gid="33" x="495" y="304" width="64" height="64"/>
+    <object id="69" gid="33" x="522.5" y="323" width="64" height="64"/>
+    <object id="70" gid="33" x="551" y="296" width="64" height="64"/>
+    <object id="71" gid="33" x="569" y="270" width="64" height="64"/>
+    <object id="72" gid="33" x="586" y="250" width="64" height="64"/>
+    <object id="73" gid="33" x="598.5" y="232.5" width="64" height="64"/>
+    <object id="74" gid="33" x="580" y="211" width="64" height="64"/>
+    <object id="75" gid="33" x="569" y="203.5" width="64" height="64"/>
+    <object id="76" gid="33" x="550" y="185.5" width="64" height="64"/>
+    <object id="77" gid="33" x="529.5" y="148.5" width="64" height="64"/>
+   </objectgroup>
+  </group>
+ </group>
 </map>
