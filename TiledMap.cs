@@ -356,7 +356,7 @@ public class TiledMap {
 
 		foreach (Tileset tileset in Map.Tilesets) {
 			if (tileset.Image.HasValue) {
-				if (gid >= tileset.FirstGID && gid <= tileset.FirstGID + tileset.TileCount) {
+				if (gid >= tileset.FirstGID && gid < tileset.FirstGID + tileset.TileCount) {
 					return (tileset, null);
 				}
 			} else {

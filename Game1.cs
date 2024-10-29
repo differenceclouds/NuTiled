@@ -34,6 +34,11 @@ public class Game1 : Game {
 	}
 
 
+	public void ReloadMap() {
+		tiledMap = new(Content, "tiled", "map.tmx");
+	}
+
+
 	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
 	bool reset;
@@ -67,9 +72,7 @@ public class Game1 : Game {
 		base.Update(gameTime);
 	}
 
-	public void ReloadMap() {
-		tiledMap = new(Content, "tiled", "map.tmx");
-	}
+
 
 
 	protected override void Draw(GameTime gameTime) {

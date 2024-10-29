@@ -25,13 +25,14 @@ public class ContentReloader
 
 	//For publish builds, copy not necessary, only ReloadMap should be necessary.
 	private void ReloadAsset(string path) {
-		Console.WriteLine($"Reloading asset: {path}");
-		Thread.Sleep(500);
+		Console.WriteLine($"file changed: {path}");
+		Thread.Sleep(500); //if it throws here due to huge map etc, use some try/catch on a loop etc, I can't be bothered
 		string path_folder = Path.GetDirectoryName(path);
-		string filename = Path.GetFileNameWithoutExtension(path);
+		string filename = Path.GetFileNameWithoutExtension(path); //it actually registers a temp file with a random extension.
 		//Console.WriteLine(filename);
 		File.Copy(Path.Combine(path_folder, filename), Path.Combine("Content/tiled/", filename), true);
 		game.ReloadMap();
+		Console.WriteLine($"wrote {filename}");
 	}
 
 
