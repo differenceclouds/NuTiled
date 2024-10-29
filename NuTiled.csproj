@@ -19,10 +19,11 @@
     <EmbeddedResource Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotTiled" Version="0.2.1" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
-    <PackageReference Include="TiledLib" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotTiled\src\DotTiled\DotTiled.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\tiled\chips.png">

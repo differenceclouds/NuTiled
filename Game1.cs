@@ -23,29 +23,60 @@ public class Game1 : Game {
 		base.Initialize();
 	}
 
-	public Rectangle viewport_bounds => new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
 	TiledMap tiledMap;
+	ContentReloader contentReloader;
 
 	protected override void LoadContent() {
+		contentReloader = new("../../../Content/tiled", this); //Only good for debug! 
 		spriteBatch = new SpriteBatch(GraphicsDevice);
-		tiledMap = new(Content, "tiled", "map.tmx");
+		ReloadMap();
 	}
 
+
+	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
+	bool reset;
+	bool leftclickheld;
+
+	Point click_pos;
+	Point view_pos;
+
 	protected override void Update(GameTime gameTime) {
-		if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+		var keyboard = Keyboard.GetState();
+		var mouse = Mouse.GetState();
+		if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
 			Exit();
 
-		// TODO: Add your update logic here
+		bool reset_prev = reset;
+		reset = keyboard.IsKeyDown(Keys.R);
+		if (reset && !reset_prev) {
+			ReloadMap();
+		}
+
+		bool leftclick_prev = leftclickheld;
+		leftclickheld = mouse.LeftButton == ButtonState.Pressed;
+		bool leftclickpressed = leftclickheld && !leftclick_prev;
+		if (leftclickpressed) {
+			click_pos = mouse.Position - view_pos;
+		}
+		if (IsActive && leftclickheld) {
+			view_pos = mouse.Position - click_pos;
+		}
 
 		base.Update(gameTime);
 	}
+
+	public void ReloadMap() {
+		tiledMap = new(Content, "tiled", "map.tmx");
+	}
+
 
 	protected override void Draw(GameTime gameTime) {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
 		spriteBatch.Begin(samplerState: SamplerState.PointWrap);
 
-		tiledMap.Draw(spriteBatch, viewport_bounds);
+		tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
 
 		spriteBatch.End();
 		base.Draw(gameTime);

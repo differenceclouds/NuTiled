@@ -1,9 +1,13 @@
 ﻿using System;
 namespace Microsoft.Xna.Framework;
 
-/// <summary>
-/// use like this if a const color is needed: new Color(ColorConstants.Blue)
-/// </summary>
+//example usage:
+//Color GetColor(Color? color, UInt32 default_color = ColorConstants.Transparent) {
+//	if (color is null)
+//		return new Color(default_color);
+//	else return (Color)color;
+//}
+
 public static class ColorConstants {
 	public const UInt32 Transparent = 0u;
 	public const UInt32 AliceBlue = 4294965488u;

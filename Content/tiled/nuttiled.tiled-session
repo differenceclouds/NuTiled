@@ -1,10 +1,28 @@
 {
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
-        ".",
-        "collection_sheet"
+        "collection_sheet",
+        "."
     ],
     "fileStates": {
+        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/Chips.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/Rando.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx": {
+            "scale": 0.464609375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 961.0223642172523,
+                "y": 768.3874222296955
+            }
+        },
+        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/tilemap.tsx": {
+            "scaleInDock": 1
+        },
         "Chips.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
@@ -22,10 +40,10 @@
         },
         "map.tmx": {
             "scale": 1,
-            "selectedLayer": 9,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 480.5,
-                "y": 127
+                "x": 485.5,
+                "y": 513
             }
         },
         "tilemap.tsx": {
@@ -39,16 +57,15 @@
     "last.objectTemplatePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
     "openFiles": [
-        "map.tmx",
-        "tilemap.tsx",
-        "Rando.tsx"
+        "map.tmx"
     ],
     "project": "nuttiled.tiled-project",
     "property.type": "file",
     "recentFiles": [
-        "Rando.tsx",
-        "tilemap.tsx",
         "map.tmx",
+        "Rando.tsx",
+        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx",
+        "tilemap.tsx",
         "collection_sheet/Rando.tsx",
         "Chips.tsx"
     ],
