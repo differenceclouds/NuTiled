@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="22" nextobjectid="122">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" parallaxoriginx="64" parallaxoriginy="64" nextlayerid="23" nextobjectid="147">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <tileset firstgid="17" source="Chips.tsx"/>
  <tileset firstgid="113" source="Rando.tsx"/>
- <imagelayer id="7" name="Background" opacity="0.2" offsetx="235" offsety="42" repeatx="1" repeaty="1">
+ <imagelayer id="7" name="Background" opacity="0.2" offsetx="235" offsety="42" parallaxx="0.25" parallaxy="0.25" repeatx="1" repeaty="1">
   <image source="chess_tiles.png" width="256" height="512"/>
+ </imagelayer>
+ <imagelayer id="20" name="image_in_group" offsetx="93" offsety="556" parallaxx="0.5" parallaxy="0.5" repeatx="1">
+  <image source="zigg.png" width="300" height="225"/>
  </imagelayer>
  <objectgroup id="11" name="Shapes">
   <object id="9" type="Shape" x="853.097" y="142.661">
@@ -90,7 +93,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <imagelayer id="8" name="no_image"/>
  <layer id="6" name="OrangeStuff" width="30" height="20" tintcolor="#ff5500">
   <data encoding="csv">
 17,1,0,0,0,0,104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -115,9 +117,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <imagelayer id="20" name="image_in_group" offsetx="84" offsety="411.5" repeatx="1">
-  <image source="zigg.png" width="300" height="225"/>
- </imagelayer>
  <layer id="17" name="CollectionTiles" width="30" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -144,7 +143,7 @@
  </layer>
  <group id="19" name="Group 1">
   <group id="21" name="Group 2">
-   <objectgroup draworder="index" id="12" name="Stamps" locked="1" tintcolor="#ffff7f">
+   <objectgroup draworder="index" id="12" name="Stamps" tintcolor="#afe4ff" parallaxx="1.5" parallaxy="1.5">
     <object id="15" gid="1" x="431.639" y="397.475" width="64" height="64" rotation="30"/>
     <object id="16" gid="1" x="407.992" y="403.781" width="64" height="64"/>
     <object id="17" gid="1" x="393.804" y="469.993" width="64" height="64"/>
@@ -163,34 +162,37 @@
     <object id="30" gid="1" x="158.908" y="400.628" width="64" height="64"/>
     <object id="31" gid="1" x="162.061" y="438.464" width="64" height="64"/>
     <object id="32" gid="1" x="80.0833" y="463.687" width="128" height="64"/>
-    <object id="33" gid="1" x="67.4715" y="372.251" width="128" height="64"/>
     <object id="78" gid="48" x="303" y="307" width="64" height="64"/>
-    <object id="97" gid="33" x="90" y="222" width="64" height="64"/>
-    <object id="98" gid="33" x="60" y="237" width="64" height="64"/>
-    <object id="99" gid="33" x="46" y="263" width="64" height="64"/>
-    <object id="100" gid="33" x="38" y="282" width="64" height="64"/>
-    <object id="101" gid="33" x="30" y="310" width="64" height="64"/>
-    <object id="102" gid="33" x="30" y="333" width="64" height="64"/>
-    <object id="103" gid="33" x="39" y="351" width="64" height="64"/>
-    <object id="104" gid="33" x="64" y="370" width="64" height="64"/>
-    <object id="105" gid="33" x="89" y="375" width="64" height="64"/>
-    <object id="106" gid="33" x="123" y="377" width="64" height="64"/>
-    <object id="107" gid="33" x="158" y="373" width="64" height="64"/>
-    <object id="108" gid="33" x="171" y="362" width="64" height="64"/>
-    <object id="109" gid="33" x="175" y="354" width="64" height="64"/>
-    <object id="110" gid="33" x="179" y="336" width="64" height="64"/>
-    <object id="111" gid="33" x="177" y="308" width="64" height="64"/>
-    <object id="112" gid="33" x="175" y="294" width="64" height="64"/>
-    <object id="113" gid="33" x="169" y="271" width="64" height="64"/>
-    <object id="114" gid="33" x="167" y="263" width="64" height="64"/>
-    <object id="115" gid="33" x="160" y="250" width="64" height="64"/>
-    <object id="116" gid="33" x="151" y="241" width="64" height="64"/>
-    <object id="117" gid="33" x="135" y="231" width="64" height="64"/>
-    <object id="118" gid="33" x="128" y="225" width="64" height="64"/>
-    <object id="119" gid="33" x="113" y="219" width="64" height="64"/>
     <object id="121" gid="115" x="278.777" y="437.992" width="100" height="72" rotation="47.9425"/>
    </objectgroup>
-   <objectgroup id="13" name="Stamps2" offsetx="0" offsety="-51">
+   <objectgroup draworder="index" id="22" name="Stamps3" tintcolor="#00ff00" parallaxx="1.75" parallaxy="1.75">
+    <object id="122" gid="1" x="160.971" y="440.251" width="128" height="64"/>
+    <object id="123" gid="33" x="183.5" y="290" width="64" height="64"/>
+    <object id="124" gid="33" x="153.5" y="305" width="64" height="64"/>
+    <object id="125" gid="33" x="139.5" y="331" width="64" height="64"/>
+    <object id="126" gid="33" x="131.5" y="350" width="64" height="64"/>
+    <object id="127" gid="33" x="123.5" y="378" width="64" height="64"/>
+    <object id="128" gid="33" x="123.5" y="401" width="64" height="64"/>
+    <object id="129" gid="33" x="132.5" y="419" width="64" height="64"/>
+    <object id="130" gid="33" x="157.5" y="438" width="64" height="64"/>
+    <object id="131" gid="33" x="182.5" y="443" width="64" height="64"/>
+    <object id="132" gid="33" x="216.5" y="445" width="64" height="64"/>
+    <object id="133" gid="33" x="251.5" y="441" width="64" height="64"/>
+    <object id="134" gid="33" x="264.5" y="430" width="64" height="64"/>
+    <object id="135" gid="33" x="268.5" y="422" width="64" height="64"/>
+    <object id="136" gid="33" x="272.5" y="404" width="64" height="64"/>
+    <object id="137" gid="33" x="270.5" y="376" width="64" height="64"/>
+    <object id="138" gid="33" x="268.5" y="362" width="64" height="64"/>
+    <object id="139" gid="33" x="262.5" y="339" width="64" height="64"/>
+    <object id="140" gid="33" x="260.5" y="331" width="64" height="64"/>
+    <object id="141" gid="33" x="253.5" y="318" width="64" height="64"/>
+    <object id="142" gid="33" x="244.5" y="309" width="64" height="64"/>
+    <object id="143" gid="33" x="228.5" y="299" width="64" height="64"/>
+    <object id="144" gid="33" x="221.5" y="293" width="64" height="64"/>
+    <object id="145" gid="33" x="206.5" y="287" width="64" height="64"/>
+    <object id="146" gid="115" x="455.91" y="350.848" width="125.204" height="79.8591" rotation="30.7188"/>
+   </objectgroup>
+   <objectgroup id="13" name="Stamps2" offsetx="0" offsety="-51" parallaxx="2" parallaxy="2">
     <object id="60" gid="33" x="498.5" y="140" width="64" height="64"/>
     <object id="61" gid="33" x="487.5" y="153" width="64" height="64"/>
     <object id="62" gid="33" x="473.5" y="170" width="64" height="64"/>

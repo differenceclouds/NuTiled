@@ -37,6 +37,9 @@ public class TiledMap {
 	public static Point LayerOffset(BaseLayer layer) {
 		return new Point((int)layer.OffsetX, (int)layer.OffsetY);
 	}
+	public static Vector2 LayerParallax(BaseLayer layer) {
+		return new Vector2(layer.ParallaxX, layer.ParallaxY);
+	}
 	public static Rectangle ObjectBounds(DotTiled.Object obj) {
 		return new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height);
 	}
@@ -134,19 +137,21 @@ public class TiledMap {
 
 	public void DrawLayerGroup(SpriteBatch spritebatch, List<BaseLayer> layers, Point view_offset, Rectangle viewport_bounds, float opacity) {
 		foreach (BaseLayer layer in layers) {
+			Vector2 parallax = LayerParallax(layer);
+			Point offset = (view_offset.ToVector2() * parallax).ToPoint();
 			switch (layer) {
 				case Group group: {
-					DrawLayerGroup(spritebatch, group.Layers, view_offset + LayerOffset(group), viewport_bounds, group.Opacity * opacity);
+					DrawLayerGroup(spritebatch, group.Layers, (offset) + LayerOffset(group), viewport_bounds, group.Opacity * opacity);
 					break;
 				}
 				case TileLayer tilelayer:
-					DrawTileLayer(spritebatch, view_offset, tilelayer, opacity);
+					DrawTileLayer(spritebatch, offset, tilelayer, opacity);
 					break;
 				case ImageLayer imagelayer:
-					DrawImageLayer(spritebatch, view_offset, imagelayer, viewport_bounds, opacity);
+					DrawImageLayer(spritebatch, offset, imagelayer, viewport_bounds, opacity);
 					break;
 				case ObjectLayer objectlayer:
-					DrawObjectLayer(spritebatch, view_offset, objectlayer, opacity);
+					DrawObjectLayer(spritebatch, offset, objectlayer, opacity);
 					break;
 
 			}
@@ -222,6 +227,8 @@ public class TiledMap {
 		//Spritebatch should be using samplerstate with wrap for repeat
 		bool repeatX = BoolFromBool(layer.RepeatX, false);
 		bool repeatY = BoolFromBool(layer.RepeatY, false);
+
+		//view_offset *= layer.ParallaxX
 
 		Rectangle source_rect;
 		Rectangle dest_rect;
