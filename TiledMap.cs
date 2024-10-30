@@ -16,9 +16,10 @@ public class TiledMap {
 	public Map Map { get; }
 
 	public Dictionary<Tileset, Texture2D> TilemapTextures { get; }
-	public Dictionary<Tile, Texture2D> CollectionTextures { get; }
+	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; }
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; }
 
+	public Color BackgroundColor => ColorFromColor(Map.BackgroundColor);
 
 
 	public static Rectangle TileSourceBounds(Tile tile) {
@@ -36,7 +37,6 @@ public class TiledMap {
 	public static Point LayerOffset(BaseLayer layer) {
 		return new Point((int)layer.OffsetX, (int)layer.OffsetY);
 	}
-
 	public static Rectangle ObjectBounds(DotTiled.Object obj) {
 		return new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height);
 	}
@@ -68,7 +68,7 @@ public class TiledMap {
 		Map = loader.LoadMap(Path.Combine(content.RootDirectory, path, map_filename));
 
 		TilemapTextures = new();
-		CollectionTextures = new();
+		TileCollectionTextures = new();
 		ImageLayerTextures = new();
 
 		InitTilesets(Map.Tilesets, content, path);
@@ -79,12 +79,10 @@ public class TiledMap {
 	private void InitTilesets(List<Tileset> tilesets, ContentManager content, string path) {
 		foreach (Tileset tileset in tilesets) {
 			if (tileset.Image.HasValue) {
-				//Console.WriteLine(tileset.Name + ": " + tileset.RenderSize);
 				TilemapTextures.Add(tileset, LoadImage(content, path, tileset.Image));
 			} else {
-				//Console.WriteLine(tileset.Name + ": " + tileset.RenderSize);
 				foreach (Tile tile in tileset.Tiles) {
-					CollectionTextures.Add(tile, LoadImage(content, path, tile.Image));
+					TileCollectionTextures.Add(tile, LoadImage(content, path, tile.Image));
 				}
 			}
 		}
@@ -103,9 +101,9 @@ public class TiledMap {
 					break;
 				case TileLayer tilelayer:
 					uint[] gids = GetLayerGIDs(tilelayer);
+					//uint[] gids = tilelayer.Data.GlobalTileIDs;
 					for (int i = 0; i < gids.Length; i++) {
-						var gid = gids[i];
-						if (gid > 1000000) throw new Exception("gid " + gid + " is too large (tiled export glitch)");
+						if (gids[i] > 1000000) throw new Exception("gid " + gids[i] + " is too large (tiled export glitch)");
 					}
 					break;
 				case ObjectLayer objectlayer: {
@@ -118,7 +116,7 @@ public class TiledMap {
 	}
 
 
-	public void SortObjectLayer(ObjectLayer layer, DrawOrder drawOrder) {
+	public static void SortObjectLayer(ObjectLayer layer, DrawOrder drawOrder) {
 		switch (drawOrder) {
 			case DrawOrder.TopDown:
 				layer.Objects.Sort((a, b) => (a.Y.CompareTo(b.Y)));
@@ -130,19 +128,15 @@ public class TiledMap {
 	}
 
 
-	public Color BackgroundColor => ColorFromColor(Map.BackgroundColor);
-
 	public void Draw(SpriteBatch spritebatch, Point view_offset, Rectangle viewport_bounds) {
 		DrawLayerGroup(spritebatch, Map.Layers, view_offset, viewport_bounds, 1);
 	}
-
 
 	public void DrawLayerGroup(SpriteBatch spritebatch, List<BaseLayer> layers, Point view_offset, Rectangle viewport_bounds, float opacity) {
 		foreach (BaseLayer layer in layers) {
 			switch (layer) {
 				case Group group: {
-					Point offset = view_offset + new Point((int)group.OffsetX, (int)group.OffsetY);
-					DrawLayerGroup(spritebatch, group.Layers, offset, viewport_bounds, group.Opacity * opacity);
+					DrawLayerGroup(spritebatch, group.Layers, view_offset + LayerOffset(group), viewport_bounds, group.Opacity * opacity);
 					break;
 				}
 				case TileLayer tilelayer:
@@ -228,36 +222,38 @@ public class TiledMap {
 		//Spritebatch should be using samplerstate with wrap for repeat
 		bool repeatX = BoolFromBool(layer.RepeatX, false);
 		bool repeatY = BoolFromBool(layer.RepeatY, false);
+
+		Rectangle source_rect;
+		Rectangle dest_rect;
 		switch (repeatX, repeatY) {
+			default:
 			case (false, false): {
-				Rectangle rect = new Rectangle(layer_offset, new(texture.Width, texture.Height));
-				spritebatch.Draw(texture, rect, tint * opacity);
+				source_rect = texture.Bounds;
+				dest_rect = new Rectangle(layer_offset + view_offset, new(texture.Width, texture.Height));
 				break;
 			}
 			case (true, true): {
-				Rectangle dest_rect = viewport_bounds;
-				Rectangle source_rect = viewport_bounds;
-				source_rect.Location += layer_offset - view_offset;
-				spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity);
+				dest_rect = viewport_bounds;
+				source_rect = viewport_bounds;
+				source_rect.Location -= view_offset + layer_offset;
 				break;
 			}
 			case (true, false): {
-				Rectangle dest_rect = new Rectangle(new Point(viewport_bounds.X, layer_offset.Y), new Point(viewport_bounds.Width, texture.Height));
-				Rectangle source_rect = new Rectangle(dest_rect.X, 0, dest_rect.Width, texture.Height);
-				source_rect.X -= view_offset.X;
+				dest_rect = new Rectangle(new Point(viewport_bounds.X, layer_offset.Y), new Point(viewport_bounds.Width, texture.Height));
+				source_rect = new Rectangle(dest_rect.X, 0, dest_rect.Width, texture.Height);
+				source_rect.X -= view_offset.X + layer_offset.X;
 				dest_rect.Y += view_offset.Y;
-				spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity);
 				break;
 			}
 			case (false, true): {
-				Rectangle dest_rect = new Rectangle(new Point(layer_offset.X, viewport_bounds.Y), new Point(texture.Width, viewport_bounds.Height));
-				Rectangle source_rect = new Rectangle(0, dest_rect.Y, texture.Width, dest_rect.Height);
-				source_rect.Y -= view_offset.Y;
+				dest_rect = new Rectangle(new Point(layer_offset.X, viewport_bounds.Y), new Point(texture.Width, viewport_bounds.Height));
+				source_rect = new Rectangle(0, dest_rect.Y, texture.Width, dest_rect.Height);
+				source_rect.Y -= view_offset.Y + layer_offset.Y;
 				dest_rect.X += view_offset.X;
-				spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity);
 				break;
 			}
 		}
+		spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity);
 
 	}
 
@@ -289,7 +285,7 @@ public class TiledMap {
 			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
 				rotation: rotation, origin: origin, SpriteEffects.None, layerDepth);
 		} else { //"collection of images" tileset
-			Texture2D texture = CollectionTextures[tile];
+			Texture2D texture = TileCollectionTextures[tile];
 			Rectangle source_rect = TileSourceBounds(tile);
 			Vector2 origin = new Vector2(0, tile.Height);
 			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
@@ -317,7 +313,7 @@ public class TiledMap {
 		origin = new Vector2(0, tile.Height);
 		//origin = Vector2.Zero;
 
-		Texture2D texture = CollectionTextures[tile];
+		Texture2D texture = TileCollectionTextures[tile];
 		coord.Y += 1; //image draws from bottom left of map tile
 		Point location = coord * TileSize(Map);
 
@@ -399,18 +395,16 @@ public class TiledMap {
 			}
 
 		}
-
-		//diagnostic:
-		foreach(Tileset tileset in Map.Tilesets) {
-			Console.WriteLine("tileset: "+tileset.Name+" firstgid: "+tileset.FirstGID+" tilecount: "+tileset.TileCount);
-		}
-		Console.WriteLine();
 		throw new Exception("gid " + gid + " has a problem");
 	}
 
 	public static uint[] GetLayerGIDs(TileLayer layer) {
-		Data data = layer.Data;
-		return data.GlobalTileIDs;
+		//if(layer.Data.HasValue) {
+			Data data = layer.Data;
+			return data.GlobalTileIDs;
+		//} else {
+		//	return Array.Empty<uint>();
+		//}
 	}
 
 	public static Texture2D LoadImage(ContentManager content, string content_subfolder, Image image) {

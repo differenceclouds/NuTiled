@@ -42,7 +42,7 @@ public class Game1 : Game {
 	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
 	bool reset;
-	bool leftclickheld;
+	bool leftbutton;
 
 	Point click_pos;
 	Point view_pos;
@@ -59,13 +59,13 @@ public class Game1 : Game {
 			ReloadMap();
 		}
 
-		bool leftclick_prev = leftclickheld;
-		leftclickheld = mouse.LeftButton == ButtonState.Pressed;
-		bool leftclickpressed = leftclickheld && !leftclick_prev;
+		bool leftbutton_prev = leftbutton;
+		leftbutton = mouse.LeftButton == ButtonState.Pressed;
+		bool leftclickpressed = leftbutton && !leftbutton_prev;
 		if (leftclickpressed) {
 			click_pos = mouse.Position - view_pos;
 		}
-		if (IsActive && leftclickheld) {
+		if (IsActive && leftbutton) {
 			view_pos = mouse.Position - click_pos;
 		}
 

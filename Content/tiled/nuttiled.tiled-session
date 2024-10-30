@@ -1,8 +1,8 @@
 {
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
-        "collection_sheet",
-        "."
+        ".",
+        "collection_sheet"
     ],
     "fileStates": {
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/Chips.tsx": {
@@ -39,11 +39,15 @@
             "scaleInEditor": 1
         },
         "map.tmx": {
-            "scale": 1,
-            "selectedLayer": 1,
+            "expandedGroupLayers": [
+                21,
+                19
+            ],
+            "scale": 0.5,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 485.5,
-                "y": 513
+                "x": 645,
+                "y": 345
             }
         },
         "tilemap.tsx": {
@@ -57,15 +61,17 @@
     "last.objectTemplatePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
     "openFiles": [
-        "map.tmx"
+        "map.tmx",
+        "Rando.tsx",
+        "tilemap.tsx"
     ],
     "project": "nuttiled.tiled-project",
     "property.type": "file",
     "recentFiles": [
-        "map.tmx",
-        "Rando.tsx",
-        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx",
         "tilemap.tsx",
+        "Rando.tsx",
+        "map.tmx",
+        "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx",
         "collection_sheet/Rando.tsx",
         "Chips.tsx"
     ],

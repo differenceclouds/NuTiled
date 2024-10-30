@@ -115,6 +115,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <imagelayer id="20" name="image_in_group" offsetx="84" offsety="411.5" repeatx="1">
+  <image source="zigg.png" width="300" height="225"/>
+ </imagelayer>
  <layer id="17" name="CollectionTiles" width="30" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -141,9 +144,6 @@
  </layer>
  <group id="19" name="Group 1">
   <group id="21" name="Group 2">
-   <imagelayer id="20" name="image_in_group" offsetx="344" offsety="526" repeatx="1">
-    <image source="zigg.png" width="300" height="225"/>
-   </imagelayer>
    <objectgroup draworder="index" id="12" name="Stamps" locked="1" tintcolor="#ffff7f">
     <object id="15" gid="1" x="431.639" y="397.475" width="64" height="64" rotation="30"/>
     <object id="16" gid="1" x="407.992" y="403.781" width="64" height="64"/>
