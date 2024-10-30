@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin test_maps/level25-Tileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:test_maps/level25-Tileset.png
+
+#begin test_maps/magiclanddizzy_tiles.gif
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:test_maps/magiclanddizzy_tiles.gif
+
 #begin tiled/chess_tiles.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -37,7 +61,7 @@
 /processorParam:TextureFormat=Color
 /build:tiled/chips_64.png
 
-#begin tiled/collection_sheet/cans.png
+#begin tiled/collection_sheet/cans_400.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:tiled/collection_sheet/cans.png
+/build:tiled/collection_sheet/cans_400.png
 
-#begin tiled/collection_sheet/plant.png
+#begin tiled/collection_sheet/cups_400.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,7 +83,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:tiled/collection_sheet/plant.png
+/build:tiled/collection_sheet/cups_400.png
+
+#begin tiled/collection_sheet/plant_400.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tiled/collection_sheet/plant_400.png
 
 #begin tiled/junk.jpg
 /importer:TextureImporter

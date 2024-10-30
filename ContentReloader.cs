@@ -8,12 +8,15 @@ public class ContentReloader
 
 	NuTiled.Game1 game;
 
-	public ContentReloader(string pathToWatch, NuTiled.Game1 _game) {
+	public ContentReloader(string pathToWatch, string pathToWrite, NuTiled.Game1 _game) {
 		game = _game;
+		WritePath = Path.GetDirectoryName(pathToWrite);
 		_watcher = new FileSystemWatcher(pathToWatch);
 		_watcher.Changed += OnChanged;
 		_watcher.EnableRaisingEvents = true;
 	}
+
+	string WritePath;
 
 	private void OnChanged(object sender, FileSystemEventArgs e) {
 		string path = e.FullPath;
@@ -30,7 +33,7 @@ public class ContentReloader
 		string path_folder = Path.GetDirectoryName(path);
 		string filename = Path.GetFileNameWithoutExtension(path); //it actually registers a temp file with a random extension.
 		//Console.WriteLine(filename);
-		File.Copy(Path.Combine(path_folder, filename), Path.Combine("Content/tiled/", filename), true);
+		File.Copy(Path.Combine(path_folder, filename), Path.Combine(WritePath, filename), true);
 		game.ReloadMap();
 		Console.WriteLine($"wrote {filename}");
 	}

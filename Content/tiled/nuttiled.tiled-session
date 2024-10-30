@@ -1,8 +1,8 @@
 {
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
-        ".",
-        "collection_sheet"
+        "collection_sheet",
+        "."
     ],
     "fileStates": {
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/Chips.tsx": {
@@ -40,14 +40,14 @@
         },
         "map.tmx": {
             "expandedGroupLayers": [
-                21,
-                19
+                19,
+                21
             ],
-            "scale": 0.5,
-            "selectedLayer": 8,
+            "scale": 1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 645,
-                "y": 345
+                "x": 295.5,
+                "y": 266
             }
         },
         "tilemap.tsx": {

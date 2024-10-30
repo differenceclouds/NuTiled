@@ -26,6 +26,15 @@
     <ProjectReference Include="..\DotTiled\src\DotTiled\DotTiled.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\magic_map\MagicLand.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\test_maps\level25.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\test_maps\MagicLand.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\tiled\chips.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -28,14 +28,14 @@ public class Game1 : Game {
 	ContentReloader contentReloader;
 
 	protected override void LoadContent() {
-		contentReloader = new("../../../Content/tiled", this); //Only good for debug! 
+		contentReloader = new("../../../Content/test_maps", "Content/test_maps/", this); //Only good for debug! 
 		spriteBatch = new SpriteBatch(GraphicsDevice);
 		ReloadMap();
 	}
 
 
 	public void ReloadMap() {
-		tiledMap = new(Content, "tiled", "map.tmx");
+		tiledMap = new(Content, "test_maps", "MagicLand.tmx");
 	}
 
 
@@ -77,10 +77,10 @@ public class Game1 : Game {
 
 	protected override void Draw(GameTime gameTime) {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
-		spriteBatch.Begin(samplerState: SamplerState.PointWrap);
-
-		tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
-
+		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //PointWrap for pixelatted scaling and image layers with repeat-x or repeat-y
+		{
+			tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
+		}
 		spriteBatch.End();
 		base.Draw(gameTime);
 	}

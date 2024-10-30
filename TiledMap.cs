@@ -12,7 +12,13 @@ using System.Linq;
 namespace NuTiled;
 public class TiledMap {
 	//Trying to keep instance properties to a minimum and not make redundant classes that copy data.
-	//Rendering is presently very "immediate mode," with no data being retained other than the Dottiled classes.
+	//Rendering is presently very "immediate mode," with no data being retained other than from the loaded Dottiled classes.
+	//Planning to do a version where some converted data is retained and compare performance.
+
+	//Most positional float values are cast to int. this step could be pushed forward to the spritebatch.draw calls
+	//by using Vector2s instead of Points everywhere, for higher accuracy.
+	//In this case, a RectangleF struct (like monogame extended) could be introduced.
+
 	public Map Map { get; }
 
 	public Dictionary<Tileset, Texture2D> TilemapTextures { get; }
@@ -171,9 +177,11 @@ public class TiledMap {
 		Point offset = offset_f.ToPoint() + view_offset;
 
 		//could iterate over gids[], calculating x and y instead.
+		//Issue here with non-CSV, compressed map output
 		for (int y = 0; y < layer.Height; y++) {
 			for (int x = 0; x < layer.Width; x++) {
-				uint gid = gids[y * layer.Width + x];
+				//Console.WriteLine($"x: {x}, y: {y}");
+				uint gid = gids[(y * layer.Width + x)/* % gids.Length*/];
 				if (gid == 0) continue;
 
 				//could be more efficient by counting tilesets used on layer,
