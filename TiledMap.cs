@@ -20,12 +20,17 @@ public class TiledMap {
 	//In this case, a RectangleF struct (like monogame extended) could be introduced.
 
 	public Map Map { get; }
+	public string MapFile { get; }
+	public string ContentDirectory { get; }
 
+	/// <summary>
+	/// Only current Game1 tiledMap is reloaded.
+	/// </summary>
+	public static bool ReloadFlag { get; set; }
 	public Dictionary<Tileset, Texture2D> TilemapTextures { get; }
 	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; }
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; }
-
-	public Color BackgroundColor => ColorFromColor(Map.BackgroundColor);
+	public Color BackgroundColor => ColorToColor(Map.BackgroundColor);
 
 
 	public static Rectangle TileSourceBounds(Tile tile) {
@@ -53,6 +58,8 @@ public class TiledMap {
 
 
 	public TiledMap(ContentManager content, string path, string map_filename) {
+		MapFile = map_filename;
+		ContentDirectory = path;
 
 		//Using DotTiled's loader.
 		//Set .tmx, .tsx, and .tx files to "Copy if newer."
@@ -68,9 +75,25 @@ public class TiledMap {
 		//https://github.com/dcronqvist/DotTiled/issues/42
 		string[] classes = [
 			"Goblin",
-			"Shape",
+			//"Shape",
 		];
-		var classDefinitions = classes.Select(c => new CustomClassDefinition { Name = c });
+		List<CustomClassDefinition> classDefinitions = new();
+		foreach(var c in classes) {
+			classDefinitions.Add(new CustomClassDefinition { Name = c });
+		}
+
+		var shape = new CustomClassDefinition {
+			Name = "Shape",
+			Members = [ // Make sure that the default values match the Tiled UI
+				//new BoolProperty   { Name = "Enabled",        Value = true },
+				//new IntProperty    { Name = "MaxSpawnAmount", Value = 10 },
+				//new IntProperty    { Name = "MinSpawnAmount", Value = 0 },
+				//new StringProperty { Name = "MonsterNames",   Value = "" }
+				new ColorProperty  { Name = "FillColor", Value = ColorToColor(Color.Transparent) }
+			]
+		};
+		classDefinitions.Add(shape);
+
 		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
 
 		//var loader = Loader.Default();
@@ -111,8 +134,8 @@ public class TiledMap {
 				case TileLayer tilelayer:
 					uint[] gids = GetLayerGIDs(tilelayer);
 					//uint[] gids = tilelayer.Data.GlobalTileIDs;
-					for (int i = 0; i < gids.Length; i++) {
-						if (gids[i] > 1000000) throw new Exception("gid " + gids[i] + " is too large (tiled export glitch)");
+					foreach(var gid in gids) {
+						if (gid > 1000000) throw new Exception("gid " + gid + " is too large (tiled export glitch)");
 					}
 					break;
 				case ObjectLayer objectlayer: {
@@ -170,34 +193,27 @@ public class TiledMap {
 			return;
 		}
 		uint[] gids = GetLayerGIDs(layer);
-		Color tint = ColorFromColor(layer.TintColor);
+		Color tint = ColorToColor(layer.TintColor);
 		float opacity = layer.Opacity * group_opacity;
 
 		Vector2 offset_f = new(layer.OffsetX, layer.OffsetY);
 		Point offset = offset_f.ToPoint() + view_offset;
 
-		//could iterate over gids[], calculating x and y instead.
 		//Issue here with non-CSV, compressed map output
-		for (int y = 0; y < layer.Height; y++) {
-			for (int x = 0; x < layer.Width; x++) {
-				//Console.WriteLine($"x: {x}, y: {y}");
-				uint gid = gids[(y * layer.Width + x)/* % gids.Length*/];
-				if (gid == 0) continue;
+		for (uint i = 0; i < gids.Length; i++) {
+			uint gid = gids[i];
+			if (gid == 0) continue;
+			int x = (int)(i % layer.Width);
+			int y = (int)(i / layer.Width);
+			(Tileset tileset, Tile tile) = GetTilesetFromGID(gid);
 
-				//could be more efficient by counting tilesets used on layer,
-				//and avoiding the following function is there is only one tileset used.
-				//Or, creating a huge Dictionary<gid,tileset? on map load?
-				(Tileset tileset, Tile tile) = GetTilesetFromGID(gid);
+			uint id = gid - tileset.FirstGID;
+			Point coord = new(x, y);
 
-				uint id = gid - tileset.FirstGID;
-				Point coord = new(x, y);
-
-				if (tileset.Image.HasValue) {
-					DrawTile(spritebatch, id, tileset, coord, offset, tint, opacity);
-				} else {
-					DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, opacity);
-				}
-
+			if (tileset.Image.HasValue) {
+				DrawTile(spritebatch, id, tileset, coord, offset, tint, opacity);
+			} else {
+				DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, opacity);
 			}
 		}
 	}
@@ -230,7 +246,7 @@ public class TiledMap {
 		Point layer_offset = LayerOffset(layer);
 		Texture2D texture = ImageLayerTextures[layer];
 		float opacity = layer.Opacity * group_opacity;
-		Color tint = ColorFromColor(layer.TintColor);
+		Color tint = ColorToColor(layer.TintColor);
 
 		//Spritebatch should be using samplerstate with wrap for repeat
 		bool repeatX = BoolFromBool(layer.RepeatX, false);
@@ -279,12 +295,12 @@ public class TiledMap {
 
 	public void DrawTileObject(SpriteBatch spritebatch, TileObject obj, ObjectLayer layer, Point view_offset, float group_opacity) {
 		if (!obj.Visible) return;
-		float layerDepth = 1;
+		const float layerDepth = 1;
 
  		(Tileset tileset, Tile tile) = GetTilesetFromGID(obj.GID);
 		uint id = obj.GID - tileset.FirstGID;
 
-		Color layer_tint = ColorFromColor(layer.TintColor);
+		Color layer_tint = ColorToColor(layer.TintColor);
 		Point layer_offset = LayerOffset(layer);
 		Point offset = layer_offset + view_offset;
 		float opacity = layer.Opacity * group_opacity;
@@ -295,7 +311,7 @@ public class TiledMap {
 
 		if (tileset.Image.HasValue) { //Normal tileset tile
 			Texture2D texture = TilemapTextures[tileset];
-			Rectangle source_rect = GetTilesetSourceRect(id, tileset);
+			Rectangle source_rect = GetSourceRect(id, tileset);
 			Vector2 origin = new(0, tileset.TileHeight);
 			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
 				rotation: rotation, origin: origin, SpriteEffects.None, layerDepth);
@@ -314,7 +330,7 @@ public class TiledMap {
 
 	public void DrawTile(SpriteBatch spritebatch, uint tile_id, Tileset tileset, Point coord, Point offset, Color tint, float opacity) {
 		Texture2D texture = TilemapTextures[tileset];
-		Rectangle source_rect = GetTilesetSourceRect(tile_id, tileset);
+		Rectangle source_rect = GetSourceRect(tile_id, tileset);
 		Rectangle dest_rect = new Rectangle(TileSize(tileset) * coord + offset, TileSize(tileset));
 		spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity);
 	}
@@ -323,10 +339,8 @@ public class TiledMap {
 		//TODO: Tile Render Size, Fill Mode (?), Orientation
 		//Object alignment doesn't apply here?
 
-		float layerDepth = 1.0f;
-		Vector2 origin;
-		origin = new Vector2(0, tile.Height);
-		//origin = Vector2.Zero;
+		const float layerDepth = 1.0f;
+		Vector2 origin = new Vector2(0, tile.Height);
 
 		Texture2D texture = TileCollectionTextures[tile];
 		coord.Y += 1; //image draws from bottom left of map tile
@@ -352,8 +366,8 @@ public class TiledMap {
 
 
 
-	public static bool BoolFromBool(Optional<bool> dottiled_bool, bool default_value = false) {
-		return dottiled_bool.HasValue ? dottiled_bool : default_value;
+	public static bool BoolFromBool(Optional<bool> optional_bool, bool default_value = false) {
+		return optional_bool.HasValue ? optional_bool : default_value;
 	}
 
 	/// <summary>
@@ -361,8 +375,7 @@ public class TiledMap {
 	/// </summary>
 	/// <param name="default_color">ColorConstants class has matching list of
 	/// const UInt32s that can be provided to the Color constructor</param>
-	/// <returns></returns>
-	public static Color ColorFromColor(Optional<DotTiled.Color> dottiled_color, UInt32 default_color = ColorConstants.White) {
+	public static Microsoft.Xna.Framework.Color ColorToColor(Optional<DotTiled.Color> dottiled_color, uint default_color = ColorConstants.White) {
 		if (dottiled_color.HasValue) {
 			var c = dottiled_color.Value;
 			return new Color(c.R, c.G, c.B, c.A);
@@ -374,15 +387,24 @@ public class TiledMap {
 	/// <summary>
 	/// Converts a DotTiled Color to an XNA Color.
 	/// </summary>
-	/// <param name="c"></param>
-	/// <returns></returns>
-	public static Color ColorFromColor(DotTiled.Color c) {
+	public static Microsoft.Xna.Framework.Color ColorToColor(DotTiled.Color c) {
 		return new Color(c.R, c.G, c.B, c.A);
 	}
 
+	/// <summary>
+	/// Converts XNA Color to Dottiled Color
+	/// </summary>
+	public static DotTiled.Color ColorToColor(Microsoft.Xna.Framework.Color c) {
+		return new DotTiled.Color() {
+			R = c.R,
+			G = c.G,
+			B = c.B,
+			A = c.A
+		};
+	}
 
 
-	public static Rectangle GetTilesetSourceRect(uint id, Tileset tileset) {
+	public static Rectangle GetSourceRect(uint id, Tileset tileset) {
 		uint col = id % tileset.Columns;
 		uint row = id / tileset.Columns;
 

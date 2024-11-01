@@ -40,14 +40,14 @@
         },
         "map.tmx": {
             "expandedGroupLayers": [
-                19,
-                21
+                21,
+                19
             ],
             "scale": 1,
-            "selectedLayer": 5,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 295.5,
-                "y": 266
+                "x": 181.5,
+                "y": 265.5
             }
         },
         "tilemap.tsx": {

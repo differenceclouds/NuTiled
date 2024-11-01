@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace NuTiled;
 public class Game1 : Game {
@@ -8,18 +9,19 @@ public class Game1 : Game {
 	private SpriteBatch spriteBatch;
 
 
-
-
-
 	public Game1() {
 		graphics = new GraphicsDeviceManager(this);
 		Content.RootDirectory = "Content";
 		IsMouseVisible = true;
-		graphics.PreferredBackBufferWidth = 1024;
-		graphics.PreferredBackBufferHeight = 768;
+
 	}
 
+	//public float Zoom { get; } = 2;
+
 	protected override void Initialize() {
+		graphics.PreferredBackBufferWidth = 1024;
+		graphics.PreferredBackBufferHeight = 768;
+		graphics.ApplyChanges();
 		base.Initialize();
 	}
 
@@ -28,14 +30,28 @@ public class Game1 : Game {
 	ContentReloader contentReloader;
 
 	protected override void LoadContent() {
-		contentReloader = new("../../../Content/test_maps", "Content/test_maps/", this); //Only good for debug! 
 		spriteBatch = new SpriteBatch(GraphicsDevice);
-		ReloadMap();
+		tiledMap = new(Content, "tiled", "map.tmx");
+		InitContentReloader();
+	}
+
+
+	void InitContentReloader() {
+#if (DEBUG || TEST)
+		var solution_content_dir = "../../../Content/";
+		contentReloader = new(Path.Combine(solution_content_dir, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
+#else
+		//If auto-reload is not desired, comment this out. R Key reloads map from file system regardless.
+		contentReloader = new(Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
+#endif
 	}
 
 
 	public void ReloadMap() {
-		tiledMap = new(Content, "test_maps", "MagicLand.tmx");
+		string path = tiledMap.ContentDirectory;
+		string file = tiledMap.MapFile;
+		tiledMap = new(Content, path, file);
+		TiledMap.ReloadFlag = false;
 	}
 
 
@@ -55,7 +71,7 @@ public class Game1 : Game {
 
 		bool reset_prev = reset;
 		reset = keyboard.IsKeyDown(Keys.R);
-		if (reset && !reset_prev) {
+		if ((reset && !reset_prev) || TiledMap.ReloadFlag) {
 			ReloadMap();
 		}
 
