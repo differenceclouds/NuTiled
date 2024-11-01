@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Color = Microsoft.Xna.Framework.Color;
-using System.Linq;
 
 namespace NuTiled;
 public class TiledMap {
@@ -18,6 +17,8 @@ public class TiledMap {
 	//Most positional float values are cast to int. this step could be pushed forward to the spritebatch.draw calls
 	//by using Vector2s instead of Points everywhere, for higher accuracy.
 	//In this case, a RectangleF struct (like monogame extended) could be introduced.
+
+	const bool RUNTIME_IMAGE_LOADING = true;
 
 	public Map Map { get; }
 	public string MapFile { get; }
@@ -32,6 +33,10 @@ public class TiledMap {
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; }
 	public Color BackgroundColor => ColorToColor(Map.BackgroundColor);
 
+	public readonly List<CustomClassDefinition> CustomClassDefinitions;
+
+	ContentManager Content;
+	GraphicsDevice graphics;
 
 	public static Rectangle TileSourceBounds(Tile tile) {
 		return new((int)tile.X, (int)tile.Y, (int)tile.Width, (int)tile.Height);
@@ -57,42 +62,19 @@ public class TiledMap {
 
 
 
-	public TiledMap(ContentManager content, string path, string map_filename) {
+	public TiledMap(ContentManager content, GraphicsDevice _graphics, string path, string map_filename, List<CustomClassDefinition> classDefinitions) {
+		Content = content;
+		graphics = _graphics;
 		MapFile = map_filename;
 		ContentDirectory = path;
+		CustomClassDefinitions = classDefinitions;
 
 		//Using DotTiled's loader.
-		//Set .tmx, .tsx, and .tx files to "Copy if newer."
+		//Set .tmx, .tsx, and .tx files to "Copy if newer." 
 		//Currently, all .tsx and .tx files must be in the same directory as the main map file, or relative paths break.
 		//Image files can be in subfolders.
 		//Don't add these files to the MGCB.
 		//Images are loaded below using monogame Content loader, so all associated image files should be added to the MGCB.
-		//TODO: add runtime image loader.
-
-
-		//The following is a workaround so if any objects with the Class property are found,
-		//an exception isn't thrown if a matching class isn't implemented properly.
-		//https://github.com/dcronqvist/DotTiled/issues/42
-		string[] classes = [
-			"Goblin",
-			//"Shape",
-		];
-		List<CustomClassDefinition> classDefinitions = new();
-		foreach(var c in classes) {
-			classDefinitions.Add(new CustomClassDefinition { Name = c });
-		}
-
-		var shape = new CustomClassDefinition {
-			Name = "Shape",
-			Members = [ // Make sure that the default values match the Tiled UI
-				//new BoolProperty   { Name = "Enabled",        Value = true },
-				//new IntProperty    { Name = "MaxSpawnAmount", Value = 10 },
-				//new IntProperty    { Name = "MinSpawnAmount", Value = 0 },
-				//new StringProperty { Name = "MonsterNames",   Value = "" }
-				new ColorProperty  { Name = "FillColor", Value = ColorToColor(Color.Transparent) }
-			]
-		};
-		classDefinitions.Add(shape);
 
 		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
 
@@ -103,32 +85,32 @@ public class TiledMap {
 		TileCollectionTextures = new();
 		ImageLayerTextures = new();
 
-		InitTilesets(Map.Tilesets, content, path);
-		InitLayerGroup(Map.Layers, content, path);
+		InitTilesets(Map.Tilesets, path);
+		InitLayerGroup(Map.Layers, path);
 	}
 
 
-	private void InitTilesets(List<Tileset> tilesets, ContentManager content, string path) {
+	private void InitTilesets(List<Tileset> tilesets, string path) {
 		foreach (Tileset tileset in tilesets) {
 			if (tileset.Image.HasValue) {
-				TilemapTextures.Add(tileset, LoadImage(content, path, tileset.Image));
+				TilemapTextures.Add(tileset, LoadImage(path, tileset.Image));
 			} else {
 				foreach (Tile tile in tileset.Tiles) {
-					TileCollectionTextures.Add(tile, LoadImage(content, path, tile.Image));
+					TileCollectionTextures.Add(tile, LoadImage(path, tile.Image));
 				}
 			}
 		}
 	}
 
-	private void InitLayerGroup(List<BaseLayer> layers, ContentManager content, string path) {
+	private void InitLayerGroup(List<BaseLayer> layers, string path) {
 		foreach (BaseLayer layer in layers) {
 			switch (layer) {
 				case Group group:
-					InitLayerGroup(group.Layers, content, path);
+					InitLayerGroup(group.Layers, path);
 					break;
 				case ImageLayer imagelayer:
 					if (!imagelayer.Image.HasValue) break;
-					Texture2D image_texture = LoadImage(content, path, imagelayer.Image);
+					Texture2D image_texture = LoadImage(path, imagelayer.Image);
 					ImageLayerTextures.Add(imagelayer, image_texture);
 					break;
 				case TileLayer tilelayer:
@@ -444,12 +426,27 @@ public class TiledMap {
 		//}
 	}
 
+	public Texture2D LoadImage(string content_subfolder, Image image, bool runtime_loading = RUNTIME_IMAGE_LOADING) {
+		if (runtime_loading)
+			return LoadImage(graphics, content_subfolder, image);
+		else
+			return LoadImage(Content, content_subfolder, image);
+	}
+
 	public static Texture2D LoadImage(ContentManager content, string content_subfolder, Image image) {
 		string relative_path = image.Source;
 		string file = Path.GetFileNameWithoutExtension(relative_path);
 		string folder = Path.GetDirectoryName(relative_path);
 		string path = Path.Combine(content_subfolder, folder, file);
 		return content.Load<Texture2D>(path);
+	}
+
+	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string content_subfolder, Image image) {
+		string relative_path = image.Source;
+		string file = Path.GetFileName(relative_path);
+		string folder = Path.GetDirectoryName(relative_path);
+		string path = Path.Combine(content_subfolder, folder, file);
+		return TextureHelper.LoadTextureStream(graphicsDevice, path); //Slowest step of reload by far
 	}
 
 }

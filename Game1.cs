@@ -1,7 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DotTiled;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System.IO;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace NuTiled;
 public class Game1 : Game {
@@ -31,8 +34,33 @@ public class Game1 : Game {
 
 	protected override void LoadContent() {
 		spriteBatch = new SpriteBatch(GraphicsDevice);
-		tiledMap = new(Content, "tiled", "map.tmx");
+		InitTiledMap();
 		InitContentReloader();
+	}
+
+	void InitTiledMap() {
+		//The following is a workaround so if any objects with the Class property are found,
+		//an exception isn't thrown if a matching class isn't implemented properly.
+		//https://github.com/dcronqvist/DotTiled/issues/42
+		string[] classes = [
+			"Goblin",
+			//"Shape",
+		];
+		List <CustomClassDefinition> customClassDefinitions = new();
+		foreach (var c in classes) {
+			customClassDefinitions.Add(new CustomClassDefinition { Name = c });
+		}
+
+		//And the implemented classes here:
+		var shape = new CustomClassDefinition {
+			Name = "Shape",
+			Members = [
+				new ColorProperty  { Name = "FillColor", Value = TiledMap.ColorToColor(Color.Transparent) }
+			]
+		};
+		customClassDefinitions.Add(shape);
+
+		tiledMap = new(Content, graphics.GraphicsDevice, "tiled", "map.tmx", customClassDefinitions);
 	}
 
 
@@ -50,7 +78,8 @@ public class Game1 : Game {
 	public void ReloadMap() {
 		string path = tiledMap.ContentDirectory;
 		string file = tiledMap.MapFile;
-		tiledMap = new(Content, path, file);
+		var classDefinitions = tiledMap.CustomClassDefinitions;
+		tiledMap = new(Content, graphics.GraphicsDevice, path, file, classDefinitions);
 		TiledMap.ReloadFlag = false;
 	}
 
@@ -58,8 +87,7 @@ public class Game1 : Game {
 	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
 	bool reset;
-	bool leftbutton;
-
+	bool leftclickheld;
 	Point click_pos;
 	Point view_pos;
 
@@ -75,13 +103,13 @@ public class Game1 : Game {
 			ReloadMap();
 		}
 
-		bool leftbutton_prev = leftbutton;
-		leftbutton = mouse.LeftButton == ButtonState.Pressed;
-		bool leftclickpressed = leftbutton && !leftbutton_prev;
+		bool leftclick_prev = leftclickheld;
+		leftclickheld = mouse.LeftButton == ButtonState.Pressed;
+		bool leftclickpressed = leftclickheld && !leftclick_prev;
 		if (leftclickpressed) {
 			click_pos = mouse.Position - view_pos;
 		}
-		if (IsActive && leftbutton) {
+		if (IsActive && leftclickheld) {
 			view_pos = mouse.Position - click_pos;
 		}
 
@@ -94,9 +122,7 @@ public class Game1 : Game {
 	protected override void Draw(GameTime gameTime) {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
 		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //PointWrap for pixelatted scaling and image layers with repeat-x or repeat-y
-		{
 			tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
-		}
 		spriteBatch.End();
 		base.Draw(gameTime);
 	}
