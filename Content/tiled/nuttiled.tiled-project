@@ -11,20 +11,6 @@
     ],
     "propertyTypes": [
         {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 1,
-            "members": [
-            ],
-            "name": "Goblin",
-            "type": "class",
-            "useAs": [
-                "property",
-                "object",
-                "project"
-            ]
-        },
-        {
             "color": "#ff62a485",
             "drawFill": true,
             "id": 3,
@@ -33,19 +19,23 @@
                     "name": "FillColor",
                     "type": "color",
                     "value": ""
-                },
-                {
-                    "name": "FillTexture",
-                    "type": "file",
-                    "value": ""
-                },
-                {
-                    "name": "OutlineColor",
-                    "type": "color",
-                    "value": ""
                 }
             ],
-            "name": "Shape",
+            "name": "FilledShape",
+            "type": "class",
+            "useAs": [
+                "property",
+                "object",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 1,
+            "members": [
+            ],
+            "name": "Goblin",
             "type": "class",
             "useAs": [
                 "property",

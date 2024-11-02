@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map.tmx",
+    "activeFile": "Castlevania.tsx",
     "expandedProjectPaths": [
         "collection_sheet",
         "."
@@ -29,11 +29,13 @@
         },
         "Castlevania.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 5.5
         },
         "Chess.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "Chips.tsx": {
             "dynamicWrapping": false,
@@ -52,19 +54,19 @@
         },
         "map.tmx": {
             "expandedGroupLayers": [
-                21,
-                19
+                19,
+                21
             ],
             "scale": 1,
-            "selectedLayer": 8,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 181.5,
-                "y": 265.5
+                "x": 221.5,
+                "y": 1117
             }
         },
         "tilemap.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         }
     },
@@ -75,18 +77,22 @@
     "openFiles": [
         "map.tmx",
         "Rando.tsx",
-        "tilemap.tsx"
+        "tilemap.tsx",
+        "Chips.tsx",
+        "Chess.tsx",
+        "Castlevania.tsx"
     ],
     "project": "nuttiled.tiled-project",
     "property.type": "file",
     "recentFiles": [
         "Castlevania.tsx",
-        "tilemap.tsx",
-        "Rando.tsx",
         "map.tmx",
+        "Rando.tsx",
+        "tilemap.tsx",
+        "Chips.tsx",
+        "Chess.tsx",
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx",
-        "collection_sheet/Rando.tsx",
-        "Chips.tsx"
+        "collection_sheet/Rando.tsx"
     ],
     "stampsFolder": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/Stamps",
     "tileset.lastUsedFormat": "tsx",

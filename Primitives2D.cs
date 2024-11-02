@@ -39,7 +39,7 @@ namespace Microsoft.Xna.Framework {
 		/// <param name="points">The points to connect with lines</param>
 		/// <param name="color">The color to use</param>
 		/// <param name="thickness">The thickness of the lines</param>
-		private static void DrawPoints(SpriteBatch spriteBatch, Vector2 position, List<Vector2> points, Color color, float thickness) {
+		public static void DrawPoints(SpriteBatch spriteBatch, Vector2 position, List<Vector2> points, Color color, float thickness) {
 			if (points.Count < 2)
 				return;
 
@@ -468,6 +468,125 @@ namespace Microsoft.Xna.Framework {
 		/// <param name="thickness">The thickness of the lines used</param>
 		public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color, float thickness = 1.0f) {
 			DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, thickness);
+		}
+
+		#endregion
+
+
+
+		#region DrawEllipse
+
+		/// <summary>
+		/// Draw a filled ellipse from a bounding rectangle.
+		/// </summary>
+		/// <param name="spriteBatch">The destination drawing surface</param>
+		/// <param name="rect">the rectangle which bounds the ellipse</param>
+		/// <param name="color">the color of the ellipse</param>
+		public static void DrawEllipse(this SpriteBatch spriteBatch, Rectangle rect, Color color) {
+			DrawEllipse(spriteBatch, rect.X + rect.Width / 2, rect.Y + rect.Height / 2, rect.Width/2, rect.Height/2, color);
+		}
+
+		public static void FillEllipse(this SpriteBatch spriteBatch, Rectangle rect, Color color) {
+			FillEllipse(spriteBatch, rect.X + rect.Width / 2, rect.Y + rect.Height / 2, rect.Width / 2, rect.Height / 2, color);
+		}
+
+
+		public static void DrawEllipse(this SpriteBatch spriteBatch, float xc, float yc, float rx, float ry, Color color) {
+			var points = CreateEllipse(xc, yc, rx, ry);
+			foreach(var p in points) {
+				PutPixel(spriteBatch, p, color);
+			}
+		}
+
+		public static void FillEllipse(this SpriteBatch spriteBatch, float xc, float yc, float rx, float ry, Color color) {
+			var points = CreateEllipse(xc, yc, rx, ry);
+			DrawPoints(spriteBatch, Vector2.Zero, points, color, 1);
+		}
+
+		/// <param name="xc">center X of the ellipse</param>
+		/// <param name="yc">center Y of the ellipse</param>
+		/// <param name="rx">horizontal radius of the ellipse</param>
+		/// <param name="ry">vertical radius of the ellipse</param>
+		private static List<Vector2> CreateEllipse(float xc, float yc, float rx, float ry) {
+			List<Vector2> points = new();
+
+			float dx, dy, d1, d2, x, y;
+			x = 0;
+			y = ry;
+
+			// Initial decision parameter of region 1
+			d1 = (ry * ry) - (rx * rx * ry) +
+							(0.25f * rx * rx);
+			dx = 2 * ry * ry * x;
+			dy = 2 * rx * rx * y;
+			// For region 1
+			while (dx < dy) {
+
+				//cout << x + xc << " , " << y + yc << endl;
+				//cout << -x + xc << " , " << y + yc << endl;
+				//cout << x + xc << " , " << -y + yc << endl;
+				//cout << -x + xc << " , " << -y + yc << endl;
+
+				points.Add(new(x + xc, y + yc));
+				points.Add(new(-x + xc, y + yc));
+				points.Add(new(x + xc, -y + yc));
+				points.Add(new(-x + xc, -y + yc));
+
+
+
+				// Checking and updating value of
+				// decision parameter based on algorithm
+				if (d1 < 0) {
+					x++;
+					dx = dx + (2 * ry * ry);
+					d1 = d1 + dx + (ry * ry);
+				} else {
+					x++;
+					y--;
+					dx = dx + (2 * ry * ry);
+					dy = dy - (2 * rx * rx);
+					d1 = d1 + dx - dy + (ry * ry);
+				}
+			}
+
+			// Decision parameter of region 2
+			d2 = ((ry * ry) * ((x + 0.5f) * (x + 0.5f)))
+				+ ((rx * rx) * ((y - 1) * (y - 1)))
+				- (rx * rx * ry * ry);
+
+			// Plotting points of region 2
+			while (y >= 0) {
+
+				//cout << x + xc << " , " << y + yc << endl;
+				//cout << -x + xc << " , " << y + yc << endl;
+				//cout << x + xc << " , " << -y + yc << endl;
+				//cout << -x + xc << " , " << -y + yc << endl;
+
+				points.Add(new(x + xc, y + yc));
+				points.Add(new(-x + xc, y + yc));
+				points.Add(new(x + xc, -y + yc));
+				points.Add(new(-x + xc, -y + yc));
+
+
+				// Checking and updating parameter
+				// value based on algorithm
+				if (d2 > 0) {
+					y--;
+					dy = dy - (2 * rx * rx);
+					d2 = d2 + (rx * rx) - dy;
+				} else {
+					y--;
+					x++;
+					dx = dx + (2 * ry * ry);
+					dy = dy - (2 * rx * rx);
+					d2 = d2 + dx - dy + (rx * rx);
+				}
+			}
+			//foreach(var p in points) {
+			//	PutPixel(spriteBatch, p, color);
+			//}
+			//DrawPoints(spriteBatch, Vector2.Zero, Points, color, 1);
+			return points;
 		}
 
 		#endregion

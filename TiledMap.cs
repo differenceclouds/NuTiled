@@ -58,11 +58,11 @@ public class TiledMap {
 
 
 
-	public TiledMap(/*ContentManager content, */GraphicsDevice graphicsDevice, string path, string map_filename, List<CustomClassDefinition> classDefinitions) {
+	public TiledMap(/*ContentManager content, */GraphicsDevice graphicsDevice, string path, List<CustomClassDefinition> classDefinitions) {
 		//this.content = content;
 		this.graphicsDevice = graphicsDevice;
-		MapFile = map_filename;
-		ContentDirectory = path;
+		MapFile = Path.GetFileName(path);
+		ContentDirectory = Path.GetDirectoryName(path);
 		CustomClassDefinitions = classDefinitions;
 
 		//Using DotTiled's loader.
@@ -73,14 +73,14 @@ public class TiledMap {
 		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
 
 		//var loader = Loader.Default();
-		Map = loader.LoadMap(Path.Combine("Content", path, map_filename));
+		Map = loader.LoadMap(Path.Combine("Content", ContentDirectory, MapFile));
 
 		TilemapTextures = new();
 		TileCollectionTextures = new();
 		ImageLayerTextures = new();
 
-		InitTilesets(Map.Tilesets, path);
-		InitLayerGroup(Map.Layers, path);
+		InitTilesets(Map.Tilesets, ContentDirectory);
+		InitLayerGroup(Map.Layers, ContentDirectory);
 	}
 
 
@@ -203,23 +203,30 @@ public class TiledMap {
 	}
 
 	public void DrawObjectLayer(SpriteBatch spritebatch, Point view_offset, ObjectLayer layer, float group_opacity) {
-		foreach(var obj in layer.Objects) {
+		if (!layer.Visible) {
+			return;
+		}
+		foreach (var obj in layer.Objects) {
+			if(obj.Type == "FilledShape") { //idk man
+				var shape = obj.MapPropertiesTo<CustomTypes.FilledShape>();
+				shape.Draw(spritebatch, obj, view_offset);
+				continue;
+			}
 			switch (obj) {
 				case TileObject tileobject:
 					DrawTileObject(spritebatch, tileobject, layer, view_offset, group_opacity);
 					break;
-				//The following are very implementation-bound. 
-				case PolygonObject:
+				case PolygonObject polygon:
 					break;
-				case EllipseObject:
+				case EllipseObject ellipse:
 					break;
-				case PointObject:
+				case PointObject point:
 					break;
-				case PolylineObject:
+				case PolylineObject polyline:
 					break;
-				case RectangleObject:
+				case RectangleObject rect:
 					break;
-				case TextObject:
+				case TextObject text:
 					break;
 			}
 		}
@@ -380,14 +387,14 @@ public class TiledMap {
 	}
 
 	/// <summary>
-	/// Converts a DotTiled Color to an XNA Color.
+	/// Converts between XNA Color and Dottiled color, depending on overload.
 	/// </summary>
 	public static Microsoft.Xna.Framework.Color ColorToColor(DotTiled.Color c) {
 		return new Color(c.R, c.G, c.B, c.A);
 	}
 
 	/// <summary>
-	/// Converts XNA Color to Dottiled Color
+	/// Converts between XNA Color and Dottiled color, depending on overload.
 	/// </summary>
 	public static DotTiled.Color ColorToColor(Microsoft.Xna.Framework.Color c) {
 		return new DotTiled.Color() {

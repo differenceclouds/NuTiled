@@ -36,28 +36,21 @@ public class Game1 : Game {
 	}
 
 	void InitTiledMap() {
-		//The following is a workaround so if any objects with the Class property are found,
-		//an exception isn't thrown if a matching class isn't implemented properly.
+		//Add all un-implemented Tiled classes here:
 		//https://github.com/dcronqvist/DotTiled/issues/42
 		string[] classes = [
 			"Goblin",
-			//"Shape",
 		];
 		List <CustomClassDefinition> customClassDefinitions = new();
 		foreach (var c in classes) {
 			customClassDefinitions.Add(new CustomClassDefinition { Name = c });
 		}
 
-		//And the implemented classes here:
-		var shape = new CustomClassDefinition {
-			Name = "Shape",
-			Members = [
-				new ColorProperty  { Name = "FillColor", Value = TiledMap.ColorToColor(Color.Transparent) }
-			]
-		};
-		customClassDefinitions.Add(shape);
+		//And the properly implemented classes here:
+		customClassDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
 
-		tiledMap = new(graphics.GraphicsDevice, "tiled", "map.tmx", customClassDefinitions);
+
+		tiledMap = new(graphics.GraphicsDevice, "tiled/map.tmx", customClassDefinitions);
 	}
 
 
@@ -76,7 +69,7 @@ public class Game1 : Game {
 		string path = tiledMap.ContentDirectory;
 		string file = tiledMap.MapFile;
 		var classDefinitions = tiledMap.CustomClassDefinitions;
-		tiledMap = new(/*Content,*/ graphics.GraphicsDevice, path, file, classDefinitions);
+		tiledMap = new(graphics.GraphicsDevice, Path.Combine(path, file), classDefinitions);
 	}
 
 
@@ -121,6 +114,8 @@ public class Game1 : Game {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
 		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //Wrap for image layers with repeat-x or repeat-y
 			tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
+
+		//Primitives2D.FillEllipse(spriteBatch, new Rectangle(100 + view_pos.X, 150 + view_pos.Y, 100, 300), Color.Yellow);
 		spriteBatch.End();
 		base.Draw(gameTime);
 	}
