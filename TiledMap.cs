@@ -18,8 +18,6 @@ public class TiledMap {
 	//by using Vector2s instead of Points everywhere, for higher accuracy.
 	//In this case, a RectangleF struct (like monogame extended) could be introduced.
 
-	const bool RUNTIME_IMAGE_LOADING = true;
-
 	public Map Map { get; }
 	public string MapFile { get; }
 	public string ContentDirectory { get; }
@@ -30,6 +28,8 @@ public class TiledMap {
 	public Color BackgroundColor => ColorToColor(Map.BackgroundColor);
 
 	public readonly List<CustomClassDefinition> CustomClassDefinitions;
+
+	Dictionary<DotTiled.Object, CustomTypes.FilledShape> FilledShapes = new();
 
 	//ContentManager content;
 	GraphicsDevice graphicsDevice;
@@ -58,8 +58,7 @@ public class TiledMap {
 
 
 
-	public TiledMap(/*ContentManager content, */GraphicsDevice graphicsDevice, string path, List<CustomClassDefinition> classDefinitions) {
-		//this.content = content;
+	public TiledMap(GraphicsDevice graphicsDevice, string path, List<CustomClassDefinition> classDefinitions) {
 		this.graphicsDevice = graphicsDevice;
 		MapFile = Path.GetFileName(path);
 		ContentDirectory = Path.GetDirectoryName(path);
@@ -72,7 +71,6 @@ public class TiledMap {
 
 		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
 
-		//var loader = Loader.Default();
 		Map = loader.LoadMap(Path.Combine("Content", ContentDirectory, MapFile));
 
 		TilemapTextures = new();
@@ -114,15 +112,28 @@ public class TiledMap {
 						if (gid > 100000) throw new Exception("gid " + gid + " is too large (tiled export glitch, probably flip related)");
 					}
 					break;
-				case ObjectLayer objectlayer: {
+				case ObjectLayer objectlayer: 
 					SortObjectLayer(objectlayer, objectlayer.DrawOrder);
+					InitObjectLayer(objectlayer);
 					break;
-				}
+				
 
 			}
 		}
 	}
 
+	private void InitObjectLayer(ObjectLayer layer) {
+		foreach (var obj in layer.Objects) {
+			//Parse out custom types
+			switch (obj.Type) {
+				case "FilledShape": {
+					var shape = obj.MapPropertiesTo<CustomTypes.FilledShape>();
+					FilledShapes.Add(obj, shape);
+				}
+				break;
+			}
+		}
+	}
 
 	public static void SortObjectLayer(ObjectLayer layer, DrawOrder drawOrder) {
 		switch (drawOrder) {
@@ -208,8 +219,7 @@ public class TiledMap {
 		}
 		foreach (var obj in layer.Objects) {
 			if(obj.Type == "FilledShape") { //idk man
-				var shape = obj.MapPropertiesTo<CustomTypes.FilledShape>();
-				shape.Draw(spritebatch, obj, view_offset);
+				FilledShapes[obj].Draw(spritebatch, obj, view_offset);
 				continue;
 			}
 			switch (obj) {
