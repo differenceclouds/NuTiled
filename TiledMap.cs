@@ -31,7 +31,7 @@ public class TiledMap {
 
 	public readonly List<CustomClassDefinition> CustomClassDefinitions;
 
-	ContentManager content;
+	//ContentManager content;
 	GraphicsDevice graphicsDevice;
 
 	public static Rectangle TileSourceBounds(Tile tile) {
@@ -58,8 +58,8 @@ public class TiledMap {
 
 
 
-	public TiledMap(ContentManager content, GraphicsDevice graphicsDevice, string path, string map_filename, List<CustomClassDefinition> classDefinitions) {
-		this.content = content;
+	public TiledMap(/*ContentManager content, */GraphicsDevice graphicsDevice, string path, string map_filename, List<CustomClassDefinition> classDefinitions) {
+		//this.content = content;
 		this.graphicsDevice = graphicsDevice;
 		MapFile = map_filename;
 		ContentDirectory = path;
@@ -69,13 +69,11 @@ public class TiledMap {
 		//Set .tmx, .tsx, and .tx files to "Copy if newer." 
 		//Currently, all .tsx and .tx files must be in the same directory as the main map file, or relative paths break.
 		//Image files can be in subfolders.
-		//Don't add these files to the MGCB.
-		//Images are loaded below using monogame Content loader, so all associated image files should be added to the MGCB.
 
 		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
 
 		//var loader = Loader.Default();
-		Map = loader.LoadMap(Path.Combine(content.RootDirectory, path, map_filename));
+		Map = loader.LoadMap(Path.Combine("Content", path, map_filename));
 
 		TilemapTextures = new();
 		TileCollectionTextures = new();
@@ -89,10 +87,10 @@ public class TiledMap {
 	private void InitTilesets(List<Tileset> tilesets, string path) {
 		foreach (Tileset tileset in tilesets) {
 			if (tileset.Image.HasValue) {
-				TilemapTextures.Add(tileset, LoadImage(path, tileset.Image));
+				TilemapTextures.Add(tileset, LoadImage(graphicsDevice, path, tileset.Image));
 			} else {
 				foreach (Tile tile in tileset.Tiles) {
-					TileCollectionTextures.Add(tile, LoadImage(path, tile.Image));
+					TileCollectionTextures.Add(tile, LoadImage(graphicsDevice, path, tile.Image));
 				}
 			}
 		}
@@ -106,13 +104,13 @@ public class TiledMap {
 					break;
 				case ImageLayer imagelayer:
 					if (!imagelayer.Image.HasValue) break;
-					Texture2D image_texture = LoadImage(path, imagelayer.Image);
+					Texture2D image_texture = LoadImage(graphicsDevice, path, imagelayer.Image);
 					ImageLayerTextures.Add(imagelayer, image_texture);
 					break;
 				case TileLayer tilelayer:
-					uint[] gids = GetLayerGIDs(tilelayer);
-					//uint[] gids = tilelayer.Data.GlobalTileIDs;
-					foreach(var gid in gids) {
+					Data data = tilelayer.Data;
+					uint[] gids = data.GlobalTileIDs;
+					foreach (var gid in gids) {
 						if (gid > 100000) throw new Exception("gid " + gid + " is too large (tiled export glitch, probably flip related)");
 					}
 					break;
@@ -170,9 +168,6 @@ public class TiledMap {
 		if (!layer.Visible) {
 			return;
 		}
-		
-		//uint[] gids = GetLayerGIDs(layer);
-
 		Data data = layer.Data;
 		uint[] gids = data.GlobalTileIDs;
 		FlippingFlags[] flips = data.FlippingFlags;
@@ -194,7 +189,7 @@ public class TiledMap {
 			uint id = gid - tileset.FirstGID;
 			Point coord = new(x, y);
 
-			
+			//TODO: tile rotations
 			var flipX = flips[i].HasFlag(FlippingFlags.FlippedHorizontally) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 			var flipY = flips[i].HasFlag(FlippingFlags.FlippedVertically) ? SpriteEffects.FlipVertically : SpriteEffects.None;
 			SpriteEffects flip = flipX | flipY;
@@ -437,23 +432,13 @@ public class TiledMap {
 	}
 
 	public static uint[] GetLayerGIDs(TileLayer layer) {
-		//if(layer.Data.HasValue) {
-			Data data = layer.Data;
-			return data.GlobalTileIDs;
-		//} else {
-		//	return Array.Empty<uint>();
-		//}
+		Data data = layer.Data;
+		return data.GlobalTileIDs;
 	}
 
-	//public static FlippingFlags[] GetFlippingFlags(TileLayer layer) {
-	//	Data data 
-	//}
-
-	public Texture2D LoadImage(string content_subfolder, Image image, bool runtime_loading = RUNTIME_IMAGE_LOADING) {
-		if (runtime_loading)
-			return LoadImage(graphicsDevice, content_subfolder, image);
-		else
-			return LoadImage(content, content_subfolder, image);
+	public static FlippingFlags[] GetFlippingFlags(TileLayer layer) {
+		Data data = layer.Data;
+		return data.FlippingFlags;
 	}
 
 	public static Texture2D LoadImage(ContentManager content, string content_subfolder, Image image) {
@@ -464,12 +449,14 @@ public class TiledMap {
 		return content.Load<Texture2D>(path);
 	}
 
-	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string content_subfolder, Image image) {
+	public Texture2D LoadImage(GraphicsDevice graphicsDevice, string content_subfolder, Image image) {
 		string relative_path = image.Source;
 		string file = Path.GetFileName(relative_path);
 		string folder = Path.GetDirectoryName(relative_path);
 		string path = Path.Combine(content_subfolder, folder, file);
-		return TextureHelper.LoadTextureStream(graphicsDevice, path); //Slowest step of reload by far
+
+		//TODO: prevent redundant texture reloading. Slowest step of reload by far.
+		return TextureHelper.LoadTextureStream(graphicsDevice, path); 
 	}
 
 }

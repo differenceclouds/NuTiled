@@ -16,10 +16,7 @@ public class Game1 : Game {
 		graphics = new GraphicsDeviceManager(this);
 		Content.RootDirectory = "Content";
 		IsMouseVisible = true;
-
 	}
-
-	//public float Zoom { get; } = 2;
 
 	protected override void Initialize() {
 		graphics.PreferredBackBufferWidth = 1024;
@@ -60,7 +57,7 @@ public class Game1 : Game {
 		};
 		customClassDefinitions.Add(shape);
 
-		tiledMap = new(Content, graphics.GraphicsDevice, "tiled", "map.tmx", customClassDefinitions);
+		tiledMap = new(graphics.GraphicsDevice, "tiled", "map.tmx", customClassDefinitions);
 	}
 
 
@@ -69,7 +66,6 @@ public class Game1 : Game {
 		var solution_content_dir = "../../../Content/";
 		contentReloader = new(Path.Combine(solution_content_dir, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
 #else
-		//If auto-reload for release is not desired, comment this out. R Key reloads map from file system regardless.
 		contentReloader = new(Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
 #endif
 	}
@@ -79,7 +75,7 @@ public class Game1 : Game {
 		string path = tiledMap.ContentDirectory;
 		string file = tiledMap.MapFile;
 		var classDefinitions = tiledMap.CustomClassDefinitions;
-		tiledMap = new(Content, graphics.GraphicsDevice, path, file, classDefinitions);
+		tiledMap = new(/*Content,*/ graphics.GraphicsDevice, path, file, classDefinitions);
 	}
 
 
