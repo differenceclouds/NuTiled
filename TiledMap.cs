@@ -24,10 +24,6 @@ public class TiledMap {
 	public string MapFile { get; }
 	public string ContentDirectory { get; }
 
-	/// <summary>
-	/// Only current Game1 tiledMap is reloaded.
-	/// </summary>
-	public static bool ReloadFlag { get; set; }
 	public Dictionary<Tileset, Texture2D> TilemapTextures { get; }
 	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; }
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; }
@@ -35,8 +31,8 @@ public class TiledMap {
 
 	public readonly List<CustomClassDefinition> CustomClassDefinitions;
 
-	ContentManager Content;
-	GraphicsDevice graphics;
+	ContentManager content;
+	GraphicsDevice graphicsDevice;
 
 	public static Rectangle TileSourceBounds(Tile tile) {
 		return new((int)tile.X, (int)tile.Y, (int)tile.Width, (int)tile.Height);
@@ -62,9 +58,9 @@ public class TiledMap {
 
 
 
-	public TiledMap(ContentManager content, GraphicsDevice _graphics, string path, string map_filename, List<CustomClassDefinition> classDefinitions) {
-		Content = content;
-		graphics = _graphics;
+	public TiledMap(ContentManager content, GraphicsDevice graphicsDevice, string path, string map_filename, List<CustomClassDefinition> classDefinitions) {
+		this.content = content;
+		this.graphicsDevice = graphicsDevice;
 		MapFile = map_filename;
 		ContentDirectory = path;
 		CustomClassDefinitions = classDefinitions;
@@ -117,7 +113,7 @@ public class TiledMap {
 					uint[] gids = GetLayerGIDs(tilelayer);
 					//uint[] gids = tilelayer.Data.GlobalTileIDs;
 					foreach(var gid in gids) {
-						if (gid > 1000000) throw new Exception("gid " + gid + " is too large (tiled export glitch)");
+						if (gid > 100000) throw new Exception("gid " + gid + " is too large (tiled export glitch, probably flip related)");
 					}
 					break;
 				case ObjectLayer objectlayer: {
@@ -174,7 +170,13 @@ public class TiledMap {
 		if (!layer.Visible) {
 			return;
 		}
-		uint[] gids = GetLayerGIDs(layer);
+		
+		//uint[] gids = GetLayerGIDs(layer);
+
+		Data data = layer.Data;
+		uint[] gids = data.GlobalTileIDs;
+		FlippingFlags[] flips = data.FlippingFlags;
+		
 		Color tint = ColorToColor(layer.TintColor);
 		float opacity = layer.Opacity * group_opacity;
 
@@ -192,10 +194,15 @@ public class TiledMap {
 			uint id = gid - tileset.FirstGID;
 			Point coord = new(x, y);
 
+			
+			var flipX = flips[i].HasFlag(FlippingFlags.FlippedHorizontally) ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			var flipY = flips[i].HasFlag(FlippingFlags.FlippedVertically) ? SpriteEffects.FlipVertically : SpriteEffects.None;
+			SpriteEffects flip = flipX | flipY;
+
 			if (tileset.Image.HasValue) {
-				DrawTile(spritebatch, id, tileset, coord, offset, tint, opacity);
+				DrawTile(spritebatch, id, tileset, coord, offset, tint, opacity, flip);
 			} else {
-				DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, opacity);
+				DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, opacity, flip);
 			}
 		}
 	}
@@ -282,6 +289,7 @@ public class TiledMap {
  		(Tileset tileset, Tile tile) = GetTilesetFromGID(obj.GID);
 		uint id = obj.GID - tileset.FirstGID;
 
+
 		Color layer_tint = ColorToColor(layer.TintColor);
 		Point layer_offset = LayerOffset(layer);
 		Point offset = layer_offset + view_offset;
@@ -310,14 +318,24 @@ public class TiledMap {
 	
 
 
-	public void DrawTile(SpriteBatch spritebatch, uint tile_id, Tileset tileset, Point coord, Point offset, Color tint, float opacity) {
+	public void DrawTile(SpriteBatch spritebatch, uint tile_id, Tileset tileset, Point coord, Point offset, Color tint, float opacity, SpriteEffects flip = SpriteEffects.None) {
 		Texture2D texture = TilemapTextures[tileset];
 		Rectangle source_rect = GetSourceRect(tile_id, tileset);
-		Rectangle dest_rect = new Rectangle(TileSize(tileset) * coord + offset, TileSize(tileset));
-		spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity);
+		Point tile_size;
+		switch (tileset.RenderSize) {
+			default:
+			case TileRenderSize.Tile:
+				tile_size = TileSize(tileset);
+				break;
+			case TileRenderSize.Grid:
+				tile_size = TileSize(Map);
+				break;
+		}
+		Rectangle dest_rect = new Rectangle(TileSize(Map) * coord + offset, tile_size);
+		spritebatch.Draw(texture, dest_rect, source_rect, tint * opacity, 0,Vector2.Zero,flip, 1);
 	}
 
-	public void DrawCollectionTile(SpriteBatch spritebatch, Tile tile, Tileset tileset, Point coord, Point offset, Color tint, float opacity) {
+	public void DrawCollectionTile(SpriteBatch spritebatch, Tile tile, Tileset tileset, Point coord, Point offset, Color tint, float opacity, SpriteEffects flip = SpriteEffects.None) {
 		//TODO: Tile Render Size, Fill Mode (?), Orientation
 		//Object alignment doesn't apply here?
 
@@ -340,7 +358,7 @@ public class TiledMap {
 		}
 		dest.Location += offset;
 		Rectangle source = TileSourceBounds(tile);
-		spritebatch.Draw(texture, dest, source, tint * opacity, 0, origin, SpriteEffects.None, layerDepth);
+		spritebatch.Draw(texture, dest, source, tint * opacity, 0, origin, flip, layerDepth);
 	}
 
 
@@ -406,7 +424,8 @@ public class TiledMap {
 				}
 			} else {
 				//Collection tilesets can have missing IDs and IDs greater than the tile count
-				foreach(Tile tile in tileset.Tiles) {
+				
+				foreach (Tile tile in tileset.Tiles) {
 					if (tile.ID == gid - tileset.FirstGID) {
 						return (tileset, tile);
 					}
@@ -414,7 +433,7 @@ public class TiledMap {
 			}
 
 		}
-		throw new Exception("gid " + gid + " has a problem");
+		throw new Exception("gid " + gid + " has a problem. (DotTiled has trouble with tiles placed with the Insert Tile tool with a flip set.)");
 	}
 
 	public static uint[] GetLayerGIDs(TileLayer layer) {
@@ -426,11 +445,15 @@ public class TiledMap {
 		//}
 	}
 
+	//public static FlippingFlags[] GetFlippingFlags(TileLayer layer) {
+	//	Data data 
+	//}
+
 	public Texture2D LoadImage(string content_subfolder, Image image, bool runtime_loading = RUNTIME_IMAGE_LOADING) {
 		if (runtime_loading)
-			return LoadImage(graphics, content_subfolder, image);
+			return LoadImage(graphicsDevice, content_subfolder, image);
 		else
-			return LoadImage(Content, content_subfolder, image);
+			return LoadImage(content, content_subfolder, image);
 	}
 
 	public static Texture2D LoadImage(ContentManager content, string content_subfolder, Image image) {

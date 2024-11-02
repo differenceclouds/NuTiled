@@ -13,6 +13,7 @@
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 #endregion
+//modified from https://github.com/tainicom/XNALibrary/blob/master/Source/Helpers/TextureHelper.cs
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

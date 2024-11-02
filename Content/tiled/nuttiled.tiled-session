@@ -1,4 +1,8 @@
 {
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
     "activeFile": "map.tmx",
     "expandedProjectPaths": [
         "collection_sheet",
@@ -22,6 +26,14 @@
         },
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/tilemap.tsx": {
             "scaleInDock": 1
+        },
+        "Castlevania.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
+        "Chess.tsx": {
+            "dynamicWrapping": false
         },
         "Chips.tsx": {
             "dynamicWrapping": false,
@@ -57,7 +69,7 @@
         }
     },
     "last.externalTilesetPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
-    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/collection_sheet",
+    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTemplatePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
     "openFiles": [
@@ -68,6 +80,7 @@
     "project": "nuttiled.tiled-project",
     "property.type": "file",
     "recentFiles": [
+        "Castlevania.tsx",
         "tilemap.tsx",
         "Rando.tsx",
         "map.tmx",
@@ -77,11 +90,11 @@
     ],
     "stampsFolder": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/Stamps",
     "tileset.lastUsedFormat": "tsx",
-    "tileset.margin": 2,
-    "tileset.spacing": 2,
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
     "tileset.tileSize": {
         "height": 64,
         "width": 64
     },
-    "tileset.type": 1
+    "tileset.type": 0
 }

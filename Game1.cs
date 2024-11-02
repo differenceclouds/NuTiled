@@ -69,7 +69,7 @@ public class Game1 : Game {
 		var solution_content_dir = "../../../Content/";
 		contentReloader = new(Path.Combine(solution_content_dir, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
 #else
-		//If auto-reload is not desired, comment this out. R Key reloads map from file system regardless.
+		//If auto-reload for release is not desired, comment this out. R Key reloads map from file system regardless.
 		contentReloader = new(Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
 #endif
 	}
@@ -80,14 +80,13 @@ public class Game1 : Game {
 		string file = tiledMap.MapFile;
 		var classDefinitions = tiledMap.CustomClassDefinitions;
 		tiledMap = new(Content, graphics.GraphicsDevice, path, file, classDefinitions);
-		TiledMap.ReloadFlag = false;
 	}
 
 
 	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
-	bool reset;
-	bool leftclickheld;
+	bool reset_held;
+	bool leftclick_held;
 	Point click_pos;
 	Point view_pos;
 
@@ -97,19 +96,21 @@ public class Game1 : Game {
 		if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyboard.IsKeyDown(Keys.Escape))
 			Exit();
 
-		bool reset_prev = reset;
-		reset = keyboard.IsKeyDown(Keys.R);
-		if ((reset && !reset_prev) || TiledMap.ReloadFlag) {
+		bool reset_prev = reset_held;
+		reset_held = keyboard.IsKeyDown(Keys.R);
+		bool reset_pressed = reset_held && !reset_prev;
+		if (reset_pressed || contentReloader.ReloadFlag) {
 			ReloadMap();
+			contentReloader.ReloadFlag = false;
 		}
 
-		bool leftclick_prev = leftclickheld;
-		leftclickheld = mouse.LeftButton == ButtonState.Pressed;
-		bool leftclickpressed = leftclickheld && !leftclick_prev;
-		if (leftclickpressed) {
+		bool leftclick_prev = leftclick_held;
+		leftclick_held = mouse.LeftButton == ButtonState.Pressed;
+		bool leftclick_pressed = leftclick_held && !leftclick_prev;
+		if (leftclick_pressed) {
 			click_pos = mouse.Position - view_pos;
 		}
-		if (IsActive && leftclickheld) {
+		if (IsActive && leftclick_held) {
 			view_pos = mouse.Position - click_pos;
 		}
 
@@ -121,7 +122,7 @@ public class Game1 : Game {
 
 	protected override void Draw(GameTime gameTime) {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
-		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //PointWrap for pixelatted scaling and image layers with repeat-x or repeat-y
+		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //Wrap for image layers with repeat-x or repeat-y
 			tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
 		spriteBatch.End();
 		base.Draw(gameTime);
