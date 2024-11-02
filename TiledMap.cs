@@ -453,10 +453,10 @@ public class TiledMap {
 		string relative_path = image.Source;
 		string file = Path.GetFileName(relative_path);
 		string folder = Path.GetDirectoryName(relative_path);
-		string path = Path.Combine(content_subfolder, folder, file);
+		string path = Path.Combine("Content", content_subfolder, folder, file);
 
 		//TODO: prevent redundant texture reloading. Slowest step of reload by far.
-		return TextureHelper.LoadTextureStream(graphicsDevice, path); 
+		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
 	}
 
 }

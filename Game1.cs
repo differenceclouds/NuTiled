@@ -66,6 +66,7 @@ public class Game1 : Game {
 		var solution_content_dir = "../../../Content/";
 		contentReloader = new(Path.Combine(solution_content_dir, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
 #else
+		//If auto-reload for release is not desired, comment this out. R Key reloads map from file system regardless.
 		contentReloader = new(Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory), Path.Combine(Content.RootDirectory, tiledMap.ContentDirectory));
 #endif
 	}
