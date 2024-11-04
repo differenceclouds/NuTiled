@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="21" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="51">
+ <tileset firstgid="1" source="../StaticObjects.tsx"/>
+ <tileset firstgid="89" source="Lattice.tsx"/>
+ <layer id="8" name="Hidden Items" width="21" height="15" opacity="0.25">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="7" name="Items" width="21" height="15">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,45,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,41,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="1" name="Blocks" width="21" height="15">
+  <data encoding="csv">
+8,0,7,0,6,94,92,94,96,94,91,96,94,96,90,96,8,0,6,0,4,
+25,0,25,0,25,102,95,104,98,103,91,103,99,104,94,104,25,0,25,0,25,
+0,25,0,25,0,25,97,25,97,1,15,1,97,0,97,25,0,25,0,25,0,
+25,0,25,0,25,0,98,91,104,5,0,1,102,91,100,0,25,0,94,92,25,
+0,25,93,25,0,25,101,25,6,3,93,7,1,25,101,25,93,25,97,25,0,
+25,0,102,92,25,0,8,8,6,94,103,96,6,7,2,90,99,91,104,0,25,
+8,25,12,25,0,25,0,25,0,98,33,100,0,25,0,25,101,25,13,25,8,
+0,0,0,0,25,0,5,1,7,102,95,104,5,8,4,0,25,0,25,0,0,
+0,0,0,0,0,25,0,0,5,5,101,7,7,0,0,25,0,0,0,0,0,
+0,0,0,0,25,0,0,0,0,14,0,4,0,0,0,0,25,0,0,0,0,
+0,0,0,0,0,25,0,0,0,5,0,7,0,0,0,25,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,1,25,12,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,16,0,1,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,6,0,11,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="Actors">
+  <object id="39" template="../Teleporter.tx" x="672" y="608">
+   <properties>
+    <property name="Destination" type="object" value="41"/>
+   </properties>
+  </object>
+  <object id="40" template="../Dana.tx" x="160" y="608"/>
+  <object id="41" template="../Teleporter.tx" x="672" y="224">
+   <properties>
+    <property name="Destination" type="object" value="39"/>
+   </properties>
+  </object>
+  <object id="42" template="../Ghost.tx" x="544" y="416"/>
+  <object id="43" template="../Ghost.tx" x="800" y="416">
+   <properties>
+    <property name="FaceDirection" value="Right"/>
+   </properties>
+  </object>
+  <object id="44" template="../Teleporter.tx" x="160" y="800">
+   <properties>
+    <property name="Destination" type="object" value="45"/>
+   </properties>
+  </object>
+  <object id="45" template="../Teleporter.tx" x="160" y="96">
+   <properties>
+    <property name="Destination" type="object" value="44"/>
+   </properties>
+  </object>
+  <object id="46" template="../Teleporter.tx" x="1184" y="96">
+   <properties>
+    <property name="Destination" type="object" value="47"/>
+   </properties>
+  </object>
+  <object id="47" template="../Teleporter.tx" x="1184" y="800">
+   <properties>
+    <property name="Destination" type="object" value="46"/>
+   </properties>
+  </object>
+  <object id="48" template="../Ghost.tx" x="800" y="416"/>
+  <object id="49" template="../Ghost.tx" x="544" y="416">
+   <properties>
+    <property name="FaceDirection" value="Right"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

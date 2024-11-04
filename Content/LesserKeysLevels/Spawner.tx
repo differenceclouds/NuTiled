@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Spawner" type="Spawner">
+  <properties>
+   <property name="CyclePattern" value="1"/>
+   <property name="FaceDirection" propertytype="Direction" value="Right"/>
+   <property name="Gravity" propertytype="Direction" value="Down"/>
+   <property name="InitialPause" type="float" value="2.5"/>
+   <property name="MaxSimultaneousSpawns" type="int" value="32"/>
+   <property name="SpawnInterval" type="float" value="5"/>
+   <property name="SpawnType" propertytype="SpawnType" value="Demonhead"/>
+  </properties>
+  <point/>
+ </object>
+</template>

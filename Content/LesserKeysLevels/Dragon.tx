@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Dragon" type="Actor">
+  <properties>
+   <property name="Direction" propertytype="Direction" value="Right"/>
+  </properties>
+  <point/>
+ </object>
+</template>

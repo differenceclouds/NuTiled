@@ -19,15 +19,47 @@ public class TiledMap {
 	//In this case, a RectangleF struct (like monogame extended) could be introduced.
 
 	public Map Map { get; }
-	public string MapFile { get; }
-	public string ContentDirectory { get; }
 
-	public Dictionary<Tileset, Texture2D> TilemapTextures { get; }
-	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; }
-	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; }
+
+	/// <summary>
+	/// The path to the .tmx file, relative to the TiledProjectDirectory.
+	/// ex: "level.tmx" if the full path would be "Content/tiled_project/level.tmx"
+	/// ex: "levels/level.tmx" if the full path would be "Content/tiled_project/levels/level.tmx" 
+	/// </summary>
+	public string MapFilePath { get; }
+
+
+	/// <summary>
+	/// The path to the folder containing tileset files etc, relative to the project root. Include Content folder.
+	/// ex: "Content/tiled_project/
+	/// ex: Path.Combine(Content.RootDirectory, "tiled_project")
+	/// </summary>
+	public string TiledProjectDirectory { get; }
+	
+	#region class-required dictionaries
+	public Dictionary<Tileset, Texture2D> TilemapTextures { get; } = new();
+	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; } = new();
+	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; } = new();
+	#endregion
+
+	#region optional shortcut dictionaries
+	//Populated on instance construction
+	public Dictionary<uint, Tileset> TilesetsByGID { get; } = new();
+	public Dictionary<uint, Tile> CollectionTilesByGID { get; } = new();
+	public Dictionary<string, Tileset> TilesetsByName { get; } = new();
+	public Dictionary<string, BaseLayer> AllLayersByName { get; } = new(); //This is all you need if you don't mind casting to the other layer types.
+	public Dictionary<string, TileLayer> TileLayersByName { get; } = new();
+	public Dictionary<string, ObjectLayer> ObjectLayersByName { get; } = new();
+	public Dictionary<string, Group> GroupLayersByName { get; } = new();
+	public Dictionary<string, ImageLayer> ImageLayersByName { get; } = new();
+	#endregion
+
 	public Color BackgroundColor => ColorToColor(Map.BackgroundColor);
 
-	public readonly List<CustomClassDefinition> CustomClassDefinitions;
+	public readonly List<ICustomTypeDefinition> CustomTypeDefinitions = new();
+	public readonly List<CustomClassDefinition> CustomClassDefinitions = new();
+	public readonly List<CustomEnumDefinition> CustomEnumDefinitions = new();
+
 
 	Dictionary<DotTiled.Object, CustomTypes.FilledShape> FilledShapes = new();
 
@@ -57,37 +89,106 @@ public class TiledMap {
 	}
 
 
+	public uint GetTileGID(TileLayer tileLayer, Point coord) {
+		var gids = GetLayerGIDs(tileLayer);
+		return gids[coord.Y * tileLayer.Width + coord.X];
+	}
+	public (Tileset tileset, uint tileID) GetTileID(TileLayer tileLayer, Point coord) {
+		var gid = GetTileGID(tileLayer, coord);
+		var tileset = GetTilesetFromGID(gid).tileset;
+		return (tileset, gid - tileset.FirstGID);
+	}
 
-	public TiledMap(GraphicsDevice graphicsDevice, string path, List<CustomClassDefinition> classDefinitions) {
+	/// <summary>
+	/// Set tile by GlobalTileID
+	/// </summary>
+	public void SetTile(TileLayer layer, Point coord, uint GID) {
+		TileLayer tileLayer = (TileLayer)layer;
+		Data data = tileLayer.Data;
+		uint[] gids = data.GlobalTileIDs;
+		gids[coord.Y * tileLayer.Width + coord.X] = GID;
+	}
+
+	/// <summary>
+	/// Set tile by local tileset ID.
+	/// </summary>
+	/// <param name="wrap_id">If true, out of bounds IDs will wrap around the tileset</param>
+	public void SetTileByTileID(TileLayer layer, Tileset tileset, Point coord, uint tileID, bool wrap_id = true) {
+		if(wrap_id) {
+			tileID = tileID % tileset.TileCount;
+		}
+		uint GID = tileset.FirstGID + tileID;
+		SetTile(layer, coord, GID);
+	}
+
+	public TiledMap(GraphicsDevice graphicsDevice, string projectDirectory, string mapFilePath, List<ICustomTypeDefinition> typeDefinitions) {
 		this.graphicsDevice = graphicsDevice;
-		MapFile = Path.GetFileName(path);
-		ContentDirectory = Path.GetDirectoryName(path);
-		CustomClassDefinitions = classDefinitions;
+		//MapFile = Path.GetFileName(path);
+		//TiledProjectDirectory = Path.GetDirectoryName(path);
+		MapFilePath = mapFilePath;
+		TiledProjectDirectory = projectDirectory;
+		foreach(var t in typeDefinitions) {
+			CustomTypeDefinitions.Add(t);
+			switch (t) {
+				case CustomClassDefinition c:
+					CustomClassDefinitions.Add(c);
+					break;
+				case CustomEnumDefinition e:
+					CustomEnumDefinitions.Add(e);
+					break;
+			}
+		}
 
 		//Using DotTiled's loader.
 		//Set .tmx, .tsx, and .tx files to "Copy if newer." 
 		//Currently, all .tsx and .tx files must be in the same directory as the main map file, or relative paths break.
 		//Image files can be in subfolders.
 
-		var loader = Loader.DefaultWith(customTypeDefinitions: classDefinitions);
+		var loader = Loader.DefaultWith(customTypeDefinitions: typeDefinitions);
 
-		Map = loader.LoadMap(Path.Combine("Content", ContentDirectory, MapFile));
+		Map = loader.LoadMap(Path.Combine(TiledProjectDirectory, MapFilePath));
 
-		TilemapTextures = new();
-		TileCollectionTextures = new();
-		ImageLayerTextures = new();
+		InitTilesets(Map.Tilesets, TiledProjectDirectory);
+		InitLayerGroup(Map.Layers, TiledProjectDirectory);
 
-		InitTilesets(Map.Tilesets, ContentDirectory);
-		InitLayerGroup(Map.Layers, ContentDirectory);
+
+		//Console.WriteLine("Tilesets by GID:");
+		//foreach (var kvp in TilesetsByGID) {
+		//	Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value.Name);
+		//}
+
+		//Console.WriteLine("Tilesets by Name");
+		//foreach (var kvp in TilesetsByName) {
+		//	Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value.Name);
+		//}
+
+		//Console.WriteLine("All Layers By Name");
+		//foreach (var kvp in AllLayersByName) {
+		//	Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value.Name);
+		//}
+
 	}
+
+
+
+
+
 
 
 	private void InitTilesets(List<Tileset> tilesets, string path) {
 		foreach (Tileset tileset in tilesets) {
+			TilesetsByName.Add(tileset.Name, tileset);
 			if (tileset.Image.HasValue) {
+				Image image = tileset.Image;
+				string tileset_path = tileset.Source;
 				TilemapTextures.Add(tileset, LoadImage(graphicsDevice, path, tileset.Image));
+				for(uint i = 0; i < tileset.TileCount; i++) {
+					TilesetsByGID.Add(i + tileset.FirstGID, tileset);
+				} 
 			} else {
 				foreach (Tile tile in tileset.Tiles) {
+					TilesetsByGID.Add(tile.ID + tileset.FirstGID, tileset);
+					CollectionTilesByGID.Add(tile.ID + tileset.FirstGID, tile);
 					TileCollectionTextures.Add(tile, LoadImage(graphicsDevice, path, tile.Image));
 				}
 			}
@@ -96,28 +197,31 @@ public class TiledMap {
 
 	private void InitLayerGroup(List<BaseLayer> layers, string path) {
 		foreach (BaseLayer layer in layers) {
+			AllLayersByName.Add(layer.Name, layer);
 			switch (layer) {
 				case Group group:
+					GroupLayersByName.Add(group.Name, group);
 					InitLayerGroup(group.Layers, path);
 					break;
 				case ImageLayer imagelayer:
+					ImageLayersByName.Add(imagelayer.Name, imagelayer);
 					if (!imagelayer.Image.HasValue) break;
 					Texture2D image_texture = LoadImage(graphicsDevice, path, imagelayer.Image);
 					ImageLayerTextures.Add(imagelayer, image_texture);
 					break;
 				case TileLayer tilelayer:
+					TileLayersByName.Add(tilelayer.Name, tilelayer);
 					Data data = tilelayer.Data;
 					uint[] gids = data.GlobalTileIDs;
 					foreach (var gid in gids) {
 						if (gid > 100000) throw new Exception("gid " + gid + " is too large (tiled export glitch, probably flip related)");
 					}
 					break;
-				case ObjectLayer objectlayer: 
+				case ObjectLayer objectlayer:
+					ObjectLayersByName.Add(objectlayer.Name, objectlayer);
 					SortObjectLayer(objectlayer, objectlayer.DrawOrder);
 					InitObjectLayer(objectlayer);
 					break;
-				
-
 			}
 		}
 	}
@@ -292,7 +396,7 @@ public class TiledMap {
 	/// <summary>
 	/// Pi/180 for converting degrees to radians
 	/// </summary>
-	public const float RAD = 0.01745329f;
+	const float RAD = 0.01745329f;
 
 	public void DrawTileObject(SpriteBatch spritebatch, TileObject obj, ObjectLayer layer, Point view_offset, float group_opacity) {
 		if (!obj.Visible) return;
@@ -324,7 +428,6 @@ public class TiledMap {
 			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
 				rotation, origin, SpriteEffects.None, layerDepth);
 		}
-
 	}
 
 	
@@ -348,7 +451,7 @@ public class TiledMap {
 	}
 
 	public void DrawCollectionTile(SpriteBatch spritebatch, Tile tile, Tileset tileset, Point coord, Point offset, Color tint, float opacity, SpriteEffects flip = SpriteEffects.None) {
-		//TODO: Tile Render Size, Fill Mode (?), Orientation
+		//TODO: Fill Mode (?), Orientation
 		//Object alignment doesn't apply here?
 
 		const float layerDepth = 1.0f;
@@ -390,9 +493,9 @@ public class TiledMap {
 	public static Microsoft.Xna.Framework.Color ColorToColor(Optional<DotTiled.Color> dottiled_color, uint default_color = ColorConstants.White) {
 		if (dottiled_color.HasValue) {
 			var c = dottiled_color.Value;
-			return new Color(c.R, c.G, c.B, c.A);
+			return new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
 		} else {
-			return new Color(default_color);
+			return new Microsoft.Xna.Framework.Color(default_color);
 		}
 	}
 
@@ -400,7 +503,7 @@ public class TiledMap {
 	/// Converts between XNA Color and Dottiled color, depending on overload.
 	/// </summary>
 	public static Microsoft.Xna.Framework.Color ColorToColor(DotTiled.Color c) {
-		return new Color(c.R, c.G, c.B, c.A);
+		return new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
 	}
 
 	/// <summary>
@@ -458,21 +561,17 @@ public class TiledMap {
 		return data.FlippingFlags;
 	}
 
-	public static Texture2D LoadImage(ContentManager content, string content_subfolder, Image image) {
-		string relative_path = image.Source;
-		string file = Path.GetFileNameWithoutExtension(relative_path);
-		string folder = Path.GetDirectoryName(relative_path);
-		string path = Path.Combine(content_subfolder, folder, file);
-		return content.Load<Texture2D>(path);
-	}
-
-	public Texture2D LoadImage(GraphicsDevice graphicsDevice, string content_subfolder, Image image) {
+	public Texture2D LoadImage(GraphicsDevice graphicsDevice, string project_directory, Image image) {
 		string relative_path = image.Source;
 		string file = Path.GetFileName(relative_path);
 		string folder = Path.GetDirectoryName(relative_path);
-		string path = Path.Combine("Content", content_subfolder, folder, file);
+		string path = Path.Combine(project_directory, folder, file);
 
 		//TODO: prevent redundant texture reloading. Slowest step of reload by far.
+		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
+	}
+
+	public Texture2D LoadImage(GraphicsDevice graphicsDevice, string path) {
 		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
 	}
 

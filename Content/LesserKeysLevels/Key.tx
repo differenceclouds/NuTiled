@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Key" type="Key">
+  <properties>
+   <property name="KeyType" propertytype="KeyType" value="Local"/>
+   <property name="LocalDoor" type="object" value="0"/>
+   <property name="MasterWorld" type="int" value="0"/>
+  </properties>
+  <point/>
+ </object>
+</template>
