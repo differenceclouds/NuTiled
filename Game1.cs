@@ -78,7 +78,7 @@ public class Game1 : Game {
 
 
 		//tiledMap = new(graphics.GraphicsDevice, "tiled/map.tmx", customClassDefinitions);
-		tiledMap = new(graphics.GraphicsDevice, Path.Combine(Content.RootDirectory, "LesserKeysLevels"), "namedLevels/Beebo.tmx", customTypeDefinitions);
+		tiledMap = new(graphics.GraphicsDevice, Path.Combine(Content.RootDirectory, "tiled"), "map.tmx", customTypeDefinitions);
 	}
 
 
