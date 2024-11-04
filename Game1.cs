@@ -36,7 +36,7 @@ public class Game1 : Game {
 	}
 
 	void InitTiledMap() {
-		//Add all un-implemented Tiled classes and enums here:
+		//Add all un-implemented Tiled classes here:
 		//https://github.com/dcronqvist/DotTiled/issues/42
 		string[] custom_classes = [
 			"Goblin",
@@ -47,6 +47,7 @@ public class Game1 : Game {
 		}
 
 		//And the properly implemented classes & enums here:
+		//Note: at present, custom enums must be implemented.
 		//https://dcronqvist.github.io/DotTiled/docs/essentials/custom-properties.html#custom-types
 		customTypeDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>());
@@ -72,7 +73,6 @@ public class Game1 : Game {
 		var typeDefinitions = tiledMap.CustomTypeDefinitions;
 		tiledMap = new(graphics.GraphicsDevice, path, file, typeDefinitions);
 	}
-
 
 	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 

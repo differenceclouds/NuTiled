@@ -541,7 +541,7 @@ public class TiledMap {
 		return data.FlippingFlags;
 	}
 
-	public Texture2D LoadImage(GraphicsDevice graphicsDevice, string project_directory, Image image) {
+	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string project_directory, Image image) {
 		string relative_path = image.Source;
 		string file = Path.GetFileName(relative_path);
 		string folder = Path.GetDirectoryName(relative_path);
@@ -551,7 +551,7 @@ public class TiledMap {
 		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
 	}
 
-	public Texture2D LoadImage(GraphicsDevice graphicsDevice, string path) {
+	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string path) {
 		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
 	}
 
