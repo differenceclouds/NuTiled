@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Sportsman" type="Actor">
+  <properties>
+   <property name="FaceDirection" value="Left"/>
+   <property name="FrameRate" type="float" value="20"/>
+  </properties>
+  <point/>
+ </object>
+</template>

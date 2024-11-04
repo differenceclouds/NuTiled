@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Castlevania.tsx",
+    "activeFile": "map.tmx",
     "expandedProjectPaths": [
-        "collection_sheet",
-        "."
+        ".",
+        "collection_sheet"
     ],
     "fileStates": {
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/Chips.tsx": {
@@ -29,12 +29,12 @@
         },
         "Castlevania.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 3,
+            "scaleInDock": 1,
             "scaleInEditor": 5.5
         },
         "Chess.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 3,
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "Chips.tsx": {
@@ -58,15 +58,15 @@
                 21
             ],
             "scale": 1,
-            "selectedLayer": 1,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 221.5,
-                "y": 1117
+                "x": 250,
+                "y": 66.5
             }
         },
         "tilemap.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 3,
+            "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
@@ -79,18 +79,17 @@
         "Rando.tsx",
         "tilemap.tsx",
         "Chips.tsx",
-        "Chess.tsx",
-        "Castlevania.tsx"
+        "Chess.tsx"
     ],
     "project": "nuttiled.tiled-project",
     "property.type": "file",
     "recentFiles": [
-        "Castlevania.tsx",
-        "map.tmx",
-        "Rando.tsx",
-        "tilemap.tsx",
-        "Chips.tsx",
         "Chess.tsx",
+        "Chips.tsx",
+        "tilemap.tsx",
+        "Rando.tsx",
+        "map.tmx",
+        "Castlevania.tsx",
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx",
         "collection_sheet/Rando.tsx"
     ],

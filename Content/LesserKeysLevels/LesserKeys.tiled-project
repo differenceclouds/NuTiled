@@ -1,0 +1,101 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "compatibilityVersion": 1080,
+    "extensionsPath": "extensions",
+    "folders": [
+        "."
+    ],
+    "properties": [
+    ],
+    "propertyTypes": [
+        {
+            "id": 8,
+            "name": "CardinalDirection",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "NE",
+                "SE",
+                "SW",
+                "NW"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 3,
+            "name": "Chirality",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "CounterClockwise",
+                "Clockwise"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 2,
+            "name": "Direction",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Up",
+                "Down",
+                "Left",
+                "Right"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 7,
+            "name": "DoorType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Local",
+                "Master"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 6,
+            "name": "KeyType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Local",
+                "Master"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 11,
+            "name": "MovePattern",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "BackAndForth",
+                "Clockwise",
+                "Counterclockwise"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 1,
+            "name": "SpawnType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Demonhead",
+                "Sportsman",
+                "Ghost",
+                "Ricochet",
+                "Comet",
+                "Goblin",
+                "Salamander"
+            ],
+            "valuesAsFlags": false
+        }
+    ]
+}
