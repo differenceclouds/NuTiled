@@ -3,13 +3,13 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "namedLevels/Celtic.tmx",
     "expandedProjectPaths": [
-        "SK1",
-        "C:/Users/Radagast/Projects/TiledExperiment/Content",
-        "numberedLevelsBackup",
         "namedLevels",
+        "SK1",
         ".",
+        "numberedLevelsBackup",
+        "C:/Users/Radagast/Projects/TiledExperiment/Content",
         "C:/Users/Radagast/Projects/LesserKeys/Content/Levels"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -112,6 +112,10 @@
                 "x": 307.96992481203006,
                 "y": 426.9583048530417
             }
+        },
+        "Lattice.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Mercury.tsx": {
             "dynamicWrapping": false,
@@ -789,22 +793,22 @@
                 3
             ],
             "scale": 0.5918,
-            "selectedLayer": -1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1111.8621155795877,
+                "x": 1112.7069956066237,
                 "y": 790.8077053058466
             }
         },
         "namedLevels/Blue Blocker.tmx": {
             "expandedObjectLayers": [
-                3,
-                11
+                11,
+                3
             ],
             "scale": 0.7254,
-            "selectedLayer": 2,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 727.874276261373,
-                "y": 694.789081885856
+                "x": 727.8742762613731,
+                "y": 696.1676316515026
             }
         },
         "namedLevels/Bounce Test.tmx": {
@@ -822,8 +826,8 @@
             "scale": 0.5879,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 280.6599761864263,
-                "y": 37.42133015819013
+                "x": 17.860180302772505,
+                "y": 280.6599761864262
             }
         },
         "namedLevels/Demon Checkers.tmx": {
@@ -833,7 +837,7 @@
             "scale": 0.4714,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 992.7874416631312,
+                "x": 991.726771319474,
                 "y": 543.063215952482
             }
         },
@@ -844,7 +848,7 @@
             "scale": 0.8682,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 1592.9509329647547,
+                "x": 1593.5268371343009,
                 "y": 953.6973047684864
             }
         },
@@ -852,7 +856,7 @@
             "scale": 0.6337,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 792.1729525011834,
+                "x": 791.3839356162223,
                 "y": 599.6528325706171
             }
         },
@@ -860,7 +864,7 @@
             "scale": 0.6085574572127138,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 792.0369626355968,
+                "x": 791.2153475291282,
                 "y": 599.779027721977
             }
         },
@@ -877,9 +881,9 @@
                 3
             ],
             "scale": 0.5,
-            "selectedLayer": 5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 984,
+                "x": 983,
                 "y": 696
             }
         },
@@ -896,9 +900,9 @@
         },
         "namedLevels/Hub.tmx": {
             "scale": 0.61,
-            "selectedLayer": 4,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1047.5409836065573,
+                "x": 1046.72131147541,
                 "y": 727.8688524590166
             }
         },
@@ -909,8 +913,8 @@
             "scale": 0.4494,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 643.0796617712505,
-                "y": 81.21940364931027
+                "x": 641.9670672007119,
+                "y": 80.10680907877168
             }
         },
         "namedLevels/Knight Moves.tmx": {
@@ -920,8 +924,8 @@
             "scale": 0.55,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 627.2727272727273,
-                "y": 797.2727272727271
+                "x": 626.3636363636363,
+                "y": 796.3636363636364
             }
         },
         "namedLevels/Lattice.tsx": {
@@ -935,18 +939,18 @@
                 3
             ],
             "scale": 0.75,
-            "selectedLayer": 6,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1041.3333333333333,
-                "y": 565.9999999999999
+                "x": 1040.6666666666665,
+                "y": 754.6666666666665
             }
         },
         "namedLevels/MalkuthLarge.tmx": {
             "scale": 0.4393,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 482.5859321648077,
-                "y": 670.3847029364898
+                "x": 481.4477577964942,
+                "y": 992.4880491691325
             }
         },
         "namedLevels/Outer Ruins.tmx": {
@@ -954,10 +958,10 @@
                 3
             ],
             "scale": 0.4245,
-            "selectedLayer": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1093.0506478209657,
-                "y": 792.6972909305066
+                "x": 1091.8727915194345,
+                "y": 1128.386336866902
             }
         },
         "namedLevels/PlaneOf.tmx": {
@@ -965,10 +969,10 @@
                 3
             ],
             "scale": 0.5717,
-            "selectedLayer": 6,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 998.7755815987406,
-                "y": 665.5588595417177
+                "x": 997.9009970264124,
+                "y": 664.6842749693897
             }
         },
         "namedLevels/PlaneOf_exp.tmx": {
@@ -976,10 +980,10 @@
                 3
             ],
             "scale": 0.5714,
-            "selectedLayer": 5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": -176.75883794189713,
-                "y": 160.1330066503325
+                "x": -177.6338816940845,
+                "y": 159.2579628981449
             }
         },
         "namedLevels/Red Mode.tmx": {
@@ -989,7 +993,7 @@
             "scale": 0.4863,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 727.945712523134,
+                "x": 728.9738844334773,
                 "y": 631.2975529508533
             }
         },
@@ -998,10 +1002,10 @@
                 3
             ],
             "scale": 0.5879,
-            "selectedLayer": 4,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 874.2983500595341,
-                "y": 630.2092192549753
+                "x": 875.1488348358566,
+                "y": 629.3587344786528
             }
         },
         "namedLevels/Spooky Action.tmx": {
@@ -1011,8 +1015,8 @@
             "scale": 1.064,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 661.6541353383459,
-                "y": 371.7105263157895
+                "x": 662.1240601503758,
+                "y": 504.6992481203008
             }
         },
         "namedLevels/Steeplejack.tmx": {
@@ -1022,8 +1026,8 @@
             "scale": 0.5811,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 605.7477198416797,
-                "y": 561.8654276372398
+                "x": 604.8872827396319,
+                "y": 561.004990535192
             }
         },
         "namedLevels/SuperSecret.tmx": {
@@ -1041,8 +1045,8 @@
             "scale": 0.6708,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 181.87239117471677,
-                "y": 373.43470483005365
+                "x": 181.12701252236127,
+                "y": 372.68932617769826
             }
         },
         "namedLevels/Test2.tmx": {
@@ -1052,8 +1056,8 @@
             "scale": 0.6955960854092526,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 534.0743109292064,
-                "y": 439.1916608045022
+                "x": 534.0743109292065,
+                "y": 438.47285284901193
             }
         },
         "namedLevels/Thanks.tmx": {
@@ -1063,8 +1067,8 @@
             "scale": 1,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 183,
-                "y": 102.5
+                "x": 182.5,
+                "y": 244
             }
         },
         "namedLevels/The Quick.tmx": {
@@ -1072,10 +1076,10 @@
                 2
             ],
             "scale": 0.6013,
-            "selectedLayer": 2,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 572.093796773657,
-                "y": 611.1757857974391
+                "x": 571.2622650922999,
+                "y": 848.162314984201
             }
         },
         "namedLevels/Twice Through.tmx": {
@@ -1083,10 +1087,10 @@
                 3
             ],
             "scale": 0.8153,
-            "selectedLayer": 5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 651.2940022077763,
-                "y": 507.17527290567887
+                "x": 650.6807310192567,
+                "y": 506.5620017171592
             }
         },
         "namedLevels/Wall Zone.tmx": {
@@ -1279,8 +1283,8 @@
         }
     },
     "last.exportedFilePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels/namedLevels",
-    "last.externalTilesetPath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels",
-    "last.imagePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels/SKN",
+    "last.externalTilesetPath": "C:/Users/Massimo/source/repos/NuTiled/Content/LesserKeysLevels",
+    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/LesserKeysLevels",
     "last.objectTemplatePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels",
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/LesserKeysLevels/propertytypes.json",
     "last.worldFilePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels",
@@ -1294,22 +1298,26 @@
     "map.tileWidth": 64,
     "map.width": 15,
     "openFiles": [
+        "namedLevels/Beebo.tmx",
+        "namedLevels/Ad Hoc.tmx",
+        "namedLevels/Blue Blocker.tmx",
+        "namedLevels/Celtic.tmx"
     ],
     "project": "LesserKeys.tiled-project",
     "property.type": "Direction",
     "recentFiles": [
+        "namedLevels/Beebo.tmx",
+        "namedLevels/Ad Hoc.tmx",
+        "namedLevels/Blue Blocker.tmx",
+        "namedLevels/Celtic.tmx",
+        "Lattice.tsx",
         "namedLevels/Hub.tmx",
         "namedLevels/Gymnasium.tmx",
         "namedLevels/Gate House.tmx",
         "namedLevels/Elemér's Ladder.tmx",
         "namedLevels/Elemér's Ladder_v1.tmx",
         "namedLevels/Demon Checkers.tmx",
-        "namedLevels/Celtic.tmx",
-        "namedLevels/Blue Blocker.tmx",
-        "namedLevels/Beebo.tmx",
-        "namedLevels/Ad Hoc.tmx",
-        "namedLevels/Red Mode.tmx",
-        "namedLevels/Double Kiln.tmx"
+        "namedLevels/Red Mode.tmx"
     ],
     "resizeMap.removeObjects": true,
     "tileset.embedInMap": false,

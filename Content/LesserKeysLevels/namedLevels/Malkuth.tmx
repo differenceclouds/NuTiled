@@ -3,8 +3,8 @@
  <tileset firstgid="1" source="../StaticObjects.tsx"/>
  <tileset firstgid="89" source="../BackgroundBricks.tsx"/>
  <tileset firstgid="105" source="../BlocksConnected.tsx"/>
- <tileset firstgid="121" source="Lattice.tsx"/>
- <layer id="4" name="Hidden Items" class="Item Layer" width="36" height="15" visible="0">
+ <tileset firstgid="121" source="../Lattice.tsx"/>
+ <layer id="4" name="Hidden Items" width="36" height="15" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -23,7 +23,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="2" name="Items" class="Item Layer" width="36" height="15">
+ <layer id="2" name="Items" width="36" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -42,7 +42,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="1" name="Blocks" class="Block Layer" width="36" height="15">
+ <layer id="1" name="Blocks" width="36" height="15">
   <data encoding="csv">
 0,6,6,8,0,5,8,5,0,8,8,7,7,11,1,7,3,9,5,1,4,16,5,0,7,3,3,6,6,5,8,0,6,4,4,6,
 4,0,8,0,0,0,3,0,0,0,1,1,12,14,11,1,13,9,11,8,11,15,0,0,0,3,7,7,7,2,13,0,12,1,7,8,
@@ -80,7 +80,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="6" name="Secret Blocks" class="Block Layer" width="36" height="15" visible="0" opacity="0.29">
+ <layer id="6" name="Secret Blocks" width="36" height="15" visible="0" opacity="0.29">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

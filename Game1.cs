@@ -55,7 +55,9 @@ public class Game1 : Game {
 			"Walling",
 			"Wall",
 			"Spawn",
-			"Spawner"
+			"Spawner",
+			"Emblem",
+			"Teleporter"
 		];
 		List <ICustomTypeDefinition> customTypeDefinitions = new();
 		foreach (var c in custom_classes) {
@@ -69,7 +71,7 @@ public class Game1 : Game {
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.CardinalDirection>(CustomEnumStorageType.String));
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Chirality>(CustomEnumStorageType.String));
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>(CustomEnumStorageType.String));
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.DoorType>(CustomEnumStorageType.String));
+		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.DoorType>(CustomEnumStorageType.String)); 
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.KeyType>(CustomEnumStorageType.String));
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.MovePattern>(CustomEnumStorageType.String));
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.SpawnType>(CustomEnumStorageType.String));

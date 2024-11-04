@@ -28,6 +28,8 @@ public class TiledMap {
 	/// </summary>
 	public string MapFilePath { get; }
 
+	public string MapFileDirectory => Path.Combine(TiledProjectDirectory, Path.GetDirectoryName(MapFilePath));
+
 
 	/// <summary>
 	/// The path to the folder containing tileset files etc, relative to the project root. Include Content folder.
@@ -189,6 +191,7 @@ public class TiledMap {
 				foreach (Tile tile in tileset.Tiles) {
 					TilesetsByGID.Add(tile.ID + tileset.FirstGID, tileset);
 					CollectionTilesByGID.Add(tile.ID + tileset.FirstGID, tile);
+
 					TileCollectionTextures.Add(tile, LoadImage(graphicsDevice, path, tile.Image));
 				}
 			}
@@ -206,7 +209,7 @@ public class TiledMap {
 				case ImageLayer imagelayer:
 					ImageLayersByName.Add(imagelayer.Name, imagelayer);
 					if (!imagelayer.Image.HasValue) break;
-					Texture2D image_texture = LoadImage(graphicsDevice, path, imagelayer.Image);
+					Texture2D image_texture = LoadImage(graphicsDevice, MapFileDirectory, imagelayer.Image);
 					ImageLayerTextures.Add(imagelayer, image_texture);
 					break;
 				case TileLayer tilelayer:

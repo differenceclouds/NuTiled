@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="78" height="45" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="42">
+<map version="1.8" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="78" height="45" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="42">
  <tileset firstgid="1" source="../StaticObjects.tsx"/>
  <tileset firstgid="89" source="../BackgroundBricks.tsx"/>
  <tileset firstgid="105" source="../BlocksConnected.tsx"/>
- <tileset firstgid="121" source="Lattice.tsx"/>
+ <tileset firstgid="121" source="../Lattice.tsx"/>
  <tileset firstgid="137" source="../BoxDrawing.tsx"/>
- <layer id="2" name="Items" class="Item Layer" width="78" height="45">
+ <layer id="2" name="Items" width="78" height="45">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -54,7 +54,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="1" name="Blocks" class="Block Layer" width="78" height="45">
+ <layer id="1" name="Blocks" width="78" height="45">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,8,8,4,6,6,3,6,4,2,4,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,6,2,6,8,6,5,4,3,1,4,
@@ -103,7 +103,7 @@
 2,3,3,2,2,8,7,4,1,1,5,2,6,8,2,8,2,5,4,5,5,6,2,6,7,8,7,4,1,7,5,2,7,4,4,3,5,8,7,8,8,0,6,6,6,3,2,4,1,4,6,2,1,4,3,7,5,2,3,7,3,2,6,1,4,8,8,6,1,5,5,2,5,2,1,5,2,2
 </data>
  </layer>
- <layer id="8" name="BlockExtras" class="BlockExtras" width="78" height="45">
+ <layer id="8" name="BlockExtras" width="78" height="45">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

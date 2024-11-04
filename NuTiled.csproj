@@ -26,6 +26,9 @@
     <ProjectReference Include="..\DotTiled\src\DotTiled\DotTiled.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Content\Backgrounds\gate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Content\LesserKeysLevels\Actors.psd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
