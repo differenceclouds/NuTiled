@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="21" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="51">
+<map version="1.8" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="21" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="13" nextobjectid="51">
  <tileset firstgid="1" source="../StaticObjects.tsx"/>
- <tileset firstgid="89" source="Lattice.tsx"/>
+ <tileset firstgid="89" source="../Lattice.tsx"/>
  <layer id="8" name="Hidden Items" width="21" height="15" opacity="0.25">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
