@@ -152,28 +152,7 @@ public class TiledMap {
 
 		InitTilesets(Map.Tilesets, TiledProjectDirectory);
 		InitLayerGroup(Map.Layers, TiledProjectDirectory);
-
-
-		//Console.WriteLine("Tilesets by GID:");
-		//foreach (var kvp in TilesetsByGID) {
-		//	Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value.Name);
-		//}
-
-		//Console.WriteLine("Tilesets by Name");
-		//foreach (var kvp in TilesetsByName) {
-		//	Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value.Name);
-		//}
-
-		//Console.WriteLine("All Layers By Name");
-		//foreach (var kvp in AllLayersByName) {
-		//	Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value.Name);
-		//}
-
 	}
-
-
-
-
 
 
 
@@ -359,8 +338,6 @@ public class TiledMap {
 		//Spritebatch should be using samplerstate with wrap for repeat
 		bool repeatX = BoolFromBool(layer.RepeatX, false);
 		bool repeatY = BoolFromBool(layer.RepeatY, false);
-
-		//view_offset *= layer.ParallaxX
 
 		Rectangle source_rect;
 		Rectangle dest_rect;

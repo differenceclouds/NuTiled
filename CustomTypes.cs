@@ -8,36 +8,10 @@ using System.Collections.Generic;
 namespace NuTiled.CustomTypes;
 
 
-public enum CardinalDirection {
-	NE, SE, SW, NW
-}
-public enum Chirality {
-	CounterClockwise,
-	ClockWise
-}
 public enum Direction {
 	Up, Down, Left, Right
 }
-public enum DoorType {
-	Local, Master
-}
-public enum KeyType {
-	Local, Master
-}
-public enum MovePattern {
-	BackAndForth,
-	Clockwise,
-	Counterclockwise
-}
-public enum SpawnType {
-	Demonhead,
-	Sportsman,
-	Ghost,
-	Ricochet,
-	Comet,
-	Goblin,
-	Salamander
-}
+
 
 public class FilledShape {
 	public DotTiled.Color FillColor { get; set; }

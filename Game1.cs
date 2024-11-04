@@ -13,6 +13,9 @@ public class Game1 : Game {
 	private SpriteBatch spriteBatch;
 
 
+	TiledMap tiledMap;
+	ContentReloader contentReloader;
+
 	public Game1() {
 		graphics = new GraphicsDeviceManager(this);
 		Content.RootDirectory = "Content";
@@ -26,10 +29,6 @@ public class Game1 : Game {
 		base.Initialize();
 	}
 
-
-	TiledMap tiledMap;
-	ContentReloader contentReloader;
-
 	protected override void LoadContent() {
 		spriteBatch = new SpriteBatch(GraphicsDevice);
 		InitTiledMap();
@@ -41,44 +40,18 @@ public class Game1 : Game {
 		//https://github.com/dcronqvist/DotTiled/issues/42
 		string[] custom_classes = [
 			"Goblin",
-
-			"Actor",
-			"Stone",
-			"Clay",
-			"ClayCracked",
-			"Other",
-			"Extra",
-			"DoorClosed",
-			"DoorOpen",
-			"Item",
-			"Key",
-			"Walling",
-			"Wall",
-			"Spawn",
-			"Spawner",
-			"Emblem",
-			"Teleporter"
 		];
 		List <ICustomTypeDefinition> customTypeDefinitions = new();
 		foreach (var c in custom_classes) {
 			customTypeDefinitions.Add(new CustomClassDefinition { Name = c });
 		}
 
-
 		//And the properly implemented classes & enums here:
 		//https://dcronqvist.github.io/DotTiled/docs/essentials/custom-properties.html#custom-types
 		customTypeDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.CardinalDirection>(CustomEnumStorageType.String));
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Chirality>(CustomEnumStorageType.String));
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>(CustomEnumStorageType.String));
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.DoorType>(CustomEnumStorageType.String)); 
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.KeyType>(CustomEnumStorageType.String));
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.MovePattern>(CustomEnumStorageType.String));
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.SpawnType>(CustomEnumStorageType.String));
+		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>());
 
-
-		//tiledMap = new(graphics.GraphicsDevice, "tiled/map.tmx", customClassDefinitions);
-		tiledMap = new(graphics.GraphicsDevice, Path.Combine(Content.RootDirectory, "tiled"), "map.tmx", customTypeDefinitions);
+		tiledMap = new(graphics.GraphicsDevice, "Content/tiled", "map.tmx", customTypeDefinitions);
 	}
 
 
@@ -112,25 +85,24 @@ public class Game1 : Game {
 	Random rnd = new Random();
 
 	protected override void Update(GameTime gameTime) {
-
 		int prev_milliseconds = milliseconds;
 		milliseconds = gameTime.TotalGameTime.Milliseconds;
 
-		//if (milliseconds != prev_milliseconds && milliseconds % 5 == 0) {
-			//Point point = new(0, 0);
-			//TileLayer orange = tiledMap.TileLayersByName["OrangeStuff"];
-			//var gid = tiledMap.GetTileGID(orange, point);
-			//var (tileset, id) = tiledMap.GetTileID(orange, point);
-			//tiledMap.SetTileByTileID(orange, tileset, point, id + 1);
-			//tiledMap.SetTileByTileID(orange, tileset, new(6, 0), id + 4);
-			//tiledMap.SetTileByTileID(orange, tileset, new(0, 6), id + 8);
-			//tiledMap.SetTileByTileID(orange, tileset, new(6, 6), id + 12);
+		if (milliseconds != prev_milliseconds && milliseconds % 5 == 0) {
+			Point point = new(0, 0);
+			TileLayer orange = tiledMap.TileLayersByName["OrangeStuff"];
+			var gid = tiledMap.GetTileGID(orange, point);
+			var (tileset, id) = tiledMap.GetTileID(orange, point);
+			tiledMap.SetTileByTileID(orange, tileset, point, id + 1);
+			tiledMap.SetTileByTileID(orange, tileset, new(6, 0), id + 4);
+			tiledMap.SetTileByTileID(orange, tileset, new(0, 6), id + 8);
+			tiledMap.SetTileByTileID(orange, tileset, new(6, 6), id + 12);
 
 
-			//point = new(rnd.Next(7), rnd.Next(7));
-			//id = (uint)rnd.Next((int)tileset.TileCount);
-			//tiledMap.SetTileByTileID(orange, tileset, point, id);
-		//}
+			point = new(rnd.Next(7), rnd.Next(7));
+			id = (uint)rnd.Next((int)tileset.TileCount);
+			tiledMap.SetTileByTileID(orange, tileset, point, id);
+		}
 
 		var keyboard = Keyboard.GetState();
 		var mouse = Mouse.GetState();

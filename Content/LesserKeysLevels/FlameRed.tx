@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template>
- <object name="FlameRed" type="Actor">
-  <properties>
-   <property name="indestructible" type="bool" value="true"/>
-  </properties>
-  <point/>
- </object>
-</template>
