@@ -62,7 +62,7 @@ public class TiledMap {
 	public readonly List<CustomClassDefinition> CustomClassDefinitions = new();
 	public readonly List<CustomEnumDefinition> CustomEnumDefinitions = new();
 
-
+	//dictionary between object and custom class. this probably should be in another file.
 	Dictionary<DotTiled.Object, CustomTypes.FilledShape> FilledShapes = new();
 
 	//ContentManager content;
