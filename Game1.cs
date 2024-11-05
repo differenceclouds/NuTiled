@@ -93,15 +93,14 @@ public class Game1 : Game {
 			TileLayer orange = tiledMap.TileLayersByName["OrangeStuff"];
 			var gid = tiledMap.GetTileGID(orange, point);
 			var (tileset, id) = tiledMap.GetTileID(orange, point);
-			tiledMap.SetTileByTileID(orange, tileset, point, id + 1);
-			tiledMap.SetTileByTileID(orange, tileset, new(6, 0), id + 4);
-			tiledMap.SetTileByTileID(orange, tileset, new(0, 6), id + 8);
-			tiledMap.SetTileByTileID(orange, tileset, new(6, 6), id + 12);
-
+			tiledMap.SetTileByID(orange, point, tileset, id + 1);
+			tiledMap.SetTileByID(orange, new(6, 0), tileset, id + 4);
+			tiledMap.SetTileByID(orange, new(0, 6), tileset, id + 8);
+			tiledMap.SetTileByID(orange, new(6, 6), tileset, id + 12);
 
 			point = new(rnd.Next(7), rnd.Next(7));
 			id = (uint)rnd.Next((int)tileset.TileCount);
-			tiledMap.SetTileByTileID(orange, tileset, point, id);
+			tiledMap.SetTileByID(orange,  point, tileset, id);
 		}
 
 		var keyboard = Keyboard.GetState();

@@ -34,7 +34,6 @@ public class TiledMap {
 	/// <summary>
 	/// The path to the folder containing tileset files etc, relative to the project root. Include Content folder.
 	/// ex: "Content/tiled_project/
-	/// ex: Path.Combine(Content.RootDirectory, "tiled_project")
 	/// </summary>
 	public string TiledProjectDirectory { get; }
 	
@@ -42,12 +41,14 @@ public class TiledMap {
 	public Dictionary<Tileset, Texture2D> TilemapTextures { get; } = new();
 	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; } = new();
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; } = new();
+	
+	//This and following can be replaced by GetTilesetFromGid method where used. Dictionaries might be faster.
+	public Dictionary<uint, Tileset> TilesetsByGID { get; } = new();
+	public Dictionary<uint, Tile> CollectionTilesByGID { get; } = new();
 	#endregion
 
 	#region optional shortcut dictionaries
-	//Populated on instance construction
-	public Dictionary<uint, Tileset> TilesetsByGID { get; } = new();
-	public Dictionary<uint, Tile> CollectionTilesByGID { get; } = new();
+	//populated on instance construction. 
 	public Dictionary<string, Tileset> TilesetsByName { get; } = new();
 	public Dictionary<string, BaseLayer> AllLayersByName { get; } = new(); //This is all you need if you don't mind casting to the other layer types.
 	public Dictionary<string, TileLayer> TileLayersByName { get; } = new();
@@ -68,60 +69,7 @@ public class TiledMap {
 	//ContentManager content;
 	GraphicsDevice graphicsDevice;
 
-	public static Rectangle TileSourceBounds(Tile tile) {
-		return new((int)tile.X, (int)tile.Y, (int)tile.Width, (int)tile.Height);
-	}
-	public static Point TileSize(Tile tile) {
-		return new((int)tile.Width, (int)tile.Height);
-	}
-	public static Point TileSize(Map map) {
-		return new Point((int)map.TileWidth, (int)map.TileHeight);
-	}
-	public static Point TileSize(Tileset tileset) {
-		return new Point((int)tileset.TileWidth, (int)tileset.TileHeight);
-	}
-	public static Point LayerOffset(BaseLayer layer) {
-		return new Point((int)layer.OffsetX, (int)layer.OffsetY);
-	}
-	public static Vector2 LayerParallax(BaseLayer layer) {
-		return new Vector2(layer.ParallaxX, layer.ParallaxY);
-	}
-	public static Rectangle ObjectBounds(DotTiled.Object obj) {
-		return new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height);
-	}
 
-
-	public uint GetTileGID(TileLayer tileLayer, Point coord) {
-		var gids = GetLayerGIDs(tileLayer);
-		return gids[coord.Y * tileLayer.Width + coord.X];
-	}
-	public (Tileset tileset, uint tileID) GetTileID(TileLayer tileLayer, Point coord) {
-		var gid = GetTileGID(tileLayer, coord);
-		var tileset = GetTilesetFromGID(gid).tileset;
-		return (tileset, gid - tileset.FirstGID);
-	}
-
-	/// <summary>
-	/// Set tile by GlobalTileID
-	/// </summary>
-	public void SetTile(TileLayer layer, Point coord, uint GID) {
-		TileLayer tileLayer = (TileLayer)layer;
-		Data data = tileLayer.Data;
-		uint[] gids = data.GlobalTileIDs;
-		gids[coord.Y * tileLayer.Width + coord.X] = GID;
-	}
-
-	/// <summary>
-	/// Set tile by local tileset ID.
-	/// </summary>
-	/// <param name="wrap_id">If true, out of bounds IDs will wrap around the tileset</param>
-	public void SetTileByTileID(TileLayer layer, Tileset tileset, Point coord, uint tileID, bool wrap_id = true) {
-		if(wrap_id) {
-			tileID = tileID % tileset.TileCount;
-		}
-		uint GID = tileset.FirstGID + tileID;
-		SetTile(layer, coord, GID);
-	}
 
 	public TiledMap(GraphicsDevice graphicsDevice, string projectDirectory, string mapFilePath, List<ICustomTypeDefinition> typeDefinitions) {
 		this.graphicsDevice = graphicsDevice;
@@ -129,7 +77,7 @@ public class TiledMap {
 		//TiledProjectDirectory = Path.GetDirectoryName(path);
 		MapFilePath = mapFilePath;
 		TiledProjectDirectory = projectDirectory;
-		foreach(var t in typeDefinitions) {
+		foreach (var t in typeDefinitions) {
 			CustomTypeDefinitions.Add(t);
 			switch (t) {
 				case CustomClassDefinition c:
@@ -156,6 +104,60 @@ public class TiledMap {
 
 
 
+
+
+
+
+
+
+
+	#region Tile manipulation functions
+	public uint GetTileGID(TileLayer tileLayer, Point coord) {
+		var gids = GetLayerGIDs(tileLayer);
+		return gids[coord.Y * tileLayer.Width + coord.X];
+	}
+	public (Tileset tileset, uint tileID) GetTileID(TileLayer tileLayer, Point coord) {
+		var gid = GetTileGID(tileLayer, coord);
+		//var tileset = GetTilesetFromGID(gid).tileset;
+		var tileset = TilesetsByGID[gid];
+		return (tileset, gid - tileset.FirstGID);
+	}
+
+	/// <summary>
+	/// Set tile by GlobalTileID
+	/// </summary>
+	public void SetTile(TileLayer layer, Point coord, uint GID) {
+		Data data = layer.Data;
+		uint[] gids = data.GlobalTileIDs;
+		gids[coord.Y * layer.Width + coord.X] = GID;
+	}
+
+	/// <summary>
+	/// Set tile by local tileset ID.
+	/// </summary>
+	/// <param name="wrap_id">If true, out of bounds IDs will wrap around the tileset</param>
+	public void SetTileByID(TileLayer layer, Point coord, Tileset tileset, uint tileID, bool wrap_id = true) {
+		if(wrap_id) {
+			tileID = tileID % tileset.TileCount;
+		}
+		uint GID = tileset.FirstGID + tileID;
+		SetTile(layer, coord, GID);
+	}
+
+	public void PlaceTileObject(ObjectLayer layer, TileObject tile) {
+		layer.Objects.Add(tile);
+	}
+	public void PlaceTileObject(ObjectLayer layer, Vector2 position, uint GID) {
+		
+	}
+
+	#endregion
+
+
+
+
+
+	#region map initialization functions
 	private void InitTilesets(List<Tileset> tilesets, string path) {
 		foreach (Tileset tileset in tilesets) {
 			TilesetsByName.Add(tileset.Name, tileset);
@@ -165,12 +167,12 @@ public class TiledMap {
 				TilemapTextures.Add(tileset, LoadImage(graphicsDevice, path, tileset.Image));
 				for(uint i = 0; i < tileset.TileCount; i++) {
 					TilesetsByGID.Add(i + tileset.FirstGID, tileset);
-				} 
+					CollectionTilesByGID.Add(i + tileset.FirstGID, null); //null collection tiles for completeness
+				}
 			} else {
 				foreach (Tile tile in tileset.Tiles) {
 					TilesetsByGID.Add(tile.ID + tileset.FirstGID, tileset);
 					CollectionTilesByGID.Add(tile.ID + tileset.FirstGID, tile);
-
 					TileCollectionTextures.Add(tile, LoadImage(graphicsDevice, path, tile.Image));
 				}
 			}
@@ -231,8 +233,11 @@ public class TiledMap {
 				break;
 		}
 	}
+	#endregion
 
 
+
+	#region Drawing functions
 	public void Draw(SpriteBatch spritebatch, Point view_offset, Rectangle viewport_bounds) {
 		DrawLayerGroup(spritebatch, Map.Layers, view_offset, viewport_bounds, 1);
 	}
@@ -281,7 +286,9 @@ public class TiledMap {
 			if (gid == 0) continue;
 			int x = (int)(i % layer.Width);
 			int y = (int)(i / layer.Width);
-			(Tileset tileset, Tile tile) = GetTilesetFromGID(gid);
+
+			//(Tileset tileset, Tile tile) = GetTilesetFromGID(gid);
+			Tileset tileset = TilesetsByGID[gid];
 
 			uint id = gid - tileset.FirstGID;
 			Point coord = new(x, y);
@@ -294,6 +301,7 @@ public class TiledMap {
 			if (tileset.Image.HasValue) {
 				DrawTile(spritebatch, id, tileset, coord, offset, tint, opacity, flip);
 			} else {
+				var tile = CollectionTilesByGID[gid];
 				DrawCollectionTile(spritebatch, tile, tileset, coord, offset, tint, opacity, flip);
 			}
 		}
@@ -382,7 +390,8 @@ public class TiledMap {
 		if (!obj.Visible) return;
 		const float layerDepth = 1;
 
- 		(Tileset tileset, Tile tile) = GetTilesetFromGID(obj.GID);
+		//(Tileset tileset, Tile tile) = GetTilesetFromGID(obj.GID);
+		Tileset tileset = TilesetsByGID[obj.GID];
 		uint id = obj.GID - tileset.FirstGID;
 
 
@@ -402,6 +411,7 @@ public class TiledMap {
 			spritebatch.Draw(texture, dest_rect, source_rect, layer_tint * opacity,
 				rotation: rotation, origin: origin, SpriteEffects.None, layerDepth);
 		} else { //"collection of images" tileset
+			Tile tile = CollectionTilesByGID[obj.GID];
 			Texture2D texture = TileCollectionTextures[tile];
 			Rectangle source_rect = TileSourceBounds(tile);
 			Vector2 origin = new Vector2(0, tile.Height);
@@ -456,11 +466,95 @@ public class TiledMap {
 		spritebatch.Draw(texture, dest, source, tint * opacity, 0, origin, flip, layerDepth);
 	}
 
+	#endregion
+
+
+	#region data retrieval functions
+	public static Rectangle TileSourceBounds(Tile tile) {
+		return new((int)tile.X, (int)tile.Y, (int)tile.Width, (int)tile.Height);
+	}
+	public static Point TileSize(Tile tile) {
+		return new((int)tile.Width, (int)tile.Height);
+	}
+	public static Point TileSize(Map map) {
+		return new Point((int)map.TileWidth, (int)map.TileHeight);
+	}
+	public static Point TileSize(Tileset tileset) {
+		return new Point((int)tileset.TileWidth, (int)tileset.TileHeight);
+	}
+	public static Point LayerOffset(BaseLayer layer) {
+		return new Point((int)layer.OffsetX, (int)layer.OffsetY);
+	}
+	public static Vector2 LayerParallax(BaseLayer layer) {
+		return new Vector2(layer.ParallaxX, layer.ParallaxY);
+	}
+	public static Rectangle ObjectBounds(DotTiled.Object obj) {
+		return new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height);
+	}
+
+	public static Rectangle GetSourceRect(uint id, Tileset tileset) {
+		uint col = id % tileset.Columns;
+		uint row = id / tileset.Columns;
+
+		uint x = tileset.Margin + (col * (tileset.TileWidth + tileset.Spacing));
+		uint y = tileset.Margin + (row * (tileset.TileHeight + tileset.Spacing));
+
+		return new Rectangle((int)x, (int)y, (int)tileset.TileWidth, (int)tileset.TileHeight);
+	}
+
+	public (Tileset tileset, Tile tile) GetTilesetFromGID(uint gid) {
+		foreach (Tileset tileset in Map.Tilesets) {
+			if (tileset.Image.HasValue) {
+				if (gid >= tileset.FirstGID && gid < tileset.FirstGID + tileset.TileCount) {
+					return (tileset, null);
+				}
+			} else {
+				//Collection tilesets can have missing IDs and IDs greater than the tile count
+				
+				foreach (Tile tile in tileset.Tiles) {
+					if (tile.ID == gid - tileset.FirstGID) {
+						return (tileset, tile);
+					}
+				}
+			}
+
+		}
+		throw new Exception("gid " + gid + " has a problem. (DotTiled has trouble with tiles placed with the Insert Tile tool with a flip set.)");
+	}
+
+	public static uint[] GetLayerGIDs(TileLayer layer) {
+		Data data = layer.Data;
+		return data.GlobalTileIDs;
+	}
+
+	public static FlippingFlags[] GetFlippingFlags(TileLayer layer) {
+		Data data = layer.Data;
+		return data.FlippingFlags;
+	}
+	#endregion
+
+
+	#region asset loading functions
+
+	/// <param name="caller_directory">The directory that the XML file referencing this image is in</param>
+	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string caller_directory, Image image) {
+		string relative_path = image.Source;
+		string file = Path.GetFileName(relative_path);
+		string folder = Path.GetDirectoryName(relative_path);
+		string path = Path.Combine(caller_directory, folder, file);
+
+		//TODO: prevent redundant texture reloading. Slowest step of reload by far.
+		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
+	}
+
+	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string path) {
+		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
+	}
+	#endregion
 
 
 
-
-
+	#region conversion helper functions
 	public static bool BoolFromBool(Optional<bool> optional_bool, bool default_value = false) {
 		return optional_bool.HasValue ? optional_bool : default_value;
 	}
@@ -497,62 +591,9 @@ public class TiledMap {
 			A = c.A
 		};
 	}
-
-
-	public static Rectangle GetSourceRect(uint id, Tileset tileset) {
-		uint col = id % tileset.Columns;
-		uint row = id / tileset.Columns;
-
-		uint x = tileset.Margin + (col * (tileset.TileWidth + tileset.Spacing));
-		uint y = tileset.Margin + (row * (tileset.TileHeight + tileset.Spacing));
-
-		return new Rectangle((int)x, (int)y, (int)tileset.TileWidth, (int)tileset.TileHeight);
-	}
+	#endregion
 
 
 
-	public (Tileset tileset, Tile tile) GetTilesetFromGID(uint gid) {
-		foreach (Tileset tileset in Map.Tilesets) {
-			if (tileset.Image.HasValue) {
-				if (gid >= tileset.FirstGID && gid < tileset.FirstGID + tileset.TileCount) {
-					return (tileset, null);
-				}
-			} else {
-				//Collection tilesets can have missing IDs and IDs greater than the tile count
-				
-				foreach (Tile tile in tileset.Tiles) {
-					if (tile.ID == gid - tileset.FirstGID) {
-						return (tileset, tile);
-					}
-				}
-			}
-
-		}
-		throw new Exception("gid " + gid + " has a problem. (DotTiled has trouble with tiles placed with the Insert Tile tool with a flip set.)");
-	}
-
-	public static uint[] GetLayerGIDs(TileLayer layer) {
-		Data data = layer.Data;
-		return data.GlobalTileIDs;
-	}
-
-	public static FlippingFlags[] GetFlippingFlags(TileLayer layer) {
-		Data data = layer.Data;
-		return data.FlippingFlags;
-	}
-
-	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string project_directory, Image image) {
-		string relative_path = image.Source;
-		string file = Path.GetFileName(relative_path);
-		string folder = Path.GetDirectoryName(relative_path);
-		string path = Path.Combine(project_directory, folder, file);
-
-		//TODO: prevent redundant texture reloading. Slowest step of reload by far.
-		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
-	}
-
-	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string path) {
-		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
-	}
 
 }
