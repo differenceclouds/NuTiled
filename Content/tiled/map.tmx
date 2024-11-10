@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" parallaxoriginx="64" parallaxoriginy="64" nextlayerid="25" nextobjectid="168">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" parallaxoriginx="64" parallaxoriginy="64" nextlayerid="25" nextobjectid="173">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <tileset firstgid="17" source="Chips.tsx"/>
  <tileset firstgid="113" source="Rando.tsx"/>
@@ -35,52 +35,79 @@
   <image source="zigg.png" width="300" height="225"/>
  </imagelayer>
  <objectgroup id="11" name="Shapes">
-  <object id="9" type="FilledShape" x="765.097" y="140.661">
+  <object id="9" type="FilledShape" x="1347.1" y="418.661">
    <properties>
+    <property name="BorderColor" type="color" value="#ffffaa00"/>
     <property name="FillColor" type="color" value="#ff55ff00"/>
    </properties>
-   <polygon points="0,0 53.6005,-17.3413 52.024,-85.1301 108.777,-34.6826 182.872,-48.871 134.001,33.1062 198.637,77.2477 91.4361,61.4829 53.6005,122.966 58.3299,31.5297"/>
+   <polygon points="0,0 47.6005,-26.3413 52.024,-85.1301 108.777,-34.6826 182.872,-48.871 138.001,28.1062 198.637,77.2477 91.4361,61.4829 53.6005,122.966 58.3299,31.5297"/>
   </object>
-  <object id="11" type="FilledShape" x="693.838" y="61.332" width="154.495" height="138.731">
+  <object id="11" type="FilledShape" x="1275.84" y="339.332" width="154.495" height="138.731">
    <properties>
+    <property name="BorderColor" type="color" value="#ffff00ff"/>
     <property name="FillColor" type="color" value="#ffffaa00"/>
    </properties>
   </object>
-  <object id="80" type="FilledShape" x="723" y="124">
+  <object id="80" type="FilledShape" x="1765" y="580">
    <properties>
+    <property name="BorderColor" type="color" value="#ff55ff00"/>
     <property name="FillColor" type="color" value="#ffffaa00"/>
    </properties>
    <polygon points="0,0 -134,24 -128,-56"/>
   </object>
-  <object id="163" type="FilledShape" x="988" y="150">
+  <object id="163" type="FilledShape" x="1570" y="428">
+   <properties>
+    <property name="BorderColor" type="color" value="#ffffff7f"/>
+    <property name="FillColor" type="color" value="#ff5500ff"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="164" type="FilledShape" x="1526" y="440">
+   <properties>
+    <property name="BorderColor" type="color" value="#ff00ff00"/>
+    <property name="FillColor" type="color" value="#ffff0000"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="165" type="FilledShape" x="1546" y="469">
    <properties>
     <property name="FillColor" type="color" value="#ffff0000"/>
    </properties>
    <point/>
   </object>
-  <object id="164" type="FilledShape" x="944" y="162">
+  <object id="166" type="FilledShape" x="1594" y="470">
    <properties>
     <property name="FillColor" type="color" value="#ffff0000"/>
    </properties>
    <point/>
   </object>
-  <object id="165" type="FilledShape" x="964" y="191">
+  <object id="167" type="FilledShape" x="1567" y="446">
    <properties>
+    <property name="BorderColor" type="color" value="#ffffffff"/>
     <property name="FillColor" type="color" value="#ffff0000"/>
    </properties>
    <point/>
   </object>
-  <object id="166" type="FilledShape" x="1012" y="192">
+  <object id="168" type="FilledShape" x="1584" y="442" width="257" height="88">
    <properties>
-    <property name="FillColor" type="color" value="#ffff0000"/>
+    <property name="BorderColor" type="color" value="#ffffffff"/>
+    <property name="FillColor" type="color" value="#ffffaa00"/>
    </properties>
-   <point/>
+   <ellipse/>
   </object>
-  <object id="167" type="FilledShape" x="985" y="168">
+  <object id="170" type="FilledShape" x="1637.5" y="348" width="78" height="150">
    <properties>
-    <property name="FillColor" type="color" value="#ffff0000"/>
+    <property name="BorderColor" type="color" value="#ffffffff"/>
+    <property name="FillColor" type="color" value="#ffaa00ff"/>
    </properties>
-   <point/>
+   <ellipse/>
+  </object>
+  <object id="171" type="FilledShape" x="1772" y="296" width="142" height="327">
+   <properties>
+    <property name="BorderColor" type="color" value="#ffffffff"/>
+    <property name="FillColor" type="color" value="#ff007a3b"/>
+   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
  <objectgroup id="10" name="Enemies">
@@ -150,7 +177,7 @@
 17,1,0,0,0,0,104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,104,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,115,115,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,2147483764,1073741940,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 2684354561,1,2684354561,3221225473,1610612737,0,0,0,116,3221225588,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 1,1,2684354561,3221225473,1610612737,0,5,2147483650,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -171,7 +198,7 @@
  </layer>
  <group id="19" name="Group 1">
   <group id="21" name="Group 2">
-   <objectgroup draworder="index" id="12" name="Stamps" tintcolor="#afe4ff" parallaxx="1.5" parallaxy="1.5">
+   <objectgroup draworder="index" id="12" name="Stamps" visible="0" tintcolor="#afe4ff" parallaxx="1.5" parallaxy="1.5">
     <object id="15" gid="1" x="431.639" y="397.475" width="64" height="64" rotation="30"/>
     <object id="16" gid="1" x="407.992" y="403.781" width="64" height="64"/>
     <object id="17" gid="1" x="393.804" y="469.993" width="64" height="64"/>

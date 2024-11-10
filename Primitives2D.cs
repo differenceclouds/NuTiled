@@ -5,26 +5,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Microsoft.Xna.Framework {
 	public static class Primitives2D {
-
-		/// <summary>
-		/// If set to true, all angle values are multiplied by a value to convert input degrees to radians. GLOBAL SETTING.
-		/// </summary>
-		public static bool DegreesMode { get; set; }
-		//implementation note: only use on final spritebatch call or conversions stack.
-		private static float RAD => DegreesMode ? (float)(Math.PI / 180.0) : 1.0f;
-
 		#region Private Members
 
 		private static readonly Dictionary<String, List<Vector2>> circleCache = new Dictionary<string, List<Vector2>>();
 		//private static readonly Dictionary<String, List<Vector2>> arcCache = new Dictionary<string, List<Vector2>>();
 		private static Texture2D pixel;
 
-
 		#endregion
 
 
 		#region Private Methods
-
 		private static void CreateThePixel(SpriteBatch spriteBatch) {
 			pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			pixel.SetData(new[] { Color.White });
@@ -111,17 +101,15 @@ namespace Microsoft.Xna.Framework {
 			points.Add(points[0]);
 
 			// Now remove the points at the end of the circle to create the arc
-			int sidesInArc = (int)(((radians * RAD) / anglePerSide) + 0.5);
+			int sidesInArc = (int)(((radians) / anglePerSide) + 0.5);
 			points.RemoveRange(sidesInArc + 1, points.Count - sidesInArc - 1);
 
 			return points;
 		}
-
 		#endregion
 
 
 		#region FillRectangle
-
 		/// <summary>
 		/// Draws a filled rectangle
 		/// </summary>
@@ -151,7 +139,7 @@ namespace Microsoft.Xna.Framework {
 				CreateThePixel(spriteBatch);
 			}
 
-			spriteBatch.Draw(pixel, rect, null, color, angle * RAD, Vector2.Zero, SpriteEffects.None, layerDepth);
+			spriteBatch.Draw(pixel, rect, null, color, angle, Vector2.Zero, SpriteEffects.None, layerDepth);
 		}
 
 
@@ -186,7 +174,7 @@ namespace Microsoft.Xna.Framework {
 							 location,
 							 null,
 							 color,
-							 angle * RAD,
+							 angle,
 							 Vector2.Zero,
 							 size,
 							 SpriteEffects.None,
@@ -221,12 +209,10 @@ namespace Microsoft.Xna.Framework {
 		public static void FillRectangle(this SpriteBatch spriteBatch, float x, float y, float w, float h, Color color, float angle = 0, float layerDepth = 0) {
 			FillRectangle(spriteBatch, new Vector2(x, y), new Vector2(w, h), color, angle, layerDepth);
 		}
-
 		#endregion
 
 
 		#region DrawRectangle
-
 		/// <summary>
 		/// Draws a rectangle with the thickness provided
 		/// </summary>
@@ -280,12 +266,10 @@ namespace Microsoft.Xna.Framework {
 		public static void DrawRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color, float thickness) {
 			DrawRectangle(spriteBatch, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), color, thickness);
 		}
-
 		#endregion
 
 
 		#region DrawLine
-
 		/// <summary>
 		/// Draws a line from point1 to point2 with an offset
 		/// </summary>
@@ -379,18 +363,85 @@ namespace Microsoft.Xna.Framework {
 							 point,
 							 null,
 							 color,
-							 angle * RAD,
+							 angle,
 							 Vector2.Zero,
 							 new Vector2(length, thickness),
 							 SpriteEffects.None,
 							 layerDepth);
 		}
 
+
+		public static void DrawLineBresenham(this SpriteBatch spriteBatch, int x1, int y1, int x2, int y2, Color color, float layerDepth = 0) {
+			//int dx = Math.Abs(x2 - x1), slope_x = x1 < x2 ? 1 : -1;
+			//int dy = -Math.Abs(y2 - y1), slope_y = y1 < y2 ? 1 : -1;
+			//int err = dx + dy;
+			//int e2;
+
+			//while (true) {
+			//	PutPixel(spriteBatch, new(x1, y1), color);
+			//	if (x1 == x2 && y1 == y2) break;
+			//	e2 = 2 * err;
+			//	if (e2 >= dy) { err += dy; x1 += slope_x; }
+			//	if (e2 <= dx) { err += dx; y1 += slope_y; }
+			//}
+			var points = MakeLineBresenham(x1, y1, x2, y2);
+			foreach(var point in points) {
+				PutPixel(spriteBatch, new(x1, y1), color);
+			}
+		}
+
+		public static void DrawLineBresenham(this SpriteBatch spriteBatch, Point point1, Point point2, Color color, float layerDepth = 0) {
+			DrawLineBresenham(spriteBatch, point1.X, point1.Y, point2.X, point2.Y, color);
+		}
+
+		public static List<Point> MakeLineBresenham(int x1, int y1, int x2, int y2) {
+			List<Point> points = new();
+			int dx = Math.Abs(x2 - x1), slope_x = x1 < x2 ? 1 : -1;
+			int dy = -Math.Abs(y2 - y1), slope_y = y1 < y2 ? 1 : -1;
+			int err = dx + dy;
+			int e2;
+
+			while (true) {
+				points.Add(new Point(x1, y1));
+				if (x1 == x2 && y1 == y2) break;
+				e2 = 2 * err;
+				if (e2 >= dy) { err += dy; x1 += slope_x; }
+				if (e2 <= dx) { err += dx; y1 += slope_y; }
+			}
+			return points;
+		}
+
 		#endregion
 
+		#region DrawPolygon
+
+		public static void DrawPolygon(this SpriteBatch spriteBatch, Vector2 position, List<Vector2> points, bool enclose, Color color) {
+			int last = enclose ? points.Count : points.Count - 1;
+			for (int i = 0; i < last; i++) {
+				Vector2 p1 = points[i] + position;
+				Vector2 p2 = points[(i + 1) % points.Count] + position;
+				Primitives2D.DrawLineBresenham(spriteBatch, p1.ToPoint(), p2.ToPoint(), color);
+			}
+		}
+
+		public static void DrawPolygon(this SpriteBatch spriteBatch, Vector2 position, List<System.Numerics.Vector2> points, bool enclose, Color color) {
+			int last = enclose ? points.Count : points.Count - 1;
+			for (int i = 0; i < last; i++) {
+				Vector2 p1 = points[i] + position;
+				Vector2 p2 = points[(i + 1) % points.Count] + position;
+				Primitives2D.DrawLineBresenham(spriteBatch, p1.ToPoint(), p2.ToPoint(), color);
+			}
+		}
+
+		#endregion
+
+		#region FillPolygon
+
+
+
+		#endregion
 
 		#region PutPixel
-
 		public static void PutPixel(this SpriteBatch spriteBatch, float x, float y, Color color) {
 			PutPixel(spriteBatch, new Vector2(x, y), color);
 		}
@@ -403,7 +454,6 @@ namespace Microsoft.Xna.Framework {
 
 			spriteBatch.Draw(pixel, position, color);
 		}
-
 		#endregion
 
 
@@ -470,122 +520,81 @@ namespace Microsoft.Xna.Framework {
 			DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, thickness);
 		}
 
+		public static void DrawCircleBresenham(this SpriteBatch spriteBatch, int xc, int yc, int r, Color color) {
+			int x = -r, y = 0, err = 2 - 2 * r;
+
+			do {
+				PutPixel(spriteBatch, new(xc - x, yc + y), color);
+				PutPixel(spriteBatch, new(xc - y, yc - x), color);
+				PutPixel(spriteBatch, new(xc + x, yc - y), color);
+				PutPixel(spriteBatch, new(xc + y, yc + x), color);
+				r = err;
+				if (r <= y) err += ++y * 2 + 1;
+				if (r > x || err > y) err += ++x * 2 + 1;
+			} while (x < 0);
+		}
+
+		public static void DrawCircleBresenham(this SpriteBatch spriteBatch, Vector2 center, float radius, Color color) {
+			DrawCircleBresenham(spriteBatch, (int)center.X, (int)center.Y, (int)radius, color);
+		}
 		#endregion
 
 
 
 		#region DrawEllipse
-
-		/// <summary>
-		/// Draw a filled ellipse from a bounding rectangle.
-		/// </summary>
-		/// <param name="spriteBatch">The destination drawing surface</param>
-		/// <param name="rect">the rectangle which bounds the ellipse</param>
-		/// <param name="color">the color of the ellipse</param>
-		public static void DrawEllipse(this SpriteBatch spriteBatch, Rectangle rect, Color color) {
-			DrawEllipse(spriteBatch, rect.X + rect.Width / 2, rect.Y + rect.Height / 2, rect.Width/2, rect.Height/2, color);
+		public static void DrawEllipse(SpriteBatch spriteBatch, Rectangle bounds, Color color) {
+			int x0 = bounds.X,
+				y0 = bounds.Y,
+				x1 = bounds.X + bounds.Width,
+				y1 = bounds.Y + bounds.Height;
+			DrawEllipse(spriteBatch, x0, y0, x1, y1, color);
 		}
-
-		public static void FillEllipse(this SpriteBatch spriteBatch, Rectangle rect, Color color) {
-			FillEllipse(spriteBatch, rect.X + rect.Width / 2, rect.Y + rect.Height / 2, rect.Width / 2, rect.Height / 2, color);
-		}
-
-
-		public static void DrawEllipse(this SpriteBatch spriteBatch, float xc, float yc, float rx, float ry, Color color) {
-			var points = CreateEllipse(xc, yc, rx, ry);
+		public static void DrawEllipse(SpriteBatch spriteBatch, int x0, int y0, int x1, int y1, Color color) {
+			var points = CreateEllipse(x0, y0, x1, y1);
 			foreach(var p in points) {
 				PutPixel(spriteBatch, p, color);
 			}
 		}
-
-		public static void FillEllipse(this SpriteBatch spriteBatch, float xc, float yc, float rx, float ry, Color color) {
-			var points = CreateEllipse(xc, yc, rx, ry);
+		public static void FillEllipse(SpriteBatch spriteBatch, int x0, int y0, int x1, int y1, Color color) {
+			var points = CreateEllipse(x0, y0, x1, y1);
 			DrawPoints(spriteBatch, Vector2.Zero, points, color, 1);
 		}
-
-		/// <param name="xc">center X of the ellipse</param>
-		/// <param name="yc">center Y of the ellipse</param>
-		/// <param name="rx">horizontal radius of the ellipse</param>
-		/// <param name="ry">vertical radius of the ellipse</param>
-		private static List<Vector2> CreateEllipse(float xc, float yc, float rx, float ry) {
+		public static void FillEllipse(SpriteBatch spriteBatch, Rectangle bounds, Color color) {
+			int x0 = bounds.X,
+				y0 = bounds.Y,
+				x1 = bounds.X + bounds.Width,
+				y1 = bounds.Y + bounds.Height;
+			FillEllipse(spriteBatch, x0, y0, x1, y1, color);
+		}
+		public static List<Vector2> CreateEllipse(int x0, int y0, int x1, int y1) {
 			List<Vector2> points = new();
+			int a = Math.Abs(x1 - x0), b = Math.Abs(y1 - y0), b1 = b & 1; //values of diameter
+			long dx = 4 * (1 - a) * b * b, dy = 4 * (b1 + 1) * a * a; //error increment
+			long err = dx + dy + b1 * a * a;
+			long e2;
 
-			float dx, dy, d1, d2, x, y;
-			x = 0;
-			y = ry;
+			if (x0 > x1) { x0 = x1; x1 += a; }
+			if (y0 > y1) { y0 = y1; }
 
-			// Initial decision parameter of region 1
-			d1 = (ry * ry) - (rx * rx * ry) +
-							(0.25f * rx * rx);
-			dx = 2 * ry * ry * x;
-			dy = 2 * rx * rx * y;
-			// For region 1
-			while (dx < dy) {
+			y0 += (b + 1) / 2; y1 = y0 - b1; //starting pixel
+			a *= 8 * a; b1 = 8 * b * b;
 
-				//cout << x + xc << " , " << y + yc << endl;
-				//cout << -x + xc << " , " << y + yc << endl;
-				//cout << x + xc << " , " << -y + yc << endl;
-				//cout << -x + xc << " , " << -y + yc << endl;
+			do {
+				points.Add(new(x1, y0));
+				points.Add(new(x0, y0));
+				points.Add(new(x0, y1));
+				points.Add(new(x1, y1));
+				e2 = 2 * err;
+				if (e2 <= dy) { y0++; y1--; err += dy += a; }
+				if (e2 >= dx || 2 * err > dy) { x0++; x1--; err += dx += b1; }
+			} while (x0 <= x1);
 
-				points.Add(new(x + xc, y + yc));
-				points.Add(new(-x + xc, y + yc));
-				points.Add(new(x + xc, -y + yc));
-				points.Add(new(-x + xc, -y + yc));
-
-
-
-				// Checking and updating value of
-				// decision parameter based on algorithm
-				if (d1 < 0) {
-					x++;
-					dx = dx + (2 * ry * ry);
-					d1 = d1 + dx + (ry * ry);
-				} else {
-					x++;
-					y--;
-					dx = dx + (2 * ry * ry);
-					dy = dy - (2 * rx * rx);
-					d1 = d1 + dx - dy + (ry * ry);
-				}
+			while (y0 - y1 < b) {
+				points.Add(new(x0 - 1, y0));
+				points.Add(new(x1 + 1, y0++));
+				points.Add(new(x0 - 1, y1));
+				points.Add(new(x1 + 1, y1--));
 			}
-
-			// Decision parameter of region 2
-			d2 = ((ry * ry) * ((x + 0.5f) * (x + 0.5f)))
-				+ ((rx * rx) * ((y - 1) * (y - 1)))
-				- (rx * rx * ry * ry);
-
-			// Plotting points of region 2
-			while (y >= 0) {
-
-				//cout << x + xc << " , " << y + yc << endl;
-				//cout << -x + xc << " , " << y + yc << endl;
-				//cout << x + xc << " , " << -y + yc << endl;
-				//cout << -x + xc << " , " << -y + yc << endl;
-
-				points.Add(new(x + xc, y + yc));
-				points.Add(new(-x + xc, y + yc));
-				points.Add(new(x + xc, -y + yc));
-				points.Add(new(-x + xc, -y + yc));
-
-
-				// Checking and updating parameter
-				// value based on algorithm
-				if (d2 > 0) {
-					y--;
-					dy = dy - (2 * rx * rx);
-					d2 = d2 + (rx * rx) - dy;
-				} else {
-					y--;
-					x++;
-					dx = dx + (2 * ry * ry);
-					dy = dy - (2 * rx * rx);
-					d2 = d2 + dx - dy + (rx * rx);
-				}
-			}
-			//foreach(var p in points) {
-			//	PutPixel(spriteBatch, p, color);
-			//}
-			//DrawPoints(spriteBatch, Vector2.Zero, Points, color, 1);
 			return points;
 		}
 
@@ -627,6 +636,14 @@ namespace Microsoft.Xna.Framework {
 
 		#endregion
 
+
+		#region DrawHobbySpline
+
+		//public static List<Vector2> MakeHobbySpline(List<Vector2> points, float omega = 0, bool enclose = false) {
+
+		//}
+
+		#endregion
 
 	}
 }

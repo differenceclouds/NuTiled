@@ -16,6 +16,11 @@
             "id": 3,
             "members": [
                 {
+                    "name": "BorderColor",
+                    "type": "color",
+                    "value": ""
+                },
+                {
                     "name": "FillColor",
                     "type": "color",
                     "value": ""

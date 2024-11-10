@@ -60,8 +60,8 @@
             "scale": 1,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 250,
-                "y": 66.5
+                "x": 558.5,
+                "y": 518
             }
         },
         "tilemap.tsx": {
@@ -74,6 +74,7 @@
     "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTemplatePath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled",
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
+    "map.lastUsedFormat": "tmx",
     "openFiles": [
         "map.tmx",
         "Rando.tsx",
@@ -82,12 +83,12 @@
         "Chess.tsx"
     ],
     "project": "nuttiled.tiled-project",
-    "property.type": "file",
+    "property.type": "color",
     "recentFiles": [
+        "Rando.tsx",
         "Chess.tsx",
         "Chips.tsx",
         "tilemap.tsx",
-        "Rando.tsx",
         "map.tmx",
         "Castlevania.tsx",
         "C:/Users/Massimo/source/repos/NuTiled/bin/Debug/net8.0/Content/tiled/map.tmx",

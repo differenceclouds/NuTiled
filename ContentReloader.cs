@@ -22,7 +22,7 @@ public class ContentReloader
 		}
 	}
 
-	//For release builds, no copy is necessary
+	//For debug, copy asset from solution directory, for release, just set flag.
 	private void ReloadAsset(string path) {
 		Thread.Sleep(500); //if it throws here due to huge map etc, use some try/catch on a loop etc. 
 #if (DEBUG)

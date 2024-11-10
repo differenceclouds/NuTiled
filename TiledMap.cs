@@ -5,7 +5,6 @@ using DotTiled;
 using DotTiled.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace NuTiled;
@@ -20,54 +19,53 @@ public class TiledMap {
 
 	public Map Map { get; }
 
+	//ContentManager content;
+	GraphicsDevice graphicsDevice;
 
-	/// <summary>
-	/// The path to the .tmx file, relative to the TiledProjectDirectory.
-	/// ex: "level.tmx" if the full path would be "Content/tiled_project/level.tmx"
-	/// ex: "levels/level.tmx" if the full path would be "Content/tiled_project/levels/level.tmx" 
-	/// </summary>
+	//map file path, relative to project directory
+	//ex: "levels/level01.tmx" if full path would be "Content/tiled/levels/level01.tmx"
+	//note: keep folder structure of .tiled-project
 	public string MapFilePath { get; }
 
-	public string MapFileDirectory => Path.Combine(TiledProjectDirectory, Path.GetDirectoryName(MapFilePath));
-
-
-	/// <summary>
-	/// The path to the folder containing tileset files etc, relative to the project root. Include Content folder.
-	/// ex: "Content/tiled_project/
-	/// </summary>
+	//.tiled-project directory, relative to executing root
+	//ex: "Content/tiled"
 	public string TiledProjectDirectory { get; }
-	
+	public string MapFileDirectory => Path.Combine(TiledProjectDirectory, Path.GetDirectoryName(MapFilePath));
+	public uint Height => Map.Height;
+	public uint Width => Map.Width;
+	public uint HeightInPixels => Map.Height * Map.TileHeight;
+	public uint WidthInPixels => Map.Width * Map.TileWidth;
+	public Color BackgroundColor => ColorToColor(Map.BackgroundColor);
+
+
 	#region class-required dictionaries
 	public Dictionary<Tileset, Texture2D> TilemapTextures { get; } = new();
 	public Dictionary<Tile, Texture2D> TileCollectionTextures { get; } = new();
 	public Dictionary<ImageLayer, Texture2D> ImageLayerTextures { get; } = new();
 	
-	//This and following can be replaced by GetTilesetFromGid method where used. Dictionaries might be faster.
+	//This and following can be replaced by GetTilesetFromGid method where used. Unsure which is faster.
+	//All GIDs up to the max for the map are covered, with nulls where applicable.
 	public Dictionary<uint, Tileset> TilesetsByGID { get; } = new();
 	public Dictionary<uint, Tile> CollectionTilesByGID { get; } = new();
 	#endregion
 
 	#region optional shortcut dictionaries
-	//populated on instance construction. 
+	//populated on instance construction
 	public Dictionary<string, Tileset> TilesetsByName { get; } = new();
-	public Dictionary<string, BaseLayer> AllLayersByName { get; } = new(); //This is all you need if you don't mind casting to the other layer types.
+	public Dictionary<string, BaseLayer> AllLayersByName { get; } = new(); //This is all you need of the following if you don't mind casting to the other layer types.
 	public Dictionary<string, TileLayer> TileLayersByName { get; } = new();
 	public Dictionary<string, ObjectLayer> ObjectLayersByName { get; } = new();
-	public Dictionary<string, Group> GroupLayersByName { get; } = new();
+	public Dictionary<string, Group> LayerGroupsByName { get; } = new();
 	public Dictionary<string, ImageLayer> ImageLayersByName { get; } = new();
 	#endregion
 
-	public Color BackgroundColor => ColorToColor(Map.BackgroundColor);
 
 	public readonly List<ICustomTypeDefinition> CustomTypeDefinitions = new();
-	public readonly List<CustomClassDefinition> CustomClassDefinitions = new();
-	public readonly List<CustomEnumDefinition> CustomEnumDefinitions = new();
 
 	//dictionary between object and custom class. this probably should be in another file.
-	Dictionary<DotTiled.Object, CustomTypes.FilledShape> FilledShapes = new();
+	Dictionary<DotTiled.Object, GameClasses.FilledShape> FilledShapes = new();
 
-	//ContentManager content;
-	GraphicsDevice graphicsDevice;
+
 
 
 
@@ -79,14 +77,6 @@ public class TiledMap {
 		TiledProjectDirectory = projectDirectory;
 		foreach (var t in typeDefinitions) {
 			CustomTypeDefinitions.Add(t);
-			switch (t) {
-				case CustomClassDefinition c:
-					CustomClassDefinitions.Add(c);
-					break;
-				case CustomEnumDefinition e:
-					CustomEnumDefinitions.Add(e);
-					break;
-			}
 		}
 
 		//Using DotTiled's loader.
@@ -116,6 +106,17 @@ public class TiledMap {
 		var gids = GetLayerGIDs(tileLayer);
 		return gids[coord.Y * tileLayer.Width + coord.X];
 	}
+
+	/// <summary>
+	/// The highest gid, plus one
+	/// </summary>
+	public uint GID_Count {
+		get {
+			var last_tileset = Map.Tilesets[Map.Tilesets.Count - 1];
+			return last_tileset.FirstGID + last_tileset.TileCount;
+		}
+	}
+
 	public (Tileset tileset, uint tileID) GetTileID(TileLayer tileLayer, Point coord) {
 		var gid = GetTileGID(tileLayer, coord);
 		//var tileset = GetTilesetFromGID(gid).tileset;
@@ -165,18 +166,20 @@ public class TiledMap {
 				Image image = tileset.Image;
 				string tileset_path = tileset.Source;
 				TilemapTextures.Add(tileset, LoadImage(graphicsDevice, path, tileset.Image));
-				for(uint i = 0; i < tileset.TileCount; i++) {
-					TilesetsByGID.Add(i + tileset.FirstGID, tileset);
-					CollectionTilesByGID.Add(i + tileset.FirstGID, null); //null collection tiles for completeness
-				}
 			} else {
 				foreach (Tile tile in tileset.Tiles) {
-					TilesetsByGID.Add(tile.ID + tileset.FirstGID, tileset);
-					CollectionTilesByGID.Add(tile.ID + tileset.FirstGID, tile);
 					TileCollectionTextures.Add(tile, LoadImage(graphicsDevice, path, tile.Image));
 				}
 			}
 		}
+
+		//hit every number to add nulls to dictionaries
+		for (uint gid = 1; gid < GID_Count; gid++) {
+			var (tileset, tile) = GetTilesetFromGID(gid, true);
+			TilesetsByGID.Add(gid, tileset);
+			CollectionTilesByGID.Add(gid, tile);
+		}
+
 	}
 
 	private void InitLayerGroup(List<BaseLayer> layers, string path) {
@@ -184,7 +187,7 @@ public class TiledMap {
 			AllLayersByName.Add(layer.Name, layer);
 			switch (layer) {
 				case Group group:
-					GroupLayersByName.Add(group.Name, group);
+					LayerGroupsByName.Add(group.Name, group);
 					InitLayerGroup(group.Layers, path);
 					break;
 				case ImageLayer imagelayer:
@@ -216,7 +219,7 @@ public class TiledMap {
 			switch (obj.Type) {
 				case "FilledShape": {
 					var shape = obj.MapPropertiesTo<CustomTypes.FilledShape>();
-					FilledShapes.Add(obj, shape);
+					FilledShapes.Add(obj, new GameClasses.FilledShape(shape));
 				}
 				break;
 			}
@@ -240,7 +243,23 @@ public class TiledMap {
 	#region Drawing functions
 	public void Draw(SpriteBatch spritebatch, Point view_offset, Rectangle viewport_bounds) {
 		DrawLayerGroup(spritebatch, Map.Layers, view_offset, viewport_bounds, 1);
+		if(DrawGrid) {
+			DrawGridd(spritebatch, view_offset.ToVector2(), GridColor);
+
+		}
 	}
+
+	void DrawGridd(SpriteBatch spritebatch, Vector2 offset, Color color) {
+		Color gridcolor = GridColor;
+		for (int y = 0; y <= HeightInPixels; y += (int)Map.TileHeight) {
+			Primitives2D.DrawLine(spritebatch, new Vector2(0, y) + offset, new Vector2(WidthInPixels, y) + offset, gridcolor);
+		}
+		for (int x = 0; x <= WidthInPixels; x += (int)Map.TileWidth) {
+			Primitives2D.DrawLine(spritebatch, new Vector2(x, 0) + offset, new Vector2(x, HeightInPixels) + offset, gridcolor);
+		}
+	}
+	public static bool DrawGrid { get; set; }
+	public static Color GridColor { get; set; } = Color.Gray * 0.5f;
 
 	public void DrawLayerGroup(SpriteBatch spritebatch, List<BaseLayer> layers, Point view_offset, Rectangle viewport_bounds, float opacity) {
 		foreach (BaseLayer layer in layers) {
@@ -312,10 +331,12 @@ public class TiledMap {
 			return;
 		}
 		foreach (var obj in layer.Objects) {
-			if(obj.Type == "FilledShape") { //idk man
+			//custom object draw functions
+			if(obj.Type == "FilledShape") { //there is probably better way to do this
 				FilledShapes[obj].Draw(spritebatch, obj, view_offset);
 				continue;
 			}
+			//generic draw functions
 			switch (obj) {
 				case TileObject tileobject:
 					DrawTileObject(spritebatch, tileobject, layer, view_offset, group_opacity);
@@ -401,7 +422,7 @@ public class TiledMap {
 		float opacity = layer.Opacity * group_opacity;
 		float rotation = obj.Rotation * RAD;
 
-		Rectangle dest_rect = ObjectBounds(obj);
+		Rectangle dest_rect = GetObjectBounds(obj);
 		dest_rect.Location += offset;
 
 		if (tileset.Image.HasValue) { //Normal tileset tile
@@ -450,11 +471,23 @@ public class TiledMap {
 		Texture2D texture = TileCollectionTextures[tile];
 		coord.Y += 1; //image draws from bottom left of map tile
 		Point location = coord * TileSize(Map);
-
+		Rectangle source = TileSourceBounds(tile);
 		Rectangle dest;
 		switch (tileset.RenderSize) {
 			case TileRenderSize.Grid:
 				dest = new Rectangle(location, TileSize(Map));
+				//assuming map grid size is square
+				if (tileset.FillMode == DotTiled.FillMode.PreserveAspectFit && TileSize(tile).X != TileSize(tile).Y) {
+					if (TileSize(tile).Y < TileSize(tile).X) {
+						float v_aspect_ratio = (float)tile.Height / (float)tile.Width;
+						dest.Height = (int)(dest.Height * v_aspect_ratio);
+						dest.Y -= (TileSize(Map).Y - dest.Height) / 2;
+					} else {
+						float h_aspect_ratio = (float)tile.Width / (float)tile.Height;
+						dest.Width = (int)(dest.Width * h_aspect_ratio);
+						dest.X += (TileSize(Map).X - dest.Width) / 2;
+					}
+				}
 				break;
 			default:
 			case TileRenderSize.Tile:
@@ -462,14 +495,15 @@ public class TiledMap {
 				break;
 		}
 		dest.Location += offset;
-		Rectangle source = TileSourceBounds(tile);
 		spritebatch.Draw(texture, dest, source, tint * opacity, 0, origin, flip, layerDepth);
 	}
-
 	#endregion
 
 
 	#region data retrieval functions
+
+
+
 	public static Rectangle TileSourceBounds(Tile tile) {
 		return new((int)tile.X, (int)tile.Y, (int)tile.Width, (int)tile.Height);
 	}
@@ -482,13 +516,14 @@ public class TiledMap {
 	public static Point TileSize(Tileset tileset) {
 		return new Point((int)tileset.TileWidth, (int)tileset.TileHeight);
 	}
+
 	public static Point LayerOffset(BaseLayer layer) {
 		return new Point((int)layer.OffsetX, (int)layer.OffsetY);
 	}
 	public static Vector2 LayerParallax(BaseLayer layer) {
 		return new Vector2(layer.ParallaxX, layer.ParallaxY);
 	}
-	public static Rectangle ObjectBounds(DotTiled.Object obj) {
+	public static Rectangle GetObjectBounds(DotTiled.Object obj) {
 		return new Rectangle((int)obj.X, (int)obj.Y, (int)obj.Width, (int)obj.Height);
 	}
 
@@ -502,7 +537,11 @@ public class TiledMap {
 		return new Rectangle((int)x, (int)y, (int)tileset.TileWidth, (int)tileset.TileHeight);
 	}
 
-	public (Tileset tileset, Tile tile) GetTilesetFromGID(uint gid) {
+
+	/// <summary>
+	/// Returns the Tileset, and a Tile object if the tileset is a collection of images. Specify "safe" to return null on invalid GID.
+	/// </summary>
+	public (Tileset tileset, Tile tile) GetTilesetFromGID(uint gid, bool safe = false) {
 		foreach (Tileset tileset in Map.Tilesets) {
 			if (tileset.Image.HasValue) {
 				if (gid >= tileset.FirstGID && gid < tileset.FirstGID + tileset.TileCount) {
@@ -517,10 +556,19 @@ public class TiledMap {
 					}
 				}
 			}
-
 		}
-		throw new Exception("gid " + gid + " has a problem. (DotTiled has trouble with tiles placed with the Insert Tile tool with a flip set.)");
+		if(!safe) {
+			if (gid < 1000000)
+				throw new Exception($"No tileset with gid {gid} exists.");
+			else
+				throw new Exception($"gid {gid} doesn't have FlippingFlag bits stripped");
+		} else {
+			return (null, null);
+		}
 	}
+
+
+
 
 	public static uint[] GetLayerGIDs(TileLayer layer) {
 		Data data = layer.Data;
@@ -535,7 +583,6 @@ public class TiledMap {
 
 
 	#region asset loading functions
-
 	/// <param name="caller_directory">The directory that the XML file referencing this image is in</param>
 	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string caller_directory, Image image) {
 		string relative_path = image.Source;
@@ -544,7 +591,7 @@ public class TiledMap {
 		string path = Path.Combine(caller_directory, folder, file);
 
 		//TODO: prevent redundant texture reloading. Slowest step of reload by far.
-		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
+		return LoadImage(graphicsDevice, path);
 	}
 
 	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string path) {
@@ -580,6 +627,7 @@ public class TiledMap {
 		return new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
 	}
 
+
 	/// <summary>
 	/// Converts between XNA Color and Dottiled color, depending on overload.
 	/// </summary>
@@ -591,6 +639,8 @@ public class TiledMap {
 			A = c.A
 		};
 	}
+
+
 	#endregion
 
 

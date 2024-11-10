@@ -23,8 +23,11 @@ public class Game1 : Game {
 	}
 
 	protected override void Initialize() {
+		//int w = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+		//int h = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 		graphics.PreferredBackBufferWidth = 1024;
 		graphics.PreferredBackBufferHeight = 768;
+		graphics.IsFullScreen = false;
 		graphics.ApplyChanges();
 		base.Initialize();
 	}
@@ -52,17 +55,18 @@ public class Game1 : Game {
 		customTypeDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>());
 
-		tiledMap = new(graphics.GraphicsDevice, "Content/tiled", "map.tmx", customTypeDefinitions);
+		tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/tiled", "map.tmx", customTypeDefinitions);
+		TiledMap.DrawGrid = true;
 	}
 
 
 	void InitContentReloader() {
 #if (DEBUG)
 		var solution_dir = "../../../";
-		contentReloader = new(Path.Combine(solution_dir, tiledMap.TiledProjectDirectory), tiledMap.TiledProjectDirectory);
+		contentReloader = new ContentReloader(Path.Combine(solution_dir, tiledMap.TiledProjectDirectory), tiledMap.TiledProjectDirectory);
 #else
 		//If auto-reload for release is not desired, comment this out. R Key reloads map from file system regardless.
-		contentReloader = new(tiledMap.TiledProjectDirectory, tiledMap.TiledProjectDirectory);
+		contentReloader = new ContentReloader(tiledMap.TiledProjectDirectory, tiledMap.TiledProjectDirectory);
 #endif
 	}
 
@@ -71,7 +75,7 @@ public class Game1 : Game {
 		string path = tiledMap.TiledProjectDirectory;
 		string file = tiledMap.MapFilePath;
 		var typeDefinitions = tiledMap.CustomTypeDefinitions;
-		tiledMap = new(graphics.GraphicsDevice, path, file, typeDefinitions);
+		tiledMap = new TiledMap(graphics.GraphicsDevice, path, file, typeDefinitions);
 	}
 
 	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -85,23 +89,6 @@ public class Game1 : Game {
 	Random rnd = new Random();
 
 	protected override void Update(GameTime gameTime) {
-		int prev_milliseconds = milliseconds;
-		milliseconds = gameTime.TotalGameTime.Milliseconds;
-
-		if (milliseconds != prev_milliseconds && milliseconds % 5 == 0) {
-			Point point = new(0, 0);
-			TileLayer orange = tiledMap.TileLayersByName["OrangeStuff"];
-			var gid = tiledMap.GetTileGID(orange, point);
-			var (tileset, id) = tiledMap.GetTileID(orange, point);
-			tiledMap.SetTileByID(orange, point, tileset, id + 1);
-			tiledMap.SetTileByID(orange, new(6, 0), tileset, id + 4);
-			tiledMap.SetTileByID(orange, new(0, 6), tileset, id + 8);
-			tiledMap.SetTileByID(orange, new(6, 6), tileset, id + 12);
-
-			point = new(rnd.Next(7), rnd.Next(7));
-			id = (uint)rnd.Next((int)tileset.TileCount);
-			tiledMap.SetTileByID(orange,  point, tileset, id);
-		}
 
 		var keyboard = Keyboard.GetState();
 		var mouse = Mouse.GetState();
@@ -127,6 +114,33 @@ public class Game1 : Game {
 		if (IsActive && leftclick_held) {
 			view_pos = mouse.Position - click_pos;
 		}
+
+
+		int prev_milliseconds = milliseconds;
+		milliseconds += gameTime.ElapsedGameTime.Milliseconds;
+
+		if (milliseconds != prev_milliseconds && milliseconds % 20 == 0) {
+			milliseconds = 0;
+			Point point = new(0, 0);
+
+			//TryGetValue for uncertainty.
+			//if you are certain layer exists:
+			//TileLayer orangestuff = TileLayersByName["OrangeStuff"]
+			if (tiledMap.TileLayersByName.TryGetValue("OrangeStuff", out TileLayer orangestuff)) {
+				var gid = tiledMap.GetTileGID(orangestuff, point);
+				var (tileset, id) = tiledMap.GetTileID(orangestuff, point);
+				tiledMap.SetTileByID(orangestuff, point, tileset, id + 1);
+				tiledMap.SetTileByID(orangestuff, new(6, 0), tileset, id + 5);
+				tiledMap.SetTileByID(orangestuff, new(0, 6), tileset, id + 9);
+				tiledMap.SetTileByID(orangestuff, new(6, 6), tileset, id + 13);
+
+				point = new(rnd.Next(7), rnd.Next(7));
+				id = (uint)rnd.Next((int)tileset.TileCount);
+				tiledMap.SetTileByID(orangestuff, point, tileset, id);
+			}
+
+		}
+
 
 		base.Update(gameTime);
 	}
