@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuTiled", "NuTiled.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotTiled", "..\DotTiled\src\DotTiled\DotTiled.csproj", "{A948CC6E-1176-4C8E-86C8-76CCF7A347E3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NuTiledLibrary", "..\NuTiledLibrary\NuTiledLibrary.csproj", "{B8A564D1-DA8E-4D8E-AAD8-A4BEF7492E46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A948CC6E-1176-4C8E-86C8-76CCF7A347E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A948CC6E-1176-4C8E-86C8-76CCF7A347E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A948CC6E-1176-4C8E-86C8-76CCF7A347E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8A564D1-DA8E-4D8E-AAD8-A4BEF7492E46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8A564D1-DA8E-4D8E-AAD8-A4BEF7492E46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8A564D1-DA8E-4D8E-AAD8-A4BEF7492E46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8A564D1-DA8E-4D8E-AAD8-A4BEF7492E46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

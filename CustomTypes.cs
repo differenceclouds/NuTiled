@@ -6,6 +6,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using System.Collections.Generic;
 
 namespace NuTiled.CustomTypes {
+	[Flags]
 	public enum Direction {
 		Up, Down, Left, Right
 	}
@@ -13,6 +14,7 @@ namespace NuTiled.CustomTypes {
 	public class FilledShape {
 		public DotTiled.Color FillColor { get; set; }
 		public DotTiled.Color BorderColor { get; set; }
+
 	}
 }
 

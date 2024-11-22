@@ -38,25 +38,113 @@ public class Game1 : Game {
 		InitContentReloader();
 	}
 
+
+	//dictionary between object and custom class. this probably should be in another file.
+	Dictionary<DotTiled.Object, GameClasses.FilledShape> FilledShapes = new();
+
+
+	enum MovePattern {
+		BackAndForth,
+		Clockwise,
+		Counterclockwise
+	}
+	enum FaceDirection {
+		Up, Down, Left, Right
+	}
+
+	enum Chirality {
+		CounterClockwise,
+		Clockwise
+	}
+	enum SpawnType {
+		Demonhead,
+		Sportsman,
+		Ghost,
+		Ricochet,
+		Comet,
+		Goblin,
+		Salamander
+	}
+	enum KeyType {
+		Local,
+		Master
+	}
+	enum DoorType {
+		Local,
+		Master
+	}
+	enum CardinalDirection {
+		NE, SE, SW, NW
+	}
+
+	//[Flags]
+	//public enum Direction {
+	//	Up, Down, Left, Right
+	//}
+
+
 	void InitTiledMap() {
 		//Add all un-implemented Tiled classes here:
 		//https://github.com/dcronqvist/DotTiled/issues/42
-		string[] custom_classes = [
-			"Goblin",
-		];
+		//string[] custom_classes = [
+		//	"Goblin",
+		//	"Unicorn",
+		//	"Stone",
+		//	"Wall",
+		//	"Walling",
+		//	"Spawn",
+		//	"Item",
+		//	"Clay",
+		//	"ClayCracked",
+		//	"Other",
+		//	"Extra",
+		//	"DoorOpen",
+		//	"DoorClosed",
+		//	"Key",
+		//	"Actor",
+		//	"Spawner",
+		//	"Emblem",
+
+		//];
 		List <ICustomTypeDefinition> customTypeDefinitions = new();
-		foreach (var c in custom_classes) {
-			customTypeDefinitions.Add(new CustomClassDefinition { Name = c });
-		}
+		//foreach (var c in custom_classes) {
+		//	customTypeDefinitions.Add(new CustomClassDefinition { Name = c });
+		//}
 
 		//And the properly implemented classes & enums here:
 		//Note: at present, custom enums must be implemented.
 		//https://dcronqvist.github.io/DotTiled/docs/essentials/custom-properties.html#custom-types
-		customTypeDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
-		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>());
+		//customTypeDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<FaceDirection>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<MovePattern>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<Chirality>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CardinalDirection>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<DoorType>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<KeyType>(CustomEnumStorageType.String));
+		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<SpawnType>(CustomEnumStorageType.String));
 
+		//tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/LesserKeysLevels", "namedLevels/Ad Hoc.tmx");
 		tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/tiled", "map.tmx", customTypeDefinitions);
+		//tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/tiled", "map.tmx");
 		TiledMap.DrawGrid = true;
+		
+		foreach(var obj in tiledMap.AllObjects) {
+			//Parse out custom types
+			//Console.WriteLine($"{obj.Name}:");
+			foreach (var prop in obj.Properties) {
+				
+				//Console.WriteLine($"{prop.Name}: {prop.ValueString}" );
+			}
+			switch (obj.Type) {
+				case "FilledShape": {
+					var shape = obj.MapPropertiesTo<CustomTypes.FilledShape>();
+					FilledShapes.Add(obj, new GameClasses.FilledShape(shape));
+					Console.WriteLine($"{obj.Type}, {obj.X}, {obj.Y}");
+				}
+				break;
+			}
+		}
 	}
 
 
@@ -151,7 +239,36 @@ public class Game1 : Game {
 	protected override void Draw(GameTime gameTime) {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
 		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //Wrap for image layers with repeat-x or repeat-y
-			tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
+		tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
+
+		//var shapeslayer = tiledMap.ObjectLayersByName["Shapes"];
+		//var objects = shapeslayer.Objects;
+		//foreach (var obj in objects) {
+
+		//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle((int)obj.X, (int)obj.Y, 300, 300), Color.Azure);
+
+		//	if (obj.Type == "FilledShape") { //there is probably better way to do this
+		//		FilledShapes[obj].Draw(spriteBatch, obj, new Point(0, 0));
+		//		continue;
+		//	}
+		//}
+		//Primitives2D.DrawRectangle(spriteBatch, new Rectangle(30, 30, 300, 300), Color.Azure);
+		spriteBatch.End();
+
+		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //Wrap for image layers with repeat-x or repeat-y
+
+		int i = 0;
+		foreach (var (obj, shape) in FilledShapes) {
+			shape.Draw(spriteBatch, obj, view_pos);
+			//Console.WriteLine("shape");
+			//Rectangle bounds = TiledMap.GetObjectBounds(obj);
+
+			//Console.WriteLine(bounds);
+			//Primitives2D.FillRectangle(spriteBatch, new Rectangle(i * 10, i * 10, 100, 100), Color.Azure);
+			i++;
+		}
+
+
 		spriteBatch.End();
 		base.Draw(gameTime);
 	}

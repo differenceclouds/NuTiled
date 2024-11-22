@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Ghost" type="Actor">
+  <properties>
+   <property name="BlockedByGreenWalls" type="bool" value="true"/>
+   <property name="Deadly" type="bool" value="true"/>
+   <property name="Destructive" type="bool" value="true"/>
+   <property name="FaceDirection" propertytype="Direction" value="Left"/>
+   <property name="MovePattern" propertytype="MovePattern" value="BackAndForth"/>
+   <property name="Speed" type="float" value="200"/>
+  </properties>
+  <point/>
+ </object>
+</template>

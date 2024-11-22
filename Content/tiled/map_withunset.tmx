@@ -35,7 +35,7 @@
   <image source="zigg.png" width="300" height="225"/>
  </imagelayer>
  <objectgroup id="11" name="Shapes">
-  <object id="9" type="FilledShape" x="1343.1" y="448.661">
+  <object id="9" type="FilledShape" x="1347.1" y="418.661">
    <properties>
     <property name="BorderColor" type="color" value="#ffffaa00"/>
     <property name="FillColor" type="color" value="#ff55ff00"/>
@@ -110,26 +110,37 @@
   </object>
  </objectgroup>
  <objectgroup id="10" name="Enemies">
-  <object id="3" name="Archie" type="Goblin" x="503.71" y="99.3185">
+  <object id="3" name="Archie" type="Goblin" x="488.71" y="99.3185">
    <point/>
   </object>
-  <object id="6" name="Tim" x="631.695" y="180.202">
+  <object id="6" name="Tim" x="506.695" y="171.202">
    <properties>
-    <property name="Dirdir" type="int" propertytype="Direction" value="3"/>
-    <property name="cardinalflags" type="int" propertytype="CardinalFlags" value="0"/>
+    <property name="Dirdir" propertytype="Direction" value="Up,Right"/>
    </properties>
    <point/>
   </object>
-  <object id="7" name="Geoffrey" x="545.637" y="50.637">
+  <object id="7" name="Geoffrey" x="530.637" y="50.637">
    <properties>
     <property name="Age" type="int" value="194"/>
-    <property name="Direction" type="int" propertytype="Direction" value="6"/>
+    <property name="Direction" propertytype="Direction" value="Right,Down"/>
     <property name="Evil" type="bool" value="true"/>
     <property name="Friend" type="object" value="34"/>
    </properties>
    <point/>
   </object>
-  <object id="176" name="SuzanneSet" type="Goblin" x="682.946" y="100.624">
+  <object id="34" name="SuzanneUnset" type="Goblin" x="598.946" y="101.624">
+   <properties>
+    <property name="boolprop" type="bool" value="false"/>
+    <property name="colorprop" type="color" value=""/>
+    <property name="fileprop" type="file" value=""/>
+    <property name="floatprop" type="float" value="0"/>
+    <property name="intprop" type="int" value="0"/>
+    <property name="objectprop" type="object" value="0"/>
+    <property name="stringprop" value=""/>
+   </properties>
+   <point/>
+  </object>
+  <object id="176" name="SuzanneSet" type="Goblin" x="667.946" y="100.624">
    <properties>
     <property name="boolprop" type="bool" value="true"/>
     <property name="colorprop" type="color" value="#ffff557f"/>
@@ -140,6 +151,11 @@
     <property name="stringprop" value="Yoooooo yooooo"/>
    </properties>
    <point/>
+  </object>
+  <object id="174" template="Unicorn.tx" name="Shelley" x="758" y="108">
+   <properties>
+    <property name="alive" type="bool" value="false"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup id="25" name="Unicorns"/>

@@ -58,10 +58,26 @@
                 21
             ],
             "scale": 1,
-            "selectedLayer": 8,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 558.5,
-                "y": 518
+                "x": 204.5,
+                "y": 131
+            }
+        },
+        "map_withunset.tmx": {
+            "expandedGroupLayers": [
+                19,
+                21
+            ],
+            "expandedObjectLayers": [
+                10,
+                11
+            ],
+            "scale": 1,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 960.5,
+                "y": 640
             }
         },
         "tilemap.tsx": {
@@ -76,18 +92,20 @@
     "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/tiled/propertytypes.json",
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "map.tmx",
+        "map_withunset.tmx",
         "Rando.tsx",
-        "tilemap.tsx",
         "Chips.tsx",
-        "Chess.tsx"
+        "Chess.tsx",
+        "tilemap.tsx",
+        "map.tmx"
     ],
     "project": "nuttiled.tiled-project",
-    "property.type": "color",
+    "property.type": "CardinalFlags",
     "recentFiles": [
+        "map_withunset.tmx",
         "Rando.tsx",
-        "Chess.tsx",
         "Chips.tsx",
+        "Chess.tsx",
         "tilemap.tsx",
         "map.tmx",
         "Castlevania.tsx",

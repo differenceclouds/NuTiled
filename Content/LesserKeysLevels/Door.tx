@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Door" type="Door">
+  <properties>
+   <property name="DoorType" propertytype="DoorType" value="Local"/>
+   <property name="Level" type="int" value="0"/>
+   <property name="World" type="int" value="0"/>
+  </properties>
+  <point/>
+ </object>
+</template>

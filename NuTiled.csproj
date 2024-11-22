@@ -11,6 +11,11 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ColorConstants.cs" />
+    <Compile Remove="Primitives2D.cs" />
+    <Compile Remove="TiledMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
@@ -25,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotTiled\src\DotTiled\DotTiled.csproj" />
+    <ProjectReference Include="..\NuTiledLibrary\NuTiledLibrary.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Content\Backgrounds\gate.png">
@@ -475,6 +481,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\tiled\collection_sheet\Rando.tsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\tiled\Emblem.tx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Content\tiled\EmblemAlt.tx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Content\tiled\Goblin.tx">

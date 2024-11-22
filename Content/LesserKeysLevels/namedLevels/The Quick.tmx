@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="25" height="17" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="44">
+ <tileset firstgid="1" source="../StaticObjects.tsx"/>
+ <tileset firstgid="89" source="../Lattice.tsx"/>
+ <layer id="8" name="Hidden Items" width="25" height="17" opacity="0.25">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="7" name="Items" width="25" height="17">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,45,0,44,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,41,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="1" name="Blocks" width="25" height="17">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,0,8,0,8,0,2,0,3,0,1,2,0,2,1,0,2,0,8,0,3,0,7,0,0,
+0,0,0,0,0,0,0,0,0,0,0,1,4,1,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,11,1,18,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,36,0,0,0,0,0,0,9,0,0,0,0,0,0,33,0,0,0,0,0,
+0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,3,0,0,0,0,0,
+0,0,0,0,1,0,8,0,0,0,0,0,1,0,0,0,0,0,3,2,7,0,0,0,0,
+0,0,0,0,0,6,0,0,0,0,5,0,0,0,5,0,0,0,0,1,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,4,0,2,0,5,0,2,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,8,0,0,1,0,1,0,0,6,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="11" name="BlockExtras" width="25" height="17">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,29,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="2" name="Actors">
+  <object id="23" template="../Dana.tx" name="Dana0" x="800" y="480"/>
+  <object id="43" template="../Dana.tx" name="Dana1" x="800" y="480"/>
+  <object id="24" template="../Spark.tx" x="736" y="416">
+   <properties>
+    <property name="FaceDirection" propertytype="Direction" value="Right"/>
+    <property name="Speed" type="float" value="7"/>
+   </properties>
+  </object>
+  <object id="32" template="../Spark.tx" x="928" y="224" visible="1">
+   <properties>
+    <property name="Chirality" propertytype="Chirality" value="CounterClockwise"/>
+    <property name="FaceDirection" propertytype="Direction" value="Left"/>
+    <property name="Speed" type="float" value="7"/>
+   </properties>
+  </object>
+  <object id="25" template="../Spark.tx" x="864" y="416">
+   <properties>
+    <property name="Chirality" propertytype="Chirality" value="CounterClockwise"/>
+    <property name="FaceDirection" propertytype="Direction" value="Left"/>
+   </properties>
+  </object>
+  <object id="28" template="../Spawner.tx" x="672" y="416">
+   <properties>
+    <property name="SpawnInterval" type="float" value="5"/>
+   </properties>
+  </object>
+  <object id="29" template="../Spawner.tx" x="928" y="416">
+   <properties>
+    <property name="FaceDirection" value="Right"/>
+    <property name="InitialPause" type="float" value="3.75"/>
+    <property name="SpawnInterval" type="float" value="5"/>
+   </properties>
+  </object>
+  <object id="30" template="../Teleporter.tx" x="800" y="864">
+   <properties>
+    <property name="Destination" type="object" value="31"/>
+   </properties>
+  </object>
+  <object id="31" template="../Teleporter.tx" x="800" y="288">
+   <properties>
+    <property name="Destination" type="object" value="30"/>
+   </properties>
+  </object>
+  <object id="33" template="../Spark.tx" x="672" y="224">
+   <properties>
+    <property name="Chirality" propertytype="Chirality" value="Clockwise"/>
+    <property name="FaceDirection" propertytype="Direction" value="Right"/>
+   </properties>
+  </object>
+  <object id="34" template="../Spawner.tx" x="672" y="416">
+   <properties>
+    <property name="FaceDirection" value="Right"/>
+    <property name="InitialPause" type="float" value="5"/>
+    <property name="SpawnInterval" type="float" value="5"/>
+   </properties>
+  </object>
+  <object id="35" template="../Spawner.tx" x="928" y="416">
+   <properties>
+    <property name="FaceDirection" value="Left"/>
+    <property name="InitialPause" type="float" value="6.25"/>
+    <property name="SpawnInterval" type="float" value="5"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

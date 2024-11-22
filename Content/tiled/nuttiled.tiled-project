@@ -11,6 +11,32 @@
     ],
     "propertyTypes": [
         {
+            "id": 5,
+            "name": "CardinalFlags",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "North",
+                "East",
+                "South",
+                "West"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "id": 4,
+            "name": "Direction",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+                "Up",
+                "Right",
+                "Down",
+                "Left"
+            ],
+            "valuesAsFlags": false
+        },
+        {
             "color": "#ff62a485",
             "drawFill": true,
             "id": 3,

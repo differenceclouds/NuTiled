@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Spark" type="Actor">
+  <properties>
+   <property name="Chirality" propertytype="Chirality" value="Clockwise"/>
+   <property name="FaceDirection" propertytype="Direction" value="Down"/>
+   <property name="Speed" type="float" value="2"/>
+  </properties>
+  <point/>
+ </object>
+</template>

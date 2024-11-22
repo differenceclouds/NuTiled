@@ -1,0 +1,1336 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "namedLevels/Ad Hoc.tmx",
+    "expandedProjectPaths": [
+        "numberedLevelsBackup",
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels",
+        "namedLevels",
+        ".",
+        "C:/Users/Radagast/Projects/TiledExperiment/Content",
+        "SK1"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "BackgroundBricks.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "BlocksConnected.tsx": {
+            "scaleInDock": 0.6828,
+            "scaleInEditor": 1
+        },
+        "BlocksLarge.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "BowDrawing.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "BoxDrawing.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.55,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/blocks_0margin.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/blocks_basic.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/blocks_basic_margin.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/blocks_variety_2pxPadding.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/blocks_variety_margin.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/level0.tmx": {
+            "scale": 0.6711,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 511.1011771718074,
+                "y": 512.5912680673521
+            }
+        },
+        "C:/Users/Radagast/Projects/LesserKeys/Content/Levels/testLevel.tmx": {
+            "scale": 0.8277573529411765,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 776.1936486786586,
+                "y": 486.25360870530756
+            }
+        },
+        "C:/Users/Radagast/Projects/TiledExperiment/Content/Solomon.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/TiledExperiment/Content/another_try.tmx": {
+            "scale": 0.8572265625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.6197311460469,
+                "y": 512.6999316473001
+            }
+        },
+        "C:/Users/Radagast/Projects/TiledExperiment/Content/blocks_basic.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/TiledExperiment/Content/exampleMap.tmx": {
+            "scale": 3.42890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 127.73752563226245,
+                "y": 128.17498291182503
+            }
+        },
+        "C:/Users/Radagast/Projects/TiledExperiment/Content/exampleMap.tmx#exampleTileset": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Radagast/Projects/TiledExtended/Content/blocks_basic.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Radagast/Projects/TiledExtended/Content/getting_somewhere.tmx": {
+            "scale": 0.8572265625,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 307.96992481203006,
+                "y": 426.9583048530417
+            }
+        },
+        "Lattice.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Mercury.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.9487,
+            "scaleInEditor": 1
+        },
+        "Numerals2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SKN/01.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/02.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/03.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/04.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/05.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/06.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/07.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/08.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/09.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/10.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/11.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/12.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/13.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/14.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/15.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/16.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/17.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.6708,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.02385211687545,
+                "y": 385.36076326774
+            }
+        },
+        "SKN/18.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/19.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/20.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/21.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/22.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/23.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/24.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/25.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/26.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/27.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/28.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/29.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/30.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/31.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/32.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/33.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/34.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/35.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.938125,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SKN/36.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 0.6103,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.0917581517287,
+                "y": 384.2372603637555
+            }
+        },
+        "SKN/NES_Items.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "SKN/template.tmx": {
+            "scale": 0.938125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 480.7461692205197,
+                "y": 384.27714856762157
+            }
+        },
+        "SolidBlocks.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "StaticObjects.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "Walls.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "another_try.tmx": {
+            "scale": 0.6791015625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 513.1780270348,
+                "y": 513.1780270348002
+            }
+        },
+        "blocks_0margin.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "blocks_basic.tsx": {
+            "scaleInDock": 1
+        },
+        "blocks_variety_2pxPadding.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "gateHouse.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 996,
+                "y": 641
+            }
+        },
+        "level0.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.4742,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 480.8097849008856,
+                "y": 384.85870940531424
+            }
+        },
+        "level00.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.7919,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 983.078671549438,
+                "y": 369.99621164288413
+            }
+        },
+        "level00_NES.tmx": {
+            "scale": 0.4912731481481481,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 988.2485982189136,
+                "y": 855.9393111247231
+            }
+        },
+        "level00_new.tmx": {
+            "scale": 0.13302283653846153,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2503.329568556585,
+                "y": 1447.1199457872149
+            }
+        },
+        "level01.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.5018,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 865.8828218413711,
+                "y": 259.06735751295344
+            }
+        },
+        "level01_new.tmx": {
+            "scale": 0.2964508928571428,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 866.9226714855808,
+                "y": 450.3275355771402
+            }
+        },
+        "level02.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5353326612903225,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 992.840598813671,
+                "y": 642.591093117409
+            }
+        },
+        "level03.tmx": {
+            "scale": 0.38,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1246.0526315789475,
+                "y": 921.0526315789475
+            }
+        },
+        "level04.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.7862,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 801.9587891121852,
+                "y": 789.87534978377
+            }
+        },
+        "level05.tmx": {
+            "scale": 0.35,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 2492.857142857143,
+                "y": 1078.5714285714287
+            }
+        },
+        "level06.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1285.5,
+                "y": 929
+            }
+        },
+        "level1.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 544,
+                "y": 481
+            }
+        },
+        "level2.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5256,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 928.4627092846272,
+                "y": 1125.380517503805
+            }
+        },
+        "level3.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.3858,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1021.2545360290306,
+                "y": 962.9341627786418
+            }
+        },
+        "level4.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.6511,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 688.0663492551066,
+                "y": 914.6060512978037
+            }
+        },
+        "level5.tmx": {
+            "scale": 0.6255,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 778.5771382893686,
+                "y": 477.21822541966435
+            }
+        },
+        "level6.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.7657,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 427.0602063471333,
+                "y": 439.4671542379522
+            }
+        },
+        "namedLevels/Ad Hoc.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.75,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 684.6666666666665,
+                "y": 568
+            }
+        },
+        "namedLevels/Apport's Ladder.tmx": {
+            "scale": 0.841,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 789.5362663495839,
+                "y": 593.935790725327
+            }
+        },
+        "namedLevels/Apport's Ladder_n.tmx": {
+            "scale": 0.6085574572127138,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 782.1775813579753,
+                "y": 594.0277219766976
+            }
+        },
+        "namedLevels/Argon.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 945,
+                "y": 654.5
+            }
+        },
+        "namedLevels/Argon2.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.7777,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 961.8104667609618,
+                "y": 662.8519994856629
+            }
+        },
+        "namedLevels/Beebo.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5918,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1112.7069956066239,
+                "y": 790.8077053058466
+            }
+        },
+        "namedLevels/Blue Blocker.tmx": {
+            "expandedObjectLayers": [
+                11,
+                3
+            ],
+            "scale": 0.7254,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 683.0714088778603,
+                "y": 696.1676316515026
+            }
+        },
+        "namedLevels/Bounce Test.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.56,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 558.0357142857142,
+                "y": 433.03571428571433
+            }
+        },
+        "namedLevels/Celtic.tmx": {
+            "scale": 0.5879,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 279.8094914101039,
+                "y": 280.6599761864262
+            }
+        },
+        "namedLevels/Demon Checkers.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.4714,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 991.726771319474,
+                "y": 543.063215952482
+            }
+        },
+        "namedLevels/Double Kiln.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.8682,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1593.5268371343009,
+                "y": 953.6973047684864
+            }
+        },
+        "namedLevels/Elemér's Ladder.tmx": {
+            "scale": 0.6337,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 791.3839356162223,
+                "y": 599.6528325706171
+            }
+        },
+        "namedLevels/Elemér's Ladder_v1.tmx": {
+            "scale": 0.6085574572127138,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 791.2153475291282,
+                "y": 599.779027721977
+            }
+        },
+        "namedLevels/Gate House.tmj": {
+            "scale": 0.2600742574257426,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1272.7134291424763,
+                "y": 886.2853335871322
+            }
+        },
+        "namedLevels/Gate House.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 983,
+                "y": 696
+            }
+        },
+        "namedLevels/Gymnasium.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.6957,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 567.7734655742418,
+                "y": 439.8447606727037
+            }
+        },
+        "namedLevels/Hub.tmx": {
+            "scale": 0.61,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1046.72131147541,
+                "y": 727.8688524590166
+            }
+        },
+        "namedLevels/Jezzy.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.4494,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 641.9670672007119,
+                "y": 80.10680907877168
+            }
+        },
+        "namedLevels/Knight Moves.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.55,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 626.3636363636363,
+                "y": 796.3636363636364
+            }
+        },
+        "namedLevels/Lattice.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.55,
+            "scaleInEditor": 1
+        },
+        "namedLevels/Malkuth.tmx": {
+            "expandedObjectLayers": [
+                10,
+                3
+            ],
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1040.6666666666665,
+                "y": 754.6666666666665
+            }
+        },
+        "namedLevels/MalkuthLarge.tmx": {
+            "scale": 0.4393,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 481.4477577964942,
+                "y": 992.4880491691325
+            }
+        },
+        "namedLevels/Outer Ruins.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.4245,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1091.8727915194345,
+                "y": 1128.386336866902
+            }
+        },
+        "namedLevels/PlaneOf.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5717,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 997.9009970264124,
+                "y": 664.6842749693897
+            }
+        },
+        "namedLevels/PlaneOf_exp.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5714,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -177.6338816940845,
+                "y": 159.2579628981449
+            }
+        },
+        "namedLevels/Red Mode.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.4863,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 728.9738844334773,
+                "y": 631.2975529508533
+            }
+        },
+        "namedLevels/Scrivener.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5879,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 875.1488348358566,
+                "y": 629.3587344786528
+            }
+        },
+        "namedLevels/Spooky Action.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1.064,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 662.1240601503758,
+                "y": 504.6992481203008
+            }
+        },
+        "namedLevels/Steeplejack.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5811,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 604.8872827396319,
+                "y": 561.004990535192
+            }
+        },
+        "namedLevels/SuperSecret.tmx": {
+            "scale": 0.93,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 198.92473118279565,
+                "y": 114.51612903225805
+            }
+        },
+        "namedLevels/Test.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.6708,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 181.12701252236127,
+                "y": 372.68932617769826
+            }
+        },
+        "namedLevels/Test2.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.6955960854092526,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 534.0743109292065,
+                "y": 438.47285284901193
+            }
+        },
+        "namedLevels/Thanks.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 182.5,
+                "y": 244
+            }
+        },
+        "namedLevels/The Quick.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.6013,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 571.2622650922999,
+                "y": 848.162314984201
+            }
+        },
+        "namedLevels/Twice Through.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.8153,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 650.6807310192567,
+                "y": 506.5620017171592
+            }
+        },
+        "namedLevels/Wall Zone.tmx": {
+            "scale": 0.5715,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 811.8985126859143,
+                "y": 625.5468066491688
+            }
+        },
+        "namedLevels/demonCheckers.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 0.5018,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 867.8756476683939,
+                "y": 259.06735751295344
+            }
+        },
+        "namedLevels/doubleKiln.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.79,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 982.9113924050632,
+                "y": 370.886075949367
+            }
+        },
+        "namedLevels/gateHouse.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.5353326612903225,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 992.840598813671,
+                "y": 642.591093117409
+            }
+        },
+        "namedLevels/newlev.tmx": {
+            "scale": 0.5264,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1109.422492401216,
+                "y": 571.8085106382979
+            }
+        },
+        "namedLevels/outerRuins.tmx": {
+            "scale": 0.35,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 2492.857142857143,
+                "y": 1080
+            }
+        },
+        "namedLevels/test.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 930.5,
+                "y": 815
+            }
+        },
+        "namedLevels/theQuick.tmx": {
+            "scale": 0.38,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 1248.6842105263158,
+                "y": 923.6842105263156
+            }
+        },
+        "namedLevels/twiceThrough.tmx": {
+            "expandedObjectLayers": [
+                3
+            ],
+            "scale": 0.7862,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 801.9587891121852,
+                "y": 789.87534978377
+            }
+        },
+        "numberedLevelsBackup/BackgroundBricks.tsx": {
+            "scaleInDock": 1
+        },
+        "numberedLevelsBackup/BoxDrawing.tsx": {
+            "scaleInDock": 1
+        },
+        "numberedLevelsBackup/StaticObjects.tsx": {
+            "scaleInDock": 1
+        },
+        "numberedLevelsBackup/level00.tmx": {
+            "scale": 0.5337473572938689,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 911.4799227608061,
+                "y": 529.2766252413726
+            }
+        },
+        "numberedLevelsBackup/level00_old.tmx": {
+            "scale": 0.7953776041666667,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.9036588360482,
+                "y": 384.09429483506585
+            }
+        },
+        "numberedLevelsBackup/level01.tmx": {
+            "scale": 0.36709735576923075,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 864.893181632152,
+                "y": 257.4248997298846
+            }
+        },
+        "numberedLevelsBackup/level01_old.tmx": {
+            "scale": 0.43384232954545454,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 416.04976671850693,
+                "y": 257.00581157403616
+            }
+        },
+        "numberedLevelsBackup/level02.tmx": {
+            "scale": 0.47722656249999995,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 992.191208971106,
+                "y": 640.1571580584433
+            }
+        },
+        "numberedLevelsBackup/level03.tmx": {
+            "scale": 0.5302517361111111,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 800.5631497094213,
+                "y": 576.1414422525988
+            }
+        },
+        "numberedLevelsBackup/level04.tmx": {
+            "scale": 0.4442545454545454,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 975.7919292788738,
+                "y": 658.4063190636001
+            }
+        },
+        "numberedLevelsBackup/level05.tmx": {
+            "scale": 0.20229366987179487,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2498.8424023369807,
+                "y": 1440.9744021389315
+            }
+        },
+        "numberedLevelsBackup/level06.tmx": {
+            "scale": 0.4898556535685645,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 911.4930015552101,
+                "y": 593.0318408774659
+            }
+        },
+        "templateLevel.tmx": {
+            "scale": 0.39264112903225806,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1414.777920410783,
+                "y": 1149.905006418485
+            }
+        },
+        "testLevel.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 896,
+                "y": 506
+            }
+        },
+        "testLevel.tmx#Items": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels/namedLevels",
+    "last.externalTilesetPath": "C:/Users/Massimo/source/repos/NuTiled/Content/LesserKeysLevels",
+    "last.imagePath": "C:/Users/Massimo/source/repos/NuTiled/Content/LesserKeysLevels",
+    "last.objectTemplatePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels",
+    "last.objectTypesPath": "C:/Users/Massimo/source/repos/NuTiled/Content/LesserKeysLevels/propertytypes.json",
+    "last.worldFilePath": "/Users/Radagast/VSProjects/LesserKeys/Content/Levels",
+    "loadedWorlds": [
+        "/Users/Radagast/VSProjects/LesserKeys/Content/Levels/world0.world"
+    ],
+    "map.height": 12,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 15,
+    "openFiles": [
+        "namedLevels/Beebo.tmx",
+        "namedLevels/Ad Hoc.tmx",
+        "namedLevels/Blue Blocker.tmx",
+        "namedLevels/Celtic.tmx"
+    ],
+    "project": "LesserKeys.tiled-project",
+    "property.type": "Direction",
+    "recentFiles": [
+        "namedLevels/Beebo.tmx",
+        "namedLevels/Celtic.tmx",
+        "namedLevels/Blue Blocker.tmx",
+        "namedLevels/Ad Hoc.tmx",
+        "BoxDrawing.tsx",
+        "Lattice.tsx",
+        "namedLevels/Hub.tmx",
+        "namedLevels/Gymnasium.tmx",
+        "namedLevels/Gate House.tmx",
+        "namedLevels/Elemér's Ladder.tmx",
+        "namedLevels/Elemér's Ladder_v1.tmx",
+        "namedLevels/Demon Checkers.tmx"
+    ],
+    "resizeMap.removeObjects": true,
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.useTransparentColor": false
+}

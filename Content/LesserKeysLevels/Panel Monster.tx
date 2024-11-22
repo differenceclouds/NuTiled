@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
- <object type="Unicorn">
+ <object name="Panel Monster" type="Actor">
   <properties>
-   <property name="HornColor" type="color" value=""/>
+   <property name="Direction" propertytype="Direction" value="Right"/>
   </properties>
   <point/>
  </object>

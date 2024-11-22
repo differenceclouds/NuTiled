@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template>
- <object type="Unicorn">
+ <object type="Emblem" width="57" height="63">
   <properties>
-   <property name="HornColor" type="color" value=""/>
+   <property name="dacolor" type="color" value=""/>
   </properties>
-  <point/>
  </object>
 </template>
