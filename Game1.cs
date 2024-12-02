@@ -73,14 +73,14 @@ public class Game1 : Game {
 		Local,
 		Master
 	}
-	enum CardinalDirection {
-		NE, SE, SW, NW
-	}
-
-	//[Flags]
-	//public enum Direction {
-	//	Up, Down, Left, Right
+	//enum CardinalDirection {
+	//	NE, SE, SW, NW
 	//}
+
+	[Flags]
+	public enum CardinalFlags {
+		Up, Down, Left, Right
+	}
 
 
 	void InitTiledMap() {
@@ -124,28 +124,29 @@ public class Game1 : Game {
 		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<KeyType>(CustomEnumStorageType.String));
 		//customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<SpawnType>(CustomEnumStorageType.String));
 
+		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CardinalFlags>(CustomEnumStorageType.String));
+
+
 		//tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/LesserKeysLevels", "namedLevels/Ad Hoc.tmx");
 		tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/tiled", "map.tmx", customTypeDefinitions);
 		//tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/tiled", "map.tmx");
-		TiledMap.DrawGrid = true;
 		
 		foreach(var obj in tiledMap.AllObjects) {
-			//Parse out custom types
-			//Console.WriteLine($"{obj.Name}:");
-			foreach (var prop in obj.Properties) {
-				
-				//Console.WriteLine($"{prop.Name}: {prop.ValueString}" );
-			}
+			TiledMap.PrintObjectProps(obj);
 			switch (obj.Type) {
 				case "FilledShape": {
 					var shape = obj.MapPropertiesTo<CustomTypes.FilledShape>();
 					FilledShapes.Add(obj, new GameClasses.FilledShape(shape));
-					Console.WriteLine($"{obj.Type}, {obj.X}, {obj.Y}");
+					//Console.WriteLine($"{obj.Type}, {obj.X}, {obj.Y}");
 				}
 				break;
 			}
 		}
 	}
+
+
+
+
 
 
 	void InitContentReloader() {
@@ -239,36 +240,20 @@ public class Game1 : Game {
 	protected override void Draw(GameTime gameTime) {
 		GraphicsDevice.Clear(tiledMap.BackgroundColor);
 		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //Wrap for image layers with repeat-x or repeat-y
-		tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
-
-		//var shapeslayer = tiledMap.ObjectLayersByName["Shapes"];
-		//var objects = shapeslayer.Objects;
-		//foreach (var obj in objects) {
-
-		//	Primitives2D.DrawRectangle(spriteBatch, new Rectangle((int)obj.X, (int)obj.Y, 300, 300), Color.Azure);
-
-		//	if (obj.Type == "FilledShape") { //there is probably better way to do this
-		//		FilledShapes[obj].Draw(spriteBatch, obj, new Point(0, 0));
-		//		continue;
-		//	}
-		//}
-		//Primitives2D.DrawRectangle(spriteBatch, new Rectangle(30, 30, 300, 300), Color.Azure);
+		{
+			tiledMap.Draw(spriteBatch, view_pos, viewport_bounds);
+			tiledMap.DrawGrid(spriteBatch, view_pos.ToVector2(), Color.Gray * 0.5f);
+		}
 		spriteBatch.End();
 
-		spriteBatch.Begin(samplerState: SamplerState.PointWrap); //Wrap for image layers with repeat-x or repeat-y
-
-		int i = 0;
-		foreach (var (obj, shape) in FilledShapes) {
-			shape.Draw(spriteBatch, obj, view_pos);
-			//Console.WriteLine("shape");
-			//Rectangle bounds = TiledMap.GetObjectBounds(obj);
-
-			//Console.WriteLine(bounds);
-			//Primitives2D.FillRectangle(spriteBatch, new Rectangle(i * 10, i * 10, 100, 100), Color.Azure);
-			i++;
+		spriteBatch.Begin();
+		{
+			int i = 0;
+			foreach (var (obj, shape) in FilledShapes) {
+				shape.Draw(spriteBatch, obj, view_pos);
+				i++;
+			}
 		}
-
-
 		spriteBatch.End();
 		base.Draw(gameTime);
 	}

@@ -13,7 +13,7 @@
         {
             "id": 5,
             "name": "CardinalFlags",
-            "storageType": "int",
+            "storageType": "string",
             "type": "enum",
             "values": [
                 "North",
@@ -21,12 +21,25 @@
                 "South",
                 "West"
             ],
-            "valuesAsFlags": false
+            "valuesAsFlags": true
+        },
+        {
+            "id": 6,
+            "name": "CardinalFlagsUnimported",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "North",
+                "East",
+                "South",
+                "West"
+            ],
+            "valuesAsFlags": true
         },
         {
             "id": 4,
             "name": "Direction",
-            "storageType": "int",
+            "storageType": "string",
             "type": "enum",
             "values": [
                 "Up",
@@ -65,6 +78,16 @@
             "drawFill": true,
             "id": 1,
             "members": [
+                {
+                    "name": "gobcolor",
+                    "type": "color",
+                    "value": ""
+                },
+                {
+                    "name": "ok",
+                    "type": "bool",
+                    "value": false
+                }
             ],
             "name": "Goblin",
             "type": "class",

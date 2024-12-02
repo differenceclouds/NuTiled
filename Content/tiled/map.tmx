@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" parallaxoriginx="64" parallaxoriginy="64" nextlayerid="26" nextobjectid="189">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" infinite="0" parallaxoriginx="64" parallaxoriginy="64" nextlayerid="26" nextobjectid="190">
  <tileset firstgid="1" source="tilemap.tsx"/>
  <tileset firstgid="17" source="Chips.tsx"/>
  <tileset firstgid="113" source="Rando.tsx"/>
@@ -113,14 +113,16 @@
   <object id="3" name="Archie" type="Goblin" x="503.71" y="99.3185">
    <point/>
   </object>
-  <object id="6" name="Tim" x="631.695" y="180.202">
+  <object id="6" name="Tim" x="639.695" y="180.202">
    <properties>
-    <property name="Dirdir" type="int" propertytype="Direction" value="3"/>
-    <property name="cardinalflags" type="int" propertytype="CardinalFlags" value="0"/>
+    <property name="Dirdir" propertytype="Direction" value="Left"/>
+    <property name="cardinalflags" propertytype="CardinalFlags" value="North,South,West"/>
+    <property name="cardinalflags_unimported" propertytype="CardinalFlagsUnimported" value="North,South,West"/>
+    <property name="dagob" type="class" propertytype="Goblin"/>
    </properties>
    <point/>
   </object>
-  <object id="7" name="Geoffrey" x="545.637" y="50.637">
+  <object id="7" name="Geoffrey" x="544.637" y="50.637">
    <properties>
     <property name="Age" type="int" value="194"/>
     <property name="Direction" type="int" propertytype="Direction" value="6"/>
@@ -129,15 +131,35 @@
    </properties>
    <point/>
   </object>
-  <object id="176" name="SuzanneSet" type="Goblin" x="682.946" y="100.624">
+  <object id="176" name="SuzanneSet" type="Goblin" x="681.946" y="100.624">
    <properties>
     <property name="boolprop" type="bool" value="true"/>
     <property name="colorprop" type="color" value="#ffff557f"/>
     <property name="fileprop" type="file" value="junk.jpg"/>
     <property name="floatprop" type="float" value="5.234567898"/>
+    <property name="gob" type="class" propertytype="Goblin">
+     <properties>
+      <property name="gobcolor" type="color" value="#ffaaaaff"/>
+      <property name="ok" type="bool" value="true"/>
+     </properties>
+    </property>
     <property name="intprop" type="int" value="979837"/>
     <property name="objectprop" type="object" value="6"/>
     <property name="stringprop" value="Yoooooo yooooo"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="189" name="SuzanneUnSet" type="Goblin" x="756.946" y="105.624">
+   <properties>
+    <property name="boolprop" type="bool" value="false"/>
+    <property name="cardinalflags" propertytype="CardinalFlags" value=""/>
+    <property name="colorprop" type="color" value=""/>
+    <property name="dir" propertytype="Direction" value="Up"/>
+    <property name="fileprop" type="file" value=""/>
+    <property name="floatprop" type="float" value="5.234567898"/>
+    <property name="intprop" type="int" value="979837"/>
+    <property name="objectprop" type="object" value="0"/>
+    <property name="stringprop" value=""/>
    </properties>
    <point/>
   </object>
