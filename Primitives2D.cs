@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
+
+//NOTE: This file is not necessary for NuTiled.
+//It is just used in the example case of a custom Tiled class where you wish to draw
+//the vector geometry included in a tiled map, which is a pretty rare case!
+
+
+
 namespace Microsoft.Xna.Framework {
 	public static class Primitives2D {
 		#region Private Members
