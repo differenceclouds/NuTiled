@@ -1,4 +1,4 @@
-This is an example Monogame project using the DotTiled library.
+This is an example Monogame project using the [DotTiled](https://github.com/dcronqvist/DotTiled) library.
 
 To use this project, clone this repo, and either add DotTiled via Nuget, or clone that repository into your projects directory, next to this project (not the NuTiled directory).
 
