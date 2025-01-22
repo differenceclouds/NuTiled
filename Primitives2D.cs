@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Microsoft.Xna.Framework {
 	public static class Primitives2D {
 		#region Private Members
-
-		private static readonly Dictionary<String, List<Vector2>> circleCache = new Dictionary<string, List<Vector2>>();
+		private static readonly Dictionary<String, List<Vector2>> CircleCache = new Dictionary<string, List<Vector2>>();
 		//private static readonly Dictionary<String, List<Vector2>> arcCache = new Dictionary<string, List<Vector2>>();
+		private static readonly Dictionary<String, List<Vector2>> EllipseCache = new Dictionary<string, List<Vector2>>();
+
 		private static Texture2D pixel;
 
 		#endregion
@@ -48,8 +48,8 @@ namespace Microsoft.Xna.Framework {
 		private static List<Vector2> CreateCircle(double radius, int sides) {
 			// Look for a cached version of this circle
 			String circleKey = radius + "x" + sides;
-			if (circleCache.ContainsKey(circleKey)) {
-				return circleCache[circleKey];
+			if (CircleCache.ContainsKey(circleKey)) {
+				return CircleCache[circleKey];
 			}
 
 			List<Vector2> vectors = new List<Vector2>();
@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework {
 			vectors.Add(new Vector2((float)(radius * Math.Cos(0)), (float)(radius * Math.Sin(0))));
 
 			// Cache this circle so that it can be quickly drawn next time
-			circleCache.Add(circleKey, vectors);
+			CircleCache.Add(circleKey, vectors);
 
 			return vectors;
 		}
@@ -542,6 +542,8 @@ namespace Microsoft.Xna.Framework {
 
 
 		#region DrawEllipse
+		
+		
 		public static void DrawEllipse(SpriteBatch spriteBatch, Rectangle bounds, Color color) {
 			int x0 = bounds.X,
 				y0 = bounds.Y,
@@ -567,6 +569,11 @@ namespace Microsoft.Xna.Framework {
 			FillEllipse(spriteBatch, x0, y0, x1, y1, color);
 		}
 		public static List<Vector2> CreateEllipse(int x0, int y0, int x1, int y1) {
+			// Look for a cached version of this circle
+			String ellipseKey = x0 + "x" + x1 + "x" + y0 + "x" + y1;
+			if (EllipseCache.ContainsKey(ellipseKey)) {
+				return EllipseCache[ellipseKey];
+			}
 			List<Vector2> points = new();
 			int a = Math.Abs(x1 - x0), b = Math.Abs(y1 - y0), b1 = b & 1; //values of diameter
 			long dx = 4 * (1 - a) * b * b, dy = 4 * (b1 + 1) * a * a; //error increment
@@ -595,6 +602,7 @@ namespace Microsoft.Xna.Framework {
 				points.Add(new(x0 - 1, y1));
 				points.Add(new(x1 + 1, y1--));
 			}
+			EllipseCache.Add(ellipseKey, points);
 			return points;
 		}
 
