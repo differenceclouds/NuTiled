@@ -13,8 +13,8 @@ public class TiledMap {
 	//Rendering is presently very "immediate mode," with no data being retained other than from the loaded Dottiled classes.
 	//Planning to do a version where some converted data is retained and compare performance.
 
-	//Most positional float values are cast to int. this step could be pushed forward to the spritebatch.draw calls
-	//by using Vector2s instead of Points everywhere, for higher accuracy.
+	//Most positional float values are cast to int.
+	//this step could be pushed forward to the spritebatch.draw calls by using Vector2s instead of Points everywhere, for higher accuracy.
 	//In this case, a RectangleF struct (like monogame extended) could be introduced.
 
 	public Map Map { get; }
@@ -65,10 +65,6 @@ public class TiledMap {
 	//dictionary between object and custom class. this probably should be in another file.
 	Dictionary<DotTiled.Object, GameClasses.FilledShape> FilledShapes = new();
 
-
-
-
-
 	public TiledMap(GraphicsDevice graphicsDevice, string projectDirectory, string mapFilePath, List<ICustomTypeDefinition> typeDefinitions) {
 		this.graphicsDevice = graphicsDevice;
 		//MapFile = Path.GetFileName(path);
@@ -92,15 +88,7 @@ public class TiledMap {
 		InitLayerGroup(Map.Layers, TiledProjectDirectory);
 	}
 
-
-
-
-
-
-
-
-
-
+	
 	#region Tile manipulation functions
 	public uint GetTileGID(TileLayer tileLayer, Point coord) {
 		var gids = GetLayerGIDs(tileLayer);
@@ -153,11 +141,7 @@ public class TiledMap {
 	}
 
 	#endregion
-
-
-
-
-
+	
 	#region map initialization functions
 	private void InitTilesets(List<Tileset> tilesets, string path) {
 		foreach (Tileset tileset in tilesets) {
@@ -237,9 +221,7 @@ public class TiledMap {
 		}
 	}
 	#endregion
-
-
-
+	
 	#region Drawing functions
 	public void Draw(SpriteBatch spritebatch, Point view_offset, Rectangle viewport_bounds) {
 		DrawLayerGroup(spritebatch, Map.Layers, view_offset, viewport_bounds, 1);
@@ -498,8 +480,7 @@ public class TiledMap {
 		spritebatch.Draw(texture, dest, source, tint * opacity, 0, origin, flip, layerDepth);
 	}
 	#endregion
-
-
+	
 	#region data retrieval functions
 
 
@@ -580,8 +561,7 @@ public class TiledMap {
 		return data.FlippingFlags;
 	}
 	#endregion
-
-
+	
 	#region asset loading functions
 	/// <param name="caller_directory">The directory that the XML file referencing this image is in</param>
 	public static Texture2D LoadImage(GraphicsDevice graphicsDevice, string caller_directory, Image image) {
@@ -598,9 +578,7 @@ public class TiledMap {
 		return Texture2D.FromFile(graphicsDevice, path, DefaultColorProcessors.PremultiplyAlpha);
 	}
 	#endregion
-
-
-
+	
 	#region conversion helper functions
 	public static bool BoolFromBool(Optional<bool> optional_bool, bool default_value = false) {
 		return optional_bool.HasValue ? optional_bool : default_value;
@@ -642,8 +620,5 @@ public class TiledMap {
 
 
 	#endregion
-
-
-
-
+	
 }

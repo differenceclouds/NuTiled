@@ -9,8 +9,8 @@ using Color = Microsoft.Xna.Framework.Color;
 
 namespace NuTiled;
 public class Game1 : Game {
-	private GraphicsDeviceManager graphics;
-	private SpriteBatch spriteBatch;
+	GraphicsDeviceManager graphics;
+	SpriteBatch spriteBatch;
 
 
 	TiledMap tiledMap;
@@ -38,6 +38,15 @@ public class Game1 : Game {
 		InitContentReloader();
 	}
 
+	/// <summary>
+	/// Get full path of input relative to the executing directory (necessary for macos)
+	/// </summary>
+	public static string GetExecutingDir(string relativePath) {
+		string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+		return Path.Combine(baseDirectory, relativePath);
+	}
+	
+	
 	void InitTiledMap() {
 		//Add all un-implemented Tiled classes here:
 		//https://github.com/dcronqvist/DotTiled/issues/42
@@ -54,8 +63,8 @@ public class Game1 : Game {
 		//https://dcronqvist.github.io/DotTiled/docs/essentials/custom-properties.html#custom-types
 		customTypeDefinitions.Add(CustomClassDefinition.FromClass<CustomTypes.FilledShape>());
 		customTypeDefinitions.Add(CustomEnumDefinition.FromEnum<CustomTypes.Direction>());
-
-		tiledMap = new TiledMap(graphics.GraphicsDevice, "Content/tiled", "map.tmx", customTypeDefinitions);
+		string projectDir = GetExecutingDir("Content/tiled");
+		tiledMap = new TiledMap(graphics.GraphicsDevice, projectDir, "map.tmx", customTypeDefinitions);
 		TiledMap.DrawGrid = true;
 	}
 
@@ -78,7 +87,7 @@ public class Game1 : Game {
 		tiledMap = new TiledMap(graphics.GraphicsDevice, path, file, typeDefinitions);
 	}
 
-	public Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+	Rectangle viewport_bounds => new Rectangle(0,0,graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 
 	bool reset_held;
 	bool leftclick_held;
